@@ -100,5 +100,4 @@ INSERT INTO events(stream_id, version, data)
 
 [Implementing event sourcing using a relational database](https://softwaremill.com/implementing-event-sourcing-using-a-relational-database/)
 
-
 [^IDDD]: [实现领域驱动设计](https://book.douban.com/subject/25844633/)
