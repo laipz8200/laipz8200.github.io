@@ -5,8 +5,14 @@
 # Site
 title: -LAN-'s Blog
 subtitle: ''
-description: ''
+description: 'my life, my story, my thoughts'
 keywords:
+  - laipz8200
+  - programming
+  - python
+  - linux
+  - golang
+  - domain driven design
 author: laipz8200
 language: zh-cn
 timezone: Asia/Shanghai
