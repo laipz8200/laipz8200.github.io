@@ -65,7 +65,7 @@ INSERT INTO events(stream_id, version, data)
 
 可以将快照视为一种特殊的投影，与投影相比，快照最大的不同点是它需要保存版本信息，这样我们就可以在重建时先查询快照，然后仅将快照对应版本之后发生的事件应用在实体或聚合上。
 
-和投影一样，使用关系库时，我们可以在同一个事务中更新快照，不过快照并不需要频繁更新，通常每 50-100 个版本更新一次即可[^IDDD]。
+和投影一样，使用关系库时，我们可以在同一个事务中更新快照，不过快照并不需要频繁更新，通常每 50-100 个版本更新一次即可[^1]。
 
 ## 滚动升级
 
@@ -100,4 +100,4 @@ INSERT INTO events(stream_id, version, data)
 
 [Implementing event sourcing using a relational database](https://softwaremill.com/implementing-event-sourcing-using-a-relational-database/)
 
-[^IDDD]: [实现领域驱动设计](https://book.douban.com/subject/25844633/)
+[^1]: [实现领域驱动设计](https://book.douban.com/subject/25844633/)
