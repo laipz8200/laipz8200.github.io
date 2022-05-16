@@ -9,8 +9,8 @@ date: 2022-05-17 01:14:08
 
 讨论技术 / 闲聊 / 交朋友，不要犹豫，请联系我:
 
-twi: @laipz8200
-email: laipz8200@outlook.com
+twi: [@laipz8200](https://www.twitter.com/laipz8200)
+email: <a href="mailto:laipz8200<laipz8200@outlook.com>" target="_blank">laipz8200@outlook.com</a>
 
 ### 在做的事
 
