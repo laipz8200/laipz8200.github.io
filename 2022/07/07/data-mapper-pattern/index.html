@@ -4,22 +4,22 @@
   <meta charset="utf-8">
   
   
-  <title>-LAN-&#39;s Blog</title>
+  <title>数据映射器和模型-数据源分离 | -LAN-&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="my life, my story, my thoughts">
-<meta property="og:type" content="website">
-<meta property="og:title" content="-LAN-&#39;s Blog">
-<meta property="og:url" content="https://laipz8200.github.io/">
+  <meta name="description" content="使用 Python 进行 web 开发时，很多人都会首先接触到 Django 这样的框架，Django ORM 提供了一种极为简单明了的与关系型数据库交互的方式。但当业务逻辑变得复杂时，关系模型和对象模型的差异总会给项目带来一些麻烦，在这种情况下，可以使用一种叫做数据映射器 (Data Mapper) 的模式将对象模型和数据源隔离，使他们能够各自演变，这样一来，软件便可以健康地发展下去。  设想">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据映射器和模型-数据源分离">
+<meta property="og:url" content="https://laipz8200.github.io/2022/07/07/data-mapper-pattern/">
 <meta property="og:site_name" content="-LAN-&#39;s Blog">
-<meta property="og:description" content="my life, my story, my thoughts">
+<meta property="og:description" content="使用 Python 进行 web 开发时，很多人都会首先接触到 Django 这样的框架，Django ORM 提供了一种极为简单明了的与关系型数据库交互的方式。但当业务逻辑变得复杂时，关系模型和对象模型的差异总会给项目带来一些麻烦，在这种情况下，可以使用一种叫做数据映射器 (Data Mapper) 的模式将对象模型和数据源隔离，使他们能够各自演变，这样一来，软件便可以健康地发展下去。  设想">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-07T14:53:32.000Z">
+<meta property="article:modified_time" content="2022-07-07T14:57:39.303Z">
 <meta property="article:author" content="laipz8200">
-<meta property="article:tag" content="laipz8200">
-<meta property="article:tag" content="programming">
-<meta property="article:tag" content="python">
-<meta property="article:tag" content="linux">
-<meta property="article:tag" content="golang">
-<meta property="article:tag" content="domain driven design">
+<meta property="article:tag" content="data mapper">
+<meta property="article:tag" content="数据映射器">
+<meta property="article:tag" content="领域模型">
+<meta property="article:tag" content="企业应用架构模式">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="-LAN-'s Blog" type="application/atom+xml">
@@ -79,9 +79,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-data-mapper-pattern" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-data-mapper-pattern" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/07/07/data-mapper-pattern/" class="article-date">
   <time class="dt-published" datetime="2022-07-07T14:53:32.000Z" itemprop="datePublished">2022-07-07</time>
@@ -94,8 +92,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/07/07/data-mapper-pattern/">数据映射器和模型-数据源分离</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      数据映射器和模型-数据源分离
     </h1>
   
 
@@ -170,224 +168,19 @@
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-simple-api-with-rails" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/05/19/simple-api-with-rails/" class="article-date">
-  <time class="dt-published" datetime="2022-05-19T15:43:04.000Z" itemprop="datePublished">2022-05-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/05/19/simple-api-with-rails/">珍惜时间，Ruby on Rails API 开发指北</a>
-    </h1>
+    <a href="/2022/05/19/simple-api-with-rails/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">珍惜时间，Ruby on Rails API 开发指北</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
-<p>继上次简单写了一些关于 Event Sourcing 的内容后，感觉进入了一段情绪低迷期，决定学一些和找工作无关的东西。</p>
-<p>实际上，绝大多数项目并不需要使用领域驱动设计，也不需要支持高并发，在这种情况下，为了节省宝贵的时间，我们可以使用一种简单且有效的模式：活动记录 (Active Record)。</p>
-</blockquote>
-<h2 id="Active-Record-Pattern"><a href="#Active-Record-Pattern" class="headerlink" title="Active Record Pattern"></a>Active Record Pattern</h2><p>活动记录的特点是 <strong>一个模型类对应关系型数据库的一个表，一个实例对应数据库中的一行记录</strong>。活动记录一般兼有 ORM 的功能，但并不是简单的 ORM，目前 Python 中常用的 ORM，如 SQLAlchemy 和 Django ORM 都实现了 Active Record 的功能。</p>
-<p>关于 Active Record 模式的著名案例是 <em>全栈 Web 开发框架 Ruby on Rails</em><sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Ruby on Rails](http://www.rubyonrails.org/)
-">[1]</span></a></sup>，今天我们就用它来实现一个简单的接口，感受一下它的魅力。</p>
-<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>我们实现一个不复杂但是很常见的需求：呈现一个树形结构。树的每一个节点 (node) 都拥有一个名字，最后需要提供一个可以展示整个树的 JSON 结构的 Web API。</p>
-<p>它可能长这个样子：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- root node</span><br><span class="line">    - child node 1</span><br><span class="line">    - child node 2</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>有很多种在关系型数据库中保存树形结构的方式，但各有优缺点，在这个案例中，我们选择最简单的一种：自关联。</p>
-<p>具体来说，我们为每个节点定义一个 <code>parent_id</code> 字段，该字段保存节点父亲节点的唯一标识。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><p>首先，我们跳过环境的安装教学，毕竟我并不打算做一个 「手把手教你xxx」 系列。</p>
-<p>简单贴一下 macOS 下使用 Homebrew 安装所需环境的几条命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">brew install rbenv</span><br><span class="line">rbenv install 3.1.2</span><br><span class="line">rbenv global 3.1.2</span><br><span class="line">gem install rails</span><br></pre></td></tr></table></figure>
-
-<p>安装好 Rails 之后，使用如下命令创建项目：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rails new demo --api</span><br><span class="line"><span class="built_in">cd</span> demo</span><br></pre></td></tr></table></figure>
-
-<p>结尾的 <code>--api</code> 代表这是一个单纯的 API 项目，Rails 不会加载与前端相关的组件。</p>
-<p>进入项目目录后，打开 <code>Gemfile</code> 文件，找到如下行：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Build JSON APIs with ease [https://github.com/rails/jbuilder]</span></span><br><span class="line"><span class="comment"># gem &quot;jbuilder&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>取消第二行的注释，<code>jbuilder</code> 是一个序列化 JSON 内容的工具，它实现了一个简单好用的 DSL ，可以减少我们的工作。</p>
-<h3 id="创建脚手架"><a href="#创建脚手架" class="headerlink" title="创建脚手架"></a>创建脚手架</h3><p>回顾一下我们需要的模型，对它的描述如下：</p>
-<ul>
-<li>节点 (node) 有自己的名字。</li>
-<li>节点拥有一个父亲节点 (parent)，如果父亲为空，则该节点为根节点。</li>
-<li>节点拥有许多子节点 (children)。</li>
-</ul>
-<p>我们使用 Rails 的生成工具创建一个包含 CRUD 操作的模板：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rails generate scaffold node name:string parent:references</span><br></pre></td></tr></table></figure>
-
-<p>命令的前半部分告诉 Rails 我们需要生成一个名叫 <code>node</code> 的脚手架，后半部分指明我们的模型包含两部分内容：<br>一个字符串类型的 <code>name</code> 和一个引用类型 <code>parent</code> 。</p>
-<p>顺利的话，你将会看到以下输出：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">invoke  active_record</span><br><span class="line">create    db/migrate/20220519154951_create_nodes.rb</span><br><span class="line">create    app/models/node.rb</span><br><span class="line">invoke    test_unit</span><br><span class="line">create      <span class="built_in">test</span>/models/node_test.rb</span><br><span class="line">create      <span class="built_in">test</span>/fixtures/nodes.yml</span><br><span class="line">invoke  resource_route</span><br><span class="line"> route    resources :nodes</span><br><span class="line">invoke  scaffold_controller</span><br><span class="line">create    app/controllers/nodes_controller.rb</span><br><span class="line">invoke    resource_route</span><br><span class="line">invoke    test_unit</span><br><span class="line">create      <span class="built_in">test</span>/controllers/nodes_controller_test.rb</span><br><span class="line">invoke    jbuilder</span><br><span class="line">create      app/views/nodes/index.json.jbuilder</span><br><span class="line">create      app/views/nodes/show.json.jbuilder</span><br><span class="line">create      app/views/nodes/_node.json.jbuilder</span><br></pre></td></tr></table></figure>
-
-<p>Rails 为我们创建了两个 Active Record 类，分别表示数据库迁移和模型，并创建了针对模型的单元测试。</p>
-<p>Rails 还为我们添加了资源 <code>nodes</code> 的路由。</p>
-<p>最后，Rails 为我们生成了 <code>nodes</code> 的 Controller ，对应的单元测试，以及 <code>jbuilder</code> 视图。</p>
-<h3 id="修改模型"><a href="#修改模型" class="headerlink" title="修改模型"></a>修改模型</h3><p>自动生成的脚手架存在一些问题，首先，现在许多项目不允许在数据库中创建外键，虽然我并不能理解这种不分实际情况通通禁止的做法，但我们可以稍作修改，让 Rails 不要创建外键。</p>
-<p>在 <code>db/migrate/</code> 目录下，找到生成的 <code>.rb</code> 文件，将其中的 <code>foreign_key: true</code> 修改为 <code>foreign_key: false</code>，这将会告诉 Rails 在该列建立一个简单的索引而不是外键约束。</p>
-<p>顺便，由于我们的根节点不会有父亲，所以将 <code>null: false</code> 改为 <code>null: true</code> 来允许空值。</p>
-<p>第二个问题是我们使用自关联，但指定了引用 <code>parent</code> ，我们需要告诉 Rails 它是什么。</p>
-<p>打开 <code>app/models/node.rb</code> 文件，修改模型中的关系定义如下：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Node</span> &lt; <span class="title class_ inherited__">ApplicationRecord</span></span><br><span class="line">  belongs_to <span class="symbol">:parent</span>, <span class="symbol">class_name:</span> <span class="string">&#x27;Node&#x27;</span>, <span class="symbol">optional:</span> <span class="literal">true</span></span><br><span class="line">  has_many <span class="symbol">:children</span>, <span class="symbol">class_name:</span> <span class="string">&#x27;Node&#x27;</span>, <span class="symbol">foreign_key:</span> <span class="string">&#x27;parent_id&#x27;</span>, <span class="symbol">dependent:</span> <span class="symbol">:destroy</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>我们通过 <code>class_name</code> 告诉 Rails <code>parent</code> 使用哪一个模型，并通过 <code>has_many</code> 添加了反向关系，指定使用的字段名为 <code>parent_id</code> 。最后，我们规定在父亲节点被删除时，子节点也会被删除。</p>
-<p>现在，我们可以使用 <code>rails db:migrate</code> 生成数据库。默认的数据库是 SQLite ，使用 Rails 提供的工具进入数据库查看生成的表结构（当然你也可以自己使用 <code>sqlite3</code> 查看，数据库在 <code>db/development.sqlite3</code> 文件中）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rails dbconsole</span><br><span class="line">sqlite&gt; .schema nodes</span><br><span class="line">CREATE TABLE IF NOT EXISTS <span class="string">&quot;nodes&quot;</span> (<span class="string">&quot;id&quot;</span> <span class="built_in">integer</span> PRIMARY KEY AUTOINCREMENT NOT NULL, <span class="string">&quot;name&quot;</span> varchar, <span class="string">&quot;parent_id&quot;</span> <span class="built_in">integer</span>, <span class="string">&quot;created_at&quot;</span> datetime(6) NOT NULL, <span class="string">&quot;updated_at&quot;</span> datetime(6) NOT NULL);</span><br><span class="line">CREATE INDEX <span class="string">&quot;index_nodes_on_parent_id&quot;</span> ON <span class="string">&quot;nodes&quot;</span> (<span class="string">&quot;parent_id&quot;</span>);</span><br><span class="line">sqlite&gt; .<span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
-
-<p>可以看到， Rails 创建了索引而不是外键约束，并默认添加了 <code>id</code> <code>created_at</code> <code>updated_at</code> 字段。</p>
-<h3 id="预设数据"><a href="#预设数据" class="headerlink" title="预设数据"></a>预设数据</h3><p>为了方便接口测试，我们先生成一些预设数据。</p>
-<p>打开 <code>db/seeds.rb</code> 文件，添加三条记录：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root = Node.create <span class="symbol">name:</span> <span class="string">&#x27;root&#x27;</span></span><br><span class="line">Node.create <span class="symbol">name:</span> <span class="string">&#x27;child1&#x27;</span>, <span class="symbol">parent:</span> root</span><br><span class="line">Node.create <span class="symbol">name:</span> <span class="string">&#x27;child2&#x27;</span>, <span class="symbol">parent:</span> root</span><br></pre></td></tr></table></figure>
-
-<p>然后使用 <code>rails db:seed</code> 让它生效，这样我们的数据库中就有了三条记录。</p>
-<h3 id="查看接口"><a href="#查看接口" class="headerlink" title="查看接口"></a>查看接口</h3><p>修改接口之前，我们先来看一看脚手架生成的方法是什么样子的。</p>
-<p>使用 <code>rails server</code> 启动服务，然后访问 <code>http://localhost:3000/nodes.json</code>，你应该会看到刚才添加的三条记录：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">$ http :3000/nodes.json  <span class="comment"># use httpie</span></span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">... <span class="comment"># HTTP HEADERS</span></span><br><span class="line"></span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;created_at&quot;</span>: <span class="string">&quot;2022-05-19T15:18:07.798Z&quot;</span>,</span><br><span class="line">        <span class="string">&quot;id&quot;</span>: 1,</span><br><span class="line">        <span class="string">&quot;name&quot;</span>: <span class="string">&quot;root&quot;</span>,</span><br><span class="line">        <span class="string">&quot;parent_id&quot;</span>: null,</span><br><span class="line">        <span class="string">&quot;updated_at&quot;</span>: <span class="string">&quot;2022-05-19T15:18:07.798Z&quot;</span>,</span><br><span class="line">        <span class="string">&quot;url&quot;</span>: <span class="string">&quot;http://localhost:3000/nodes/1.json&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;created_at&quot;</span>: <span class="string">&quot;2022-05-19T15:18:07.803Z&quot;</span>,</span><br><span class="line">        <span class="string">&quot;id&quot;</span>: 2,</span><br><span class="line">        <span class="string">&quot;name&quot;</span>: <span class="string">&quot;child1&quot;</span>,</span><br><span class="line">        <span class="string">&quot;parent_id&quot;</span>: 1,</span><br><span class="line">        <span class="string">&quot;updated_at&quot;</span>: <span class="string">&quot;2022-05-19T15:18:07.803Z&quot;</span>,</span><br><span class="line">        <span class="string">&quot;url&quot;</span>: <span class="string">&quot;http://localhost:3000/nodes/2.json&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;created_at&quot;</span>: <span class="string">&quot;2022-05-19T15:18:07.804Z&quot;</span>,</span><br><span class="line">        <span class="string">&quot;id&quot;</span>: 3,</span><br><span class="line">        <span class="string">&quot;name&quot;</span>: <span class="string">&quot;child2&quot;</span>,</span><br><span class="line">        <span class="string">&quot;parent_id&quot;</span>: 1,</span><br><span class="line">        <span class="string">&quot;updated_at&quot;</span>: <span class="string">&quot;2022-05-19T15:18:07.804Z&quot;</span>,</span><br><span class="line">        <span class="string">&quot;url&quot;</span>: <span class="string">&quot;http://localhost:3000/nodes/3.json&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p>我们的目标就是将它修改为树状结构。</p>
-<h3 id="修改接口"><a href="#修改接口" class="headerlink" title="修改接口"></a>修改接口</h3><p>为了修改接口，我们首先需要知道 Rails 是怎么处理我们的请求的。脚手架模板为我们生成了 MVC 中需要的全部组件以及一些路由，让我们使用 <code>rails routes</code> 命令查看路由，这里只列出第一条：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nodes GET /nodes(.:format) nodes<span class="comment">#index</span></span><br></pre></td></tr></table></figure>
-
-<p>这条路由就是我们刚刚访问的地址，最后的部分由 <code>Controller#Action</code> 组成，也就是说，我们的目标是 <code>nodes_controller</code> 中的 <code>index</code> 方法。</p>
-<p>打开 <code>app/controllers/nodes_controller.rb</code> 文件，找到 <code>index</code> 方法，将它修改为：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">index</span></span><br><span class="line">  <span class="variable">@nodes</span> = Node.where <span class="symbol">parent:</span> <span class="literal">nil</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>这样，接口将只返回根节点：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ http :3000/nodes.json</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;created_at&quot;</span>: <span class="string">&quot;2022-05-19T15:18:07.798Z&quot;</span>,</span><br><span class="line">        <span class="string">&quot;id&quot;</span>: 1,</span><br><span class="line">        <span class="string">&quot;name&quot;</span>: <span class="string">&quot;root&quot;</span>,</span><br><span class="line">        <span class="string">&quot;parent_id&quot;</span>: null,</span><br><span class="line">        <span class="string">&quot;updated_at&quot;</span>: <span class="string">&quot;2022-05-19T15:18:07.798Z&quot;</span>,</span><br><span class="line">        <span class="string">&quot;url&quot;</span>: <span class="string">&quot;http://localhost:3000/nodes/1.json&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p><code>@nodes</code> 的渲染将委派给 <code>jbuilder</code> ，我们可以在 <code>app/views/nodes/_node.json.jbuilder</code> 文件中找到它的模板，为它添加一个 <code>children</code> 属性：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">json.extract! node, <span class="symbol">:id</span>, <span class="symbol">:name</span>, <span class="symbol">:parent_id</span>, <span class="symbol">:created_at</span>, <span class="symbol">:updated_at</span></span><br><span class="line">json.url node_url(node, <span class="symbol">format:</span> <span class="symbol">:json</span>)</span><br><span class="line">json.children <span class="keyword">do</span></span><br><span class="line">  json.array! node.children, <span class="symbol">partial:</span> <span class="string">&#x27;nodes/node&#x27;</span>, <span class="symbol">as:</span> <span class="symbol">:node</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>这段代码使得 <code>node</code> 递归地访问自己的孩子节点，最终渲染出整个树形结构，这样我们就完成了接口的修改。</p>
-<p>最后看一看修改后的接口返回：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">$ http :3000/nodes.json</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;children&quot;</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">&quot;children&quot;</span>: [],</span><br><span class="line">                <span class="string">&quot;created_at&quot;</span>: <span class="string">&quot;2022-05-19T15:18:07.803Z&quot;</span>,</span><br><span class="line">                <span class="string">&quot;id&quot;</span>: 2,</span><br><span class="line">                <span class="string">&quot;name&quot;</span>: <span class="string">&quot;child1&quot;</span>,</span><br><span class="line">                <span class="string">&quot;parent_id&quot;</span>: 1,</span><br><span class="line">                <span class="string">&quot;updated_at&quot;</span>: <span class="string">&quot;2022-05-19T15:18:07.803Z&quot;</span>,</span><br><span class="line">                <span class="string">&quot;url&quot;</span>: <span class="string">&quot;http://localhost:3000/nodes/2.json&quot;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">&quot;children&quot;</span>: [],</span><br><span class="line">                <span class="string">&quot;created_at&quot;</span>: <span class="string">&quot;2022-05-19T15:18:07.804Z&quot;</span>,</span><br><span class="line">                <span class="string">&quot;id&quot;</span>: 3,</span><br><span class="line">                <span class="string">&quot;name&quot;</span>: <span class="string">&quot;child2&quot;</span>,</span><br><span class="line">                <span class="string">&quot;parent_id&quot;</span>: 1,</span><br><span class="line">                <span class="string">&quot;updated_at&quot;</span>: <span class="string">&quot;2022-05-19T15:18:07.804Z&quot;</span>,</span><br><span class="line">                <span class="string">&quot;url&quot;</span>: <span class="string">&quot;http://localhost:3000/nodes/3.json&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">        <span class="string">&quot;created_at&quot;</span>: <span class="string">&quot;2022-05-19T15:18:07.798Z&quot;</span>,</span><br><span class="line">        <span class="string">&quot;id&quot;</span>: 1,</span><br><span class="line">        <span class="string">&quot;name&quot;</span>: <span class="string">&quot;root&quot;</span>,</span><br><span class="line">        <span class="string">&quot;parent_id&quot;</span>: null,</span><br><span class="line">        <span class="string">&quot;updated_at&quot;</span>: <span class="string">&quot;2022-05-19T15:18:07.798Z&quot;</span>,</span><br><span class="line">        <span class="string">&quot;url&quot;</span>: <span class="string">&quot;http://localhost:3000/nodes/1.json&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p>完成！可以放下工作去享受生活了！</p>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>这并不是一篇正经的教程文章，在 Ruby on Rails 的时代，人们遵从「宁花机器一分，不花程序员一秒」的 UNIX 哲学，希望大家也可以时常放下工作，享受生活。</p>
-<p>最后，如果你对 Ruby on Rails 产生了兴趣，可以去它的官方网站学习。</p>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="http://www.rubyonrails.org/">Ruby on Rails</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://laipz8200.github.io/2022/05/19/simple-api-with-rails/" data-id="cl5b5l8il0004agol35w4fipz" data-title="珍惜时间，Ruby on Rails API 开发指北" class="article-share-link">Teilen</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/active-record/" rel="tag">active record</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/" rel="tag">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby/" rel="tag">ruby</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-
-  
-    <article id="post-implement-event-sourcing" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/05/16/implement-event-sourcing/" class="article-date">
-  <time class="dt-published" datetime="2022-05-16T14:35:51.000Z" itemprop="datePublished">2022-05-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/05/16/implement-event-sourcing/">使用关系型数据库实现事件源模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
-<p>关系型数据库是日常开发中最常用的数据库类型，本文记载使用关系型数据库实现事件源模式的要点和一些问题。</p>
-<p>要阅读本篇文章，你可能需要先自行了解关系型数据库、事件源模式和领域驱动设计相关知识。</p>
-</blockquote>
-<h2 id="事件存储"><a href="#事件存储" class="headerlink" title="事件存储"></a>事件存储</h2><p>首先考虑事件的存储，实际上只需要四个字段， DDL 如下（以 PostgreSQL 为例）：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> events</span><br><span class="line">(</span><br><span class="line">    id        SERIAL      <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">    stream_id <span class="type">VARCHAR</span>(<span class="number">50</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    version   <span class="type">BIGINT</span>      <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    data      TEXT        <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    <span class="keyword">UNIQUE</span> (stream_id, version)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-<p>其中， <code>stream_id</code> 是实体或聚合的唯一标识，也可以把这个字段叫做 <code>name</code> 或者其他你喜欢的名字， <code>version</code> 是事件的版本，由于事件是只追加的，版本会不断增加，并且对于同一个实体或聚合来说，版本号不会有重复。</p>
-<p><code>id</code> 是事件的标识符，由数据库生成即可。</p>
-<p>使用这种简单的结构，我们已经可以实现两种事件源模式需要的功能了。首先是获取事件流：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> id, stream_id, version, data <span class="keyword">FROM</span> events </span><br><span class="line">    <span class="keyword">WHERE</span> stream_id <span class="operator">=</span> :stream_id <span class="keyword">ORDER</span> <span class="keyword">BY</span> version <span class="keyword">ASC</span>;</span><br></pre></td></tr></table></figure>
-
-<p>根据有序的事件流，我们可以重建出一个实体或聚合的最新状态，这是事件源模式的关键功能。</p>
-<p>第二项功能是记录事件，使用：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> events(stream_id, version, data)</span><br><span class="line">    <span class="keyword">VALUES</span>(:stream_id, :<span class="keyword">current</span><span class="operator">+</span><span class="number">1</span>, :data);</span><br></pre></td></tr></table></figure>
-
-<p>需要注意的是，这里的 <code>current+1</code> 仅仅表示插入数据时应该让版本增加 1，而不是可以直接在 SQL 语句中这样写。<br>考虑到主流关系型数据库的默认隔离级别，这种写法会产生一些并发问题。（对于 PostgreSQL ，可以指定隔离级别为 <em>Repeatable Read</em> ）</p>
-<h2 id="投影-PROJECTION"><a href="#投影-PROJECTION" class="headerlink" title="投影 (PROJECTION)"></a>投影 (PROJECTION)</h2><p>事件源模式的另一个问题是无法像传统表结构那样进行过滤，我们使用投影来解决这个问题。</p>
-<p>投影是通过提前聚合事件形成的一种视图，我们既可以同步更新投影，也可以异步更新投影。在异步更新时，系统将获得更高的性能，但会存在一定延迟，这时的系统实现的是 <em>最终一致性</em> 。</p>
-<p>实现最终一致性并不是一件容易的事，在关系型数据库中，为了简单，我们可以先同步更新投影，这种情况下应该利用关系库的一致性保证，即使用 <strong>事务</strong>。</p>
-<p>每个事务中我们做两件事：</p>
-<ul>
-<li>插入新的事件</li>
-<li>更新投影</li>
-</ul>
-<p>因为事件存储是整个系统的唯一数据源，所以投影可以被轻易放弃、调整结构，只需要重放所有事件即可生成新的投影用来适配客户端的查询需求。</p>
-<h2 id="快照-SNAPSHOT"><a href="#快照-SNAPSHOT" class="headerlink" title="快照 (SNAPSHOT)"></a>快照 (SNAPSHOT)</h2><p>快照解决事件源模式中的另一个问题：当事件数量不断增加时，重建一个实体或聚合的成本也会不断增加。</p>
-<p>可以将快照视为一种特殊的投影，与投影相比，快照最大的不同点是它需要保存版本信息，这样我们就可以在重建时先查询快照，然后仅将快照对应版本之后发生的事件应用在实体或聚合上。</p>
-<p>和投影一样，使用关系库时，我们可以在同一个事务中更新快照，不过快照并不需要频繁更新，通常每 50-100 个版本更新一次即可<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[实现领域驱动设计](https://book.douban.com/subject/25844633/)
-">[1]</span></a></sup>。</p>
-<h2 id="滚动升级"><a href="#滚动升级" class="headerlink" title="滚动升级"></a>滚动升级</h2><p>引入快照和投影之后，我们失去了一些灵活性，其中很重要的一点就是要如何修改投影和快照的结构。</p>
-<p>当条件允许时，最简单的方式是停止服务，删除旧的投影和快照表，然后重放事件并生成一份新的表。然而生产服务并不会允许我们这样做，因此当需要升级时，我们应该考虑以下步骤：</p>
-<ol>
-<li>创建新的投影和快照表。</li>
-<li>修改程序，当新的事件写入时，旧表和新表都应该被更新，当然，只有当实体已经存在于新表中时，它才会被更新。</li>
-<li>如果有新的实体或聚合被创建，它会同时被保存到两个表中。</li>
-<li>最后，我们重放所有已有的事件，并将它们聚合后的结果写入新表中。</li>
-<li>当以上步骤完成，新旧两个版本的数据会同步更新，此时我们可以删除旧表和相关逻辑。</li>
-</ol>
-<h2 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h2><p>最后，让我们考虑一下性能问题。当系统成长到一定规模时，我们会很自然地想到采用异步更新投影的方式来改善性能，事件源模式最终通常会引入消息队列（甚至是 Kafka ）。</p>
-<p>然而在关系库和消息队列之间并没有一种方式可以维持一致性，无论在数据库事务的哪个阶段发送消息，都可能产生一些副作用。</p>
-<p>由于使用不同组件，我们没有方法可以彻底消除副作用，但可以通过一些手段来实现最终一致性：</p>
-<ol>
-<li>创建一张队列 (queue) 表 ，用来存放新生成的事件。</li>
-<li>当有新的事件生成时，同时写入事件存储和队列。</li>
-<li>使用一个 <strong>单线程的</strong> 程序轮询队列，分批取出其中的事件并发送到消息队列，然后从队列中删除这些事件。</li>
-<li>创建事件监听器，从消息队列中获取事件并更新投影和快照。</li>
-</ol>
-<p>注意以上操作中的第 3 步，消息发送后，删除操作依然有可能失败，此时，同一事件可能被多次发送到消息队列中。<br>不过问题不大，由于事件存在版本，消费者可以轻松找出不需要处理的事件并丢弃它们。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://softwaremill.com/implementing-event-sourcing-using-a-relational-database/">Implementing event sourcing using a relational database</a></p>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://book.douban.com/subject/25844633/">实现领域驱动设计</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://laipz8200.github.io/2022/05/16/implement-event-sourcing/" data-id="cl5b5l8ih0002agolg5s5c9sx" data-title="使用关系型数据库实现事件源模式" class="article-share-link">Teilen</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event-sourcing/" rel="tag">event sourcing</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
 </section>
