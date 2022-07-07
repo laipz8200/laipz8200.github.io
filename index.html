@@ -145,7 +145,7 @@
 <p>结果:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">--------------------</span><br><span class="line">CREATE TABLE IF NOT EXISTS users(</span><br><span class="line">    id         TEXT PRIMARY KEY, </span><br><span class="line">    first_name TEXT,</span><br><span class="line">    last_name  TEXT,</span><br><span class="line">    nickname   TEXT NOT NULL</span><br><span class="line">);</span><br><span class="line">BEGIN </span><br><span class="line">INSERT INTO users(id, first_name, last_name, nickname) VALUES ($1, $2, $3, $4)</span><br><span class="line">COMMIT</span><br><span class="line">SELECT id, first_name, last_name, nickname FROM users WHERE id = $1 LIMIT 1</span><br><span class="line">&lt;User &#x27;Tom·Jackson&#x27;&gt;</span><br><span class="line"></span><br><span class="line">[Done] exited with code=0 in 0.028210 seconds</span><br></pre></td></tr></table></figure>
 
-<p>对于「用户」模型，到这里其实就可以结束了，但你可能注意到在 <code>find</code> 方法的下面有几个看起来有些多余的方法，<br>这是为了接下来的抽象预留的方法，下面我们开始将可以在多个模型间共享的方法进行抽象。</p>
+<p>对于「用户」模型，到这里其实就可以结束了，但你可能注意到在 <code>find()</code> 方法的下面有几个看起来有些多余的方法，<br>这是为了接下来的抽象预留的方法，下面我们开始对可以在多个模型间共享的方法进行抽象。</p>
 <p>首先对模型本身提取出 <code>id</code> 标识:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># data_mapper/domain/models.py</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DomainObject</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, id_: <span class="built_in">str</span></span>):</span><br><span class="line">        self._<span class="built_in">id</span> = id_</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">id</span>(<span class="params">self</span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">        <span class="keyword">return</span> self._<span class="built_in">id</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>(<span class="title class_ inherited__">DomainObject</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, id_: <span class="built_in">str</span>, nickname: <span class="built_in">str</span>, realname: Name | <span class="literal">None</span></span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__(id_)</span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
 
@@ -161,7 +161,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://laipz8200.github.io/2022/07/07/data-mapper-pattern/" data-id="cl5b5l8ie0001agolhue181wq" data-title="数据映射器和模型-数据源分离" class="article-share-link">Teilen</a>
+      <a data-url="https://laipz8200.github.io/2022/07/07/data-mapper-pattern/" data-id="cl5b61m0x0001adnj095e9llk" data-title="数据映射器和模型-数据源分离" class="article-share-link">Teilen</a>
       
       
       
@@ -284,7 +284,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://laipz8200.github.io/2022/05/19/simple-api-with-rails/" data-id="cl5b5l8il0004agol35w4fipz" data-title="珍惜时间，Ruby on Rails API 开发指北" class="article-share-link">Teilen</a>
+      <a data-url="https://laipz8200.github.io/2022/05/19/simple-api-with-rails/" data-id="cl5b61m160004adnj432y87wq" data-title="珍惜时间，Ruby on Rails API 开发指北" class="article-share-link">Teilen</a>
       
       
       
@@ -374,7 +374,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://laipz8200.github.io/2022/05/16/implement-event-sourcing/" data-id="cl5b5l8ih0002agolg5s5c9sx" data-title="使用关系型数据库实现事件源模式" class="article-share-link">Teilen</a>
+      <a data-url="https://laipz8200.github.io/2022/05/16/implement-event-sourcing/" data-id="cl5b61m110002adnj3ctgg5o2" data-title="使用关系型数据库实现事件源模式" class="article-share-link">Teilen</a>
       
       
       

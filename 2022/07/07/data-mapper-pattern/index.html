@@ -14,7 +14,7 @@
 <meta property="og:description" content="使用 Python 进行 web 开发时，很多人都会首先接触到 Django 这样的框架，Django ORM 提供了一种极为简单明了的与关系型数据库交互的方式。但当业务逻辑变得复杂时，关系模型和对象模型的差异总会给项目带来一些麻烦，在这种情况下，可以使用一种叫做数据映射器 (Data Mapper) 的模式将对象模型和数据源隔离，使他们能够各自演变，这样一来，软件便可以健康地发展下去。  设想">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-07-07T14:53:32.000Z">
-<meta property="article:modified_time" content="2022-07-07T14:57:39.303Z">
+<meta property="article:modified_time" content="2022-07-07T15:10:26.447Z">
 <meta property="article:author" content="laipz8200">
 <meta property="article:tag" content="data mapper">
 <meta property="article:tag" content="数据映射器">
@@ -143,7 +143,7 @@
 <p>结果:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">--------------------</span><br><span class="line">CREATE TABLE IF NOT EXISTS users(</span><br><span class="line">    id         TEXT PRIMARY KEY, </span><br><span class="line">    first_name TEXT,</span><br><span class="line">    last_name  TEXT,</span><br><span class="line">    nickname   TEXT NOT NULL</span><br><span class="line">);</span><br><span class="line">BEGIN </span><br><span class="line">INSERT INTO users(id, first_name, last_name, nickname) VALUES ($1, $2, $3, $4)</span><br><span class="line">COMMIT</span><br><span class="line">SELECT id, first_name, last_name, nickname FROM users WHERE id = $1 LIMIT 1</span><br><span class="line">&lt;User &#x27;Tom·Jackson&#x27;&gt;</span><br><span class="line"></span><br><span class="line">[Done] exited with code=0 in 0.028210 seconds</span><br></pre></td></tr></table></figure>
 
-<p>对于「用户」模型，到这里其实就可以结束了，但你可能注意到在 <code>find</code> 方法的下面有几个看起来有些多余的方法，<br>这是为了接下来的抽象预留的方法，下面我们开始将可以在多个模型间共享的方法进行抽象。</p>
+<p>对于「用户」模型，到这里其实就可以结束了，但你可能注意到在 <code>find()</code> 方法的下面有几个看起来有些多余的方法，<br>这是为了接下来的抽象预留的方法，下面我们开始对可以在多个模型间共享的方法进行抽象。</p>
 <p>首先对模型本身提取出 <code>id</code> 标识:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># data_mapper/domain/models.py</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DomainObject</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, id_: <span class="built_in">str</span></span>):</span><br><span class="line">        self._<span class="built_in">id</span> = id_</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">id</span>(<span class="params">self</span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">        <span class="keyword">return</span> self._<span class="built_in">id</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>(<span class="title class_ inherited__">DomainObject</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, id_: <span class="built_in">str</span>, nickname: <span class="built_in">str</span>, realname: Name | <span class="literal">None</span></span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__(id_)</span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
 
@@ -159,7 +159,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://laipz8200.github.io/2022/07/07/data-mapper-pattern/" data-id="cl5b5l8ie0001agolhue181wq" data-title="数据映射器和模型-数据源分离" class="article-share-link">Teilen</a>
+      <a data-url="https://laipz8200.github.io/2022/07/07/data-mapper-pattern/" data-id="cl5b61m0x0001adnj095e9llk" data-title="数据映射器和模型-数据源分离" class="article-share-link">Teilen</a>
       
       
       
