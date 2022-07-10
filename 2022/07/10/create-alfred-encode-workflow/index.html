@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>制作一个简单的 Alfred Workflow | -LAN-&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="在论坛或群聊中给人发送一些内容时，有时需要简单隐藏一下内容，通常我会使用 base64 对内容进行编码。 之前一直使用 Chrome 插件提供的功能来完成，最近突然想起了 Alfred Workflow 更适合做这件事。  Alfred and workflowAlfred 是 macOS 平台上的一个工具类 App ，提供全局搜索和启动器等功能。 此外，它拥有一个叫做 「Workflow」 的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="制作一个简单的 Alfred Workflow">
+<meta property="og:url" content="https://laipz8200.github.io/2022/07/10/create-alfred-encode-workflow/">
+<meta property="og:site_name" content="-LAN-&#39;s Blog">
+<meta property="og:description" content="在论坛或群聊中给人发送一些内容时，有时需要简单隐藏一下内容，通常我会使用 base64 对内容进行编码。 之前一直使用 Chrome 插件提供的功能来完成，最近突然想起了 Alfred Workflow 更适合做这件事。  Alfred and workflowAlfred 是 macOS 平台上的一个工具类 App ，提供全局搜索和启动器等功能。 此外，它拥有一个叫做 「Workflow」 的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://laipz8200.github.io/2022/07/10/create-alfred-encode-workflow/workflow.png">
+<meta property="og:image" content="https://laipz8200.github.io/2022/07/10/create-alfred-encode-workflow/encode.png">
+<meta property="article:published_time" content="2022-07-10T11:40:05.000Z">
+<meta property="article:modified_time" content="2022-07-10T12:08:17.094Z">
+<meta property="article:author" content="laipz8200">
+<meta property="article:tag" content="alfred">
+<meta property="article:tag" content="workflow">
+<meta property="article:tag" content="macos">
+<meta property="article:tag" content="ruby">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://laipz8200.github.io/2022/07/10/create-alfred-encode-workflow/workflow.png">
+  
+    <link rel="alternate" href="/atom.xml" title="-LAN-'s Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">-LAN-&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about/me">About Me</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://laipz8200.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-create-alfred-encode-workflow" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/07/10/create-alfred-encode-workflow/" class="article-date">
+  <time class="dt-published" datetime="2022-07-10T11:40:05.000Z" itemprop="datePublished">2022-07-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      制作一个简单的 Alfred Workflow
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
+<p>在论坛或群聊中给人发送一些内容时，有时需要简单隐藏一下内容，通常我会使用 base64 对内容进行编码。</p>
+<p>之前一直使用 Chrome 插件提供的功能来完成，最近突然想起了 Alfred Workflow 更适合做这件事。</p>
+</blockquote>
+<h2 id="Alfred-and-workflow"><a href="#Alfred-and-workflow" class="headerlink" title="Alfred and workflow"></a>Alfred and workflow</h2><p>Alfred 是 macOS 平台上的一个工具类 App ，提供全局搜索和启动器等功能。</p>
+<p>此外，它拥有一个叫做 「Workflow」 的功能，可以通过自定义的方式实现自己的工作流。</p>
+<p>之前我一直使用一个叫做 encode 的 workflow 来快速进行编解码操作，然而它的作者似乎已经没有在维护了，随着 macOS 的更新，系统也不再默认提供它所依赖的 php runtime 了。</p>
+<p>在到处都找不到好用的工具后，我决定自己来实现这个功能。</p>
+<h2 id="Create-a-simple"><a href="#Create-a-simple" class="headerlink" title="Create a simple"></a>Create a simple</h2><p>虽然听起来很复杂，但自己创建一个 workflow 其实并不困难， Alfred 为了让普通人也能够创建 workflow ，提供了相当多方便的操作和直观的界面。</p>
+<p>不过对于我们这种简单的应用来说，只需要使用其中两项功能就足够了。</p>
+<h2 id="Input-script-filter"><a href="#Input-script-filter" class="headerlink" title="Input: script filter"></a>Input: script filter</h2><p>首先在空白的 workflow 上右键选择 <code>Inputs &gt; ScriptFilter</code> 。</p>
+<p>我们可以在上方设置触发功能使用的关键词，提示用语等内容，并在下面的 <code>Script</code> 区域对输入进行处理。</p>
+<p>Alfred 使用 JSON 格式来控制输出，我们只会用到以下最简单的几项:</p>
+<ul>
+<li>title: 显示内容的标题</li>
+<li>subtitle: 副标题</li>
+<li>arg: 传递给下一步的参数</li>
+</ul>
+<p>将以上内容的列表作为 <code>items</code> 的值输出即可让它们显示在 Alfred 的结果中了。</p>
+<p>考虑到我暂时只需要 base64 编码和解码的功能，我选择最简单的 Ruby 实现:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">query = <span class="variable constant_">ARGV</span>[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;json&#x27;</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;base64&#x27;</span></span><br><span class="line"></span><br><span class="line">b64 = Base64.encode64(query)</span><br><span class="line"></span><br><span class="line">results = &#123;<span class="symbol">items:</span> [</span><br><span class="line">	&#123; <span class="symbol">title:</span> b64, <span class="symbol">subtitle:</span> <span class="string">&#x27;base64&#x27;</span>, <span class="symbol">arg:</span> b64 &#125;</span><br><span class="line">]&#125;</span><br><span class="line">print results.to_json</span><br></pre></td></tr></table></figure>
+
+<p>解码同理，使用 <code>Base64.decode64</code> 即可。</p>
+<h2 id="Output-copy-to-clipboard"><a href="#Output-copy-to-clipboard" class="headerlink" title="Output: copy to clipboard"></a>Output: copy to clipboard</h2><p>实现功能后，我们需要考虑如何使用结果，最简单的方法当然是将结果复制下来。</p>
+<p>右键选择 <code>Outputs &gt; Copy to Clipboard</code> ，然后将之前创建的 ScriptFilter 连过去就可以。</p>
+<p><img src="/2022/07/10/create-alfred-encode-workflow/workflow.png" alt="workflow"></p>
+<p><img src="/2022/07/10/create-alfred-encode-workflow/encode.png" alt="encode"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://laipz8200.github.io/2022/07/10/create-alfred-encode-workflow/" data-id="cl5f9ut6i0001agol24g2cqk2" data-title="制作一个简单的 Alfred Workflow" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/alfred/" rel="tag">alfred</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/macos/" rel="tag">macos</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby/" rel="tag">ruby</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/workflow/" rel="tag">workflow</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/07/07/data-mapper-pattern/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">数据映射器和模型-数据源分离</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/active-record/" rel="tag">active record</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/alfred/" rel="tag">alfred</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-mapper/" rel="tag">data mapper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event-sourcing/" rel="tag">event sourcing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macos/" rel="tag">macos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rails/" rel="tag">rails</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/" rel="tag">ruby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/workflow/" rel="tag">workflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%81%E4%B8%9A%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F/" rel="tag">企业应用架构模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E6%98%A0%E5%B0%84%E5%99%A8/" rel="tag">数据映射器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A2%86%E5%9F%9F%E6%A8%A1%E5%9E%8B/" rel="tag">领域模型</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/active-record/" style="font-size: 10px;">active record</a> <a href="/tags/alfred/" style="font-size: 10px;">alfred</a> <a href="/tags/data-mapper/" style="font-size: 10px;">data mapper</a> <a href="/tags/event-sourcing/" style="font-size: 10px;">event sourcing</a> <a href="/tags/macos/" style="font-size: 10px;">macos</a> <a href="/tags/rails/" style="font-size: 10px;">rails</a> <a href="/tags/ruby/" style="font-size: 20px;">ruby</a> <a href="/tags/workflow/" style="font-size: 10px;">workflow</a> <a href="/tags/%E4%BC%81%E4%B8%9A%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">企业应用架构模式</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E6%98%A0%E5%B0%84%E5%99%A8/" style="font-size: 10px;">数据映射器</a> <a href="/tags/%E9%A2%86%E5%9F%9F%E6%A8%A1%E5%9E%8B/" style="font-size: 10px;">领域模型</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/10/create-alfred-encode-workflow/">制作一个简单的 Alfred Workflow</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/07/data-mapper-pattern/">数据映射器和模型-数据源分离</a>
+          </li>
+        
+          <li>
+            <a href="/2022/05/19/simple-api-with-rails/">珍惜时间，Ruby on Rails API 开发指北</a>
+          </li>
+        
+          <li>
+            <a href="/2022/05/16/implement-event-sourcing/">使用关系型数据库实现事件源模式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 laipz8200<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/me" class="mobile-nav-link">About Me</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
