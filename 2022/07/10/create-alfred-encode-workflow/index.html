@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://laipz8200.github.io/2022/07/10/create-alfred-encode-workflow/workflow.png">
 <meta property="og:image" content="https://laipz8200.github.io/2022/07/10/create-alfred-encode-workflow/encode.png">
 <meta property="article:published_time" content="2022-07-10T11:40:05.000Z">
-<meta property="article:modified_time" content="2022-10-17T12:59:33.861Z">
+<meta property="article:modified_time" content="2023-01-14T17:42:27.875Z">
 <meta property="article:author" content="laipz8200">
 <meta property="article:tag" content="alfred">
 <meta property="article:tag" content="workflow">
@@ -88,6 +88,10 @@
   <time class="dt-published" datetime="2022-07-10T11:40:05.000Z" itemprop="datePublished">2022-07-10</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/macOS/">macOS</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -124,7 +128,7 @@
 </ul>
 <p>将以上内容的列表作为 <code>items</code> 的值输出即可让它们显示在 Alfred 的结果中了。</p>
 <p>考虑到我暂时只需要 base64 编码和解码的功能，我选择最简单的 Ruby 实现:</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">query = <span class="variable constant_">ARGV</span>[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;json&#x27;</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;base64&#x27;</span></span><br><span class="line"></span><br><span class="line">b64 = Base64.encode64(query)</span><br><span class="line"></span><br><span class="line">results = &#123;<span class="symbol">items:</span> [</span><br><span class="line">	&#123; <span class="symbol">title:</span> b64, <span class="symbol">subtitle:</span> <span class="string">&#x27;base64&#x27;</span>, <span class="symbol">arg:</span> b64 &#125;</span><br><span class="line">]&#125;</span><br><span class="line">print results.to_json</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">query = <span class="variable constant_">ARGV</span>[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;json&#x27;</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;base64&#x27;</span></span><br><span class="line"></span><br><span class="line">b64 = <span class="title class_">Base64</span>.encode64(query)</span><br><span class="line"></span><br><span class="line">results = &#123;<span class="symbol">items:</span> [</span><br><span class="line">	&#123; <span class="symbol">title:</span> b64, <span class="symbol">subtitle:</span> <span class="string">&#x27;base64&#x27;</span>, <span class="symbol">arg:</span> b64 &#125;</span><br><span class="line">]&#125;</span><br><span class="line">print results.to_json</span><br></pre></td></tr></table></figure>
 
 <p>解码同理，使用 <code>Base64.decode64</code> 即可。</p>
 <h2 id="Output-copy-to-clipboard"><a href="#Output-copy-to-clipboard" class="headerlink" title="Output: copy to clipboard"></a>Output: copy to clipboard</h2><p>实现功能后，我们需要考虑如何使用结果，最简单的方法当然是将结果复制下来。</p>
@@ -135,7 +139,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://laipz8200.github.io/2022/07/10/create-alfred-encode-workflow/" data-id="cl9csa4mt0001atnl2g260g54" data-title="制作一个简单的 Alfred Workflow" class="article-share-link">Teilen</a>
+      <a data-url="https://laipz8200.github.io/2022/07/10/create-alfred-encode-workflow/" data-id="clcw8kxp40001cioxhvhuanwy" data-title="制作一个简单的 Alfred Workflow" class="article-share-link">Teilen</a>
       
       
       
@@ -146,6 +150,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2023/01/14/diary-2023-01-14/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          迟来的 2022 年终总结
+        
+      </div>
+    </a>
   
   
     <a href="/2022/07/07/data-mapper-pattern/" id="article-nav-older" class="article-nav-link-wrap">
@@ -164,6 +177,13 @@
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/development/">development</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/diary/">diary</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a></li></ul>
+    </div>
+  </div>
+
 
   
     
@@ -189,7 +209,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a></li></ul>
     </div>
   </div>
 
@@ -200,6 +220,10 @@
     <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2023/01/14/diary-2023-01-14/">迟来的 2022 年终总结</a>
+          </li>
         
           <li>
             <a href="/2022/07/10/create-alfred-encode-workflow/">制作一个简单的 Alfred Workflow</a>
@@ -230,7 +254,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       
-      &copy; 2022 laipz8200<br>
+      &copy; 2023 laipz8200<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

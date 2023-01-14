@@ -14,7 +14,7 @@
 <meta property="og:description" content="继上次简单写了一些关于 Event Sourcing 的内容后，感觉进入了一段情绪低迷期，决定学一些和找工作无关的东西。 实际上，绝大多数项目并不需要使用领域驱动设计，也不需要支持高并发，在这种情况下，为了节省宝贵的时间，我们可以使用一种简单且有效的模式：活动记录 (Active Record)。  Active Record Pattern活动记录的特点是 一个模型类对应关系型数据库的一个表，">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-19T15:43:04.000Z">
-<meta property="article:modified_time" content="2022-10-17T12:59:33.861Z">
+<meta property="article:modified_time" content="2023-01-14T17:42:27.879Z">
 <meta property="article:author" content="laipz8200">
 <meta property="article:tag" content="ruby">
 <meta property="article:tag" content="rails">
@@ -84,6 +84,10 @@
   <time class="dt-published" datetime="2022-05-19T15:43:04.000Z" itemprop="datePublished">2022-05-19</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/development/">development</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -155,7 +159,7 @@
 <p>可以看到， Rails 创建了索引而不是外键约束，并默认添加了 <code>id</code> <code>created_at</code> <code>updated_at</code> 字段。</p>
 <h3 id="预设数据"><a href="#预设数据" class="headerlink" title="预设数据"></a>预设数据</h3><p>为了方便接口测试，我们先生成一些预设数据。</p>
 <p>打开 <code>db/seeds.rb</code> 文件，添加三条记录：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root = Node.create <span class="symbol">name:</span> <span class="string">&#x27;root&#x27;</span></span><br><span class="line">Node.create <span class="symbol">name:</span> <span class="string">&#x27;child1&#x27;</span>, <span class="symbol">parent:</span> root</span><br><span class="line">Node.create <span class="symbol">name:</span> <span class="string">&#x27;child2&#x27;</span>, <span class="symbol">parent:</span> root</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root = <span class="title class_">Node</span>.create <span class="symbol">name:</span> <span class="string">&#x27;root&#x27;</span></span><br><span class="line"><span class="title class_">Node</span>.create <span class="symbol">name:</span> <span class="string">&#x27;child1&#x27;</span>, <span class="symbol">parent:</span> root</span><br><span class="line"><span class="title class_">Node</span>.create <span class="symbol">name:</span> <span class="string">&#x27;child2&#x27;</span>, <span class="symbol">parent:</span> root</span><br></pre></td></tr></table></figure>
 
 <p>然后使用 <code>rails db:seed</code> 让它生效，这样我们的数据库中就有了三条记录。</p>
 <h3 id="查看接口"><a href="#查看接口" class="headerlink" title="查看接口"></a>查看接口</h3><p>修改接口之前，我们先来看一看脚手架生成的方法是什么样子的。</p>
@@ -168,7 +172,7 @@
 
 <p>这条路由就是我们刚刚访问的地址，最后的部分由 <code>Controller#Action</code> 组成，也就是说，我们的目标是 <code>nodes_controller</code> 中的 <code>index</code> 方法。</p>
 <p>打开 <code>app/controllers/nodes_controller.rb</code> 文件，找到 <code>index</code> 方法，将它修改为：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">index</span></span><br><span class="line">  <span class="variable">@nodes</span> = Node.where <span class="symbol">parent:</span> <span class="literal">nil</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">index</span></span><br><span class="line">  <span class="variable">@nodes</span> = <span class="title class_">Node</span>.where <span class="symbol">parent:</span> <span class="literal">nil</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 
 <p>这样，接口将只返回根节点：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ http :3000/nodes.json</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;created_at&quot;</span>: <span class="string">&quot;2022-05-19T15:18:07.798Z&quot;</span>,</span><br><span class="line">        <span class="string">&quot;id&quot;</span>: 1,</span><br><span class="line">        <span class="string">&quot;name&quot;</span>: <span class="string">&quot;root&quot;</span>,</span><br><span class="line">        <span class="string">&quot;parent_id&quot;</span>: null,</span><br><span class="line">        <span class="string">&quot;updated_at&quot;</span>: <span class="string">&quot;2022-05-19T15:18:07.798Z&quot;</span>,</span><br><span class="line">        <span class="string">&quot;url&quot;</span>: <span class="string">&quot;http://localhost:3000/nodes/1.json&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
@@ -187,7 +191,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://laipz8200.github.io/2022/05/19/simple-api-with-rails/" data-id="cl9csa4n10005atnld7o35k8n" data-title="珍惜时间，Ruby on Rails API 开发指北" class="article-share-link">Teilen</a>
+      <a data-url="https://laipz8200.github.io/2022/05/19/simple-api-with-rails/" data-id="clcw8kxpe0007ciox1q8nddsa" data-title="珍惜时间，Ruby on Rails API 开发指北" class="article-share-link">Teilen</a>
       
       
       
@@ -225,6 +229,13 @@
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/development/">development</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/diary/">diary</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/macOS/">macOS</a></li></ul>
+    </div>
+  </div>
+
 
   
     
@@ -250,7 +261,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">五月 2022</a></li></ul>
     </div>
   </div>
 
@@ -261,6 +272,10 @@
     <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2023/01/14/diary-2023-01-14/">迟来的 2022 年终总结</a>
+          </li>
         
           <li>
             <a href="/2022/07/10/create-alfred-encode-workflow/">制作一个简单的 Alfred Workflow</a>
@@ -291,7 +306,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       
-      &copy; 2022 laipz8200<br>
+      &copy; 2023 laipz8200<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
