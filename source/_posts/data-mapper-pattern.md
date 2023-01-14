@@ -1,6 +1,7 @@
 ---
 title: 数据映射器和模型-数据源分离
 date: 2022-07-07 22:53:32
+category: development
 tags:
   - data mapper
   - 数据映射器
@@ -9,7 +10,7 @@ tags:
 ---
 
 > 使用 Python 进行 web 开发时，很多人都会首先接触到 Django 这样的框架，Django ORM 提供了一种极为简单明了的与关系型数据库交互的方式。但当业务逻辑变得复杂时，关系模型和对象模型的差异总会给项目带来一些麻烦，
-> 
+>
 > 在这种情况下，可以使用一种叫做数据映射器 (Data Mapper) 的模式将对象模型和数据源隔离，使他们能够各自演变，这样一来，软件便可以健康地发展下去。
 
 设想这样一种常见的情况：你需要建立一个「用户」模型，「用户」具有「真实姓名」和「昵称」，出于隐私考虑，一些「用户」可能不太愿意提供自己的「真实姓名」。在「用户」提供了「真实姓名」时，软件需要保证「用户」同时提供「姓氏」和「名字」，不能只有其中一样。
@@ -109,7 +110,7 @@ conn.row_factory = dict_factory
 
 def init_db(conn):
     ddl = """CREATE TABLE IF NOT EXISTS users(
-    id         TEXT PRIMARY KEY, 
+    id         TEXT PRIMARY KEY,
     first_name TEXT,
     last_name  TEXT,
     nickname   TEXT NOT NULL
@@ -181,12 +182,12 @@ cursor.close()
 ```
 --------------------
 CREATE TABLE IF NOT EXISTS users(
-    id         TEXT PRIMARY KEY, 
+    id         TEXT PRIMARY KEY,
     first_name TEXT,
     last_name  TEXT,
     nickname   TEXT NOT NULL
 );
-BEGIN 
+BEGIN
 INSERT INTO users(id, first_name, last_name, nickname) VALUES ($1, $2, $3, $4)
 COMMIT
 SELECT * FROM users;
@@ -245,12 +246,12 @@ print(user)
 ```
 --------------------
 CREATE TABLE IF NOT EXISTS users(
-    id         TEXT PRIMARY KEY, 
+    id         TEXT PRIMARY KEY,
     first_name TEXT,
     last_name  TEXT,
     nickname   TEXT NOT NULL
 );
-BEGIN 
+BEGIN
 INSERT INTO users(id, first_name, last_name, nickname) VALUES ($1, $2, $3, $4)
 COMMIT
 SELECT id, first_name, last_name, nickname FROM users WHERE id = $1 LIMIT 1
@@ -381,12 +382,12 @@ class UserMapper(AbstractMapper[User]):
 ```python
 --------------------
 CREATE TABLE IF NOT EXISTS users(
-    id         TEXT PRIMARY KEY, 
+    id         TEXT PRIMARY KEY,
     first_name TEXT,
     last_name  TEXT,
     nickname   TEXT NOT NULL
 );
-BEGIN 
+BEGIN
 INSERT INTO users(id, first_name, last_name, nickname) VALUES ($1, $2, $3, $4)
 COMMIT
 <User 'Tom·Jackson'>

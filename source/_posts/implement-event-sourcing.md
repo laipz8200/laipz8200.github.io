@@ -1,12 +1,13 @@
 ---
 title: 使用关系型数据库实现事件源模式
+category: development
 tags: event sourcing
 date: 2022-05-16 22:35:51
 ---
 
 
 > 关系型数据库是日常开发中最常用的数据库类型，本文记载使用关系型数据库实现事件源模式的要点和一些问题。
-> 
+>
 > 要阅读本篇文章，你可能需要先自行了解关系型数据库、事件源模式和领域驱动设计相关知识。
 
 ## 事件存储
@@ -31,7 +32,7 @@ CREATE TABLE events
 使用这种简单的结构，我们已经可以实现两种事件源模式需要的功能了。首先是获取事件流：
 
 ```sql
-SELECT id, stream_id, version, data FROM events 
+SELECT id, stream_id, version, data FROM events
     WHERE stream_id = :stream_id ORDER BY version ASC;
 ```
 
