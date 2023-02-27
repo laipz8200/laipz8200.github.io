@@ -14,6 +14,8 @@ tags:
 >
 > 之前一直使用 Chrome 插件提供的功能来完成，最近突然想起了 Alfred Workflow 更适合做这件事。
 
+<!-- more -->
+
 Alfred and workflow
 -------------------
 
