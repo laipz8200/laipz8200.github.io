@@ -572,7 +572,7 @@ comments:
 disqus:
   enable: true
   shortname: blog-yeningxue
-  count: true
+  count: false
   #post_meta_order: 0
 
 # DisqusJS
