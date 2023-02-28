@@ -30,26 +30,23 @@
   gtag('config', 'G-KH8R6XKR3D');
 </script>
 
-  <meta name="description" content="2023 年元旦至今已经过了半个月，这个略显无聊的夜晚，我突然想起了自己已经许久没有更新的博客。">
+  <meta name="description" content="年终总结时挖坑说要写一篇关于注册表模式的文章，今天填坑。 注册表模式，简单来说就是把需要在许多地方使用的东西注册到一个固定的位置。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="迟来的 2022 年终总结">
-<meta property="og:url" content="https://blog.yeningxue.com/2023/01/14/diary-2023-01-14/">
+<meta property="og:title" content="注册表模式的 Golang 实现">
+<meta property="og:url" content="https://blog.yeningxue.com/2023/02/28/registry-pattern-in-golang/">
 <meta property="og:site_name" content="-LAN-&#39;s Blog">
-<meta property="og:description" content="2023 年元旦至今已经过了半个月，这个略显无聊的夜晚，我突然想起了自己已经许久没有更新的博客。">
+<meta property="og:description" content="年终总结时挖坑说要写一篇关于注册表模式的文章，今天填坑。 注册表模式，简单来说就是把需要在许多地方使用的东西注册到一个固定的位置。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-01-14T17:12:07.000Z">
+<meta property="article:published_time" content="2023-02-28T16:41:59.000Z">
 <meta property="article:modified_time" content="2023-02-28T16:44:47.959Z">
 <meta property="article:author" content="-LAN-">
-<meta property="article:tag" content="laipz8200">
-<meta property="article:tag" content="programming">
-<meta property="article:tag" content="python">
-<meta property="article:tag" content="linux">
+<meta property="article:tag" content="企业应用架构模式">
+<meta property="article:tag" content="registry pattern">
+<meta property="article:tag" content="注册表模式">
 <meta property="article:tag" content="golang">
-<meta property="article:tag" content="domain driven design">
-<meta property="article:tag" content="rust">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://blog.yeningxue.com/2023/01/14/diary-2023-01-14/">
+<link rel="canonical" href="https://blog.yeningxue.com/2023/02/28/registry-pattern-in-golang/">
 
 
 <script id="page-configurations">
@@ -62,7 +59,7 @@
   };
 </script>
 
-  <title>迟来的 2022 年终总结 | -LAN-'s Blog</title>
+  <title>注册表模式的 Golang 实现 | -LAN-'s Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KH8R6XKR3D"></script>
     <script>
@@ -192,7 +189,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="https://blog.yeningxue.com/2023/01/14/diary-2023-01-14/">
+    <link itemprop="mainEntityOfPage" href="https://blog.yeningxue.com/2023/02/28/registry-pattern-in-golang/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -205,7 +202,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          迟来的 2022 年终总结
+          注册表模式的 Golang 实现
         </h1>
 
         <div class="post-meta">
@@ -214,23 +211,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2023-01-15 01:12:07" itemprop="dateCreated datePublished" datetime="2023-01-15T01:12:07+08:00">2023-01-15</time>
+              <time title="Created: 2023-03-01 00:41:59 / Modified: 00:44:47" itemprop="dateCreated datePublished" datetime="2023-03-01T00:41:59+08:00">2023-03-01</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-03-01 00:44:47" itemprop="dateModified" datetime="2023-03-01T00:44:47+08:00">2023-03-01</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/diary/" itemprop="url" rel="index"><span itemprop="name">diary</span></a>
+                  <a href="/categories/development/" itemprop="url" rel="index"><span itemprop="name">development</span></a>
                 </span>
             </span>
 
@@ -240,14 +231,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>3k</span>
+              <span>1.4k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>3 mins.</span>
+              <span>1 mins.</span>
             </span>
 
         </div>
@@ -260,38 +251,34 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
-<p>2023 年元旦至今已经过了半个月，这个略显无聊的夜晚，我突然想起了自己已经许久没有更新的博客。</p>
+<p>年终总结时挖坑说要写一篇关于注册表模式的文章，今天填坑。</p>
+<p>注册表模式，简单来说就是把需要在许多地方使用的东西注册到一个固定的位置。</p>
 </blockquote>
 <span id="more"></span>
 
-<p>先说一些与工作无关的事情吧。</p>
-<p>上一次发布文章还是 7 月，之后的几个月里，追番成为了我的日常。<br>每天回到家中，打开电脑的第一件事就是去蜜柑看一看有没有订阅的番剧更新，追完了夏季和秋季两个季度的动画，有《孤独摇滚》这样给了我许多欢笑和感动的作品，也有《恋爱FLOPS》这样故事发展毫不意外又充满惊喜的作品，2023 年冬季，我也会继续追番的。</p>
-<p>除了动画外，我的另一项主要娱乐方式 —— 视觉小说，进展则不是很顺利。<br>之前就在游玩的《樱花萌放》由于作者的“啰嗦”，至今仍然没有开启最后一条线路，也尝试开坑了很多新作或者 FD 作品，比如《苍之彼方的四重奏 EXTRA 1》，然而几乎都没有玩多久便不再打开了。<br>哪怕是短篇的《星之终途》也被我一拖再拖。<br>唯一一部从头读到尾的作品是 12 月在 NS 上发售的《魔法使之夜》重制版，有珠的主题曲成为了我那个月循环最多的音乐，它总能将我的意识带到山上的洋馆中，使我的精神得到放松。</p>
-<p>游戏方面，除了《魔法使之夜》外，我通关了迟了 3 个月才拿到的《异度神剑 3》，花了 170 多小时探索那个对我来说广阔又陌生的世界，另外每过几天就会和朋友相约在《Splatoon 3》里一起给熊老板打工。</p>
-<p>还有手游的部分，我自己也总是吐槽“给手游氪金实在是没什么收益，感觉掉入了陷阱”，然而消费带来的快乐确实让人难以拒绝，只好一边骂自己一边给游戏公司送钱了。<br>与以往不同的地方是我还在玩的手机游戏中已经没有在大陆运营的了，大概是一次次的和谐让我失望了吧，另一方面，afk 类型的游戏取代了其他类型成为了我的新选择，这类游戏通常每天只需要花费不到 10 分钟的时间，偶尔也会让我思考“玩它们的意义到底是什么？”。<br>我还知道了“韩游剧情通常比较黑暗，喜欢发刀”的说法，然而《蔚蓝档案》似乎并不是这样，新的一年，也要做个好老师！</p>
-<p>年底的时候，到处都在传各种各样的“年度总结”，有 Bilibili 的，网易云音乐的，然而我已经基本不在 Bilibili 观看动画，也不再在网易云听歌了。</p>
-<p>说到 2022 不得不提的一件事，应该是中国大陆终于决定放开对新冠疫情的管制吧。<br>我见到许多疫情期间从不戴口罩的人在“二十条”公布后即使在室外通风处依然戴着口罩，见到他们严防死守最终还是发了高烧，见到他们在 SNS 上说自己“疼得想死”，“说不出话”，见到他们把止痛药、退烧药、检测盒一扫而空……</p>
-<p>从头到尾，我觉得自己好像一个局外人，在天空中 —— 或是更遥远的什么地方，只是看着，就好像这些事情与我无关。<br>我也想过如果自己被感染了会怎么样，却始终想不出个结果。<br>再次回想起来，只觉得空洞，好像全身的力气被抽走一样。</p>
-<p>写下这些字的前几天，我对自己的精神状态有了更进一步的理解，确认了自己依然是一个乐观、积极的人，我想这对我来说是一件好事。</p>
-<p>再说说和开发的工作有关的事情吧。</p>
-<p>应该是几个月前，碰到了一家很有趣的公司，他们的面试没有八股文和算法题，只是对着简历中写的项目经历和我聊天。<br>连续几场面试，我们聊了一些不容易注意到的语法细节，聊了系统设计，聊了抽象和过度抽象如何界定……<br>对方甚至点开了我写在简历上的博客地址，和我讨论了我写的文章，这是我把博客地址写在简历上后第一次明确有“被人看见”的经历。</p>
-<p>我那时并没有刻意去准备面试，如果对方像字节那样考我一些八股或算法题，我其实没有信心能答上来，但关于软件设计的话题恰恰是我过去一年都在努力钻研的内容，所以聊得很开心。</p>
-<p>虽然他们最终没有再给我回复，但我认为这是一件值得记下来的事。</p>
-<p>前不久，因为需要在 vscode 中使用 markdown 编辑一个包含中文的表格，我把编辑器的字体换成了中文等宽，并首次得知 Noto Sans 是 Google 发表的字体。<br>中文的等宽字体其实算不上好看，但对于需要使用 markdown 编辑表格的人来说却非常有用，毕竟只有这种字体可以让表格对齐。</p>
-<p>最近在公司开发的项目都使用 Go 语言，我好像也逐渐习惯了静态类型系统。<br>如果之前和人说我有一年以上的 Go 语言开发经验是有吹的成分，那么现在这句话已经变成事实了吧。</p>
-<p>探索 DDD 的过程中，我试着用存储库分离了领域模型和 ORM 模型，然而在写《数据映射器》那篇文章的时候，我对于这种抽象的意义认知其实还不清晰，让我的理解更进一步的是《架构整洁之道》，里面提到“系统各部分之间的依赖关系不能构成环”，而打破循环依赖的手段就是 DIP ，依赖反转，这句话成为了一块很大的拼图，填补了我对 DDD 中分层架构的理解。</p>
-<p>将存储库留在领域层，而将具体实现放置在基础设施中，持久化方式的变更并不会影响到系统中的业务逻辑，实际编写代码时，可以使用依赖注入的技巧来处理复杂的依赖关系。</p>
-<p>在一次和做 Java 开发的朋友的聊天中，我们谈到 Spring 依赖注入的注解，我突然意识到 DI 其实是一件能够自动化的事情，几经波折后找到了 Google 开发的 wire ，极大提升了我的开发体验。</p>
-<p>Repository 和 DI 工具使我能够轻松应对许多项目，但仍有一些场景让我感觉束手束脚，具体来说是需要在模型方法中和存储库交互的情况，毕竟我不能把存储库“注入”到模型中去。</p>
-<p>大概在 12 月的某一天，我开始尝试挑战 Registry 模式，将原本被分散注入到各个 Repository 和 Service 中的模块统统放进一个叫做 Registry 的对象中，让它作为一个单例存在。<br>我发现不但之前的功能都可以实现，我还能够在领域模型这样无法注入实例的地方调用我想要的存储库和服务。这一进展让我可以把更多和模型相关的操作放在模型的方法而不是一个单独的服务中实现，同时让我可以灵活的使用懒加载来避免不需要的远程调用，我也开始在存储库的实现中适当加入缓存来提升性能，当然这一切对于存储库的使用者来说都是不可见也不需要关心的，我想这是一个很能体现出“抽象”的魅力的地方。</p>
-<p>关于 Registry 和 DI 这些话题，其实都可以单独拿出来写一下相关的文章，不过这些东西就放在之后吧（拖延症）。</p>
-<p>虽然被人吐槽说我的 Go 代码“写得像 Java”，但我想这并不是什么坏事，因为我已经在几次迭代中切实感受到了这样做的好处，而 Java 体系本身就是一个非常成熟的企业级应用开发体系，值得我学习。</p>
-<p>我确实也做了一些反思：相较于 Java 来说，Go 语言开发有什么自己的特点吗？</p>
-<p>我的答案是函数，新出现的语言都很重视函数，Go 语言没有静态方法和构造方法，因为函数完全可以胜任这部分工作。<br>设计模式中的工厂方法在这些新语言中也没有存在的必要，因为一个用于创建对象的函数可以做到相同的事。</p>
-<p>另一个不同于 Java 的地方是函数式编程，严格来说是允许将函数作为参数传递，这使得语言的灵活性被极大增强了，但我在使用这些特性时比较克制，因为我发现乱用新特性很容易导致代码无法测试，而我在评价代码好坏时的原则之一是“无法测试的代码一定不是好代码”。</p>
-<p>说到测试，公司内并没有要求开发人员编写测试，测试部门的同事也不会使用自动化测试，这实在是一件遗憾的事，践行 TDD 一年多的时间了，如今我可以说测试用例就是我对自己代码信心的来源，如果不是这些用例支撑着我，恐怕我早就和其他人一样陷入无尽的 bug 修复工作中不能自拔了，更别提花时间去提升自己了。</p>
-<p>希望 2023 年的自己可以过得更加自由，更让自己满意吧。</p>
-<p>顺便一提写这篇文章的时候我使用的背景音乐是 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1BW4y1L7oL/">A 叔的 200 万粉丝特别企划</a> ，希望读到这里的你不要错过。</p>
+<h2 id="背景与需求"><a href="#背景与需求" class="headerlink" title="背景与需求"></a>背景与需求</h2><p>在几个项目中应用存储库模式后，我遇到了一个问题：</p>
+<p>业务系统中通常会遇到很大的聚合，一个聚合根或许会引用 3、4 个其他实体，它们被持久化到数据库的不同表中。如果每一次都要全部加载，会产生许多不必要的网络开销。</p>
+<p>为了避免无谓的数据库查询，我们可以使用按需加载的形式，仅在该属性被访问时才把它加载到主存中。</p>
+<p>然而接下来的问题是：加载数据需要使用到存储库，我该从什么地方获得存储库呢？</p>
+<p>在之前的项目中，我一直使用依赖注入的方法将存储库实例注入到每一个需要使用它的服务中，然而这回需要使用存储库的从服务变成了聚合，总不能让每个聚合对象保持一个对存储库的引用吧？</p>
+<p>使用注册表可以有效解决这个问题。</p>
+<h2 id="注册表"><a href="#注册表" class="headerlink" title="注册表"></a>注册表</h2><p>当你需要定位某一对象时，通常会从另一个与其有关联关系的对象入手，通过关联来查找目标对象。但是在某些情况下，可能并没有合适的初始对象。</p>
+<p>注册表是一个众所周知的对象，看起来就像一个全局对象，你可以通过它找到公共的对象和服务。</p>
+<h2 id="实现注册表模式"><a href="#实现注册表模式" class="headerlink" title="实现注册表模式"></a>实现注册表模式</h2><p>在 Go 语言中，我们通常不需要考虑进程级别的并发，所以在下面的案例中我会创建一个进程作用域的注册表（即其他进程无法访问的）。</p>
+<p>在创建进程作用域的对象时，通常使用 <em>单例模式</em> ，在 Go 语言中，只需要简单地写下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> registry IRegistry</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> IRegistry <span class="keyword">interface</span> &#123;</span><br><span class="line">    Repository() IRepository</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个案例中，我们的注册表接口只有一个方法，用于返回一个存储库接口 —— 关于为什么存储库需要一个单独的接口，我准备放在以后再单独写一篇文章来介绍。</p>
+<p>需要注意的是变量 <code>registry</code> 是非导出的，这意味着其他模块无法使用它，我倾向于编写一个函数用于控制对它的访问：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Registry</span><span class="params">()</span></span> IRegistry &#123;</span><br><span class="line">    <span class="keyword">return</span> registry</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由此，我们就可以在任何地方写下形似 <code>Registry().Repository().Users().Get(ctx, userID)</code> 的代码了。</p>
+<p>我们还需要一个具体实现和两个额外的函数，分别用于创建和加载注册表对象：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> registryImpl <span class="keyword">struct</span> &#123;</span><br><span class="line">    repo IRepository</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r registryImpl)</span></span> Repository() IRepository &#123;</span><br><span class="line">    <span class="keyword">return</span> r.repo</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">InitRegistry</span><span class="params">(repository IRepository)</span></span> IRegistry &#123;</span><br><span class="line">    <span class="keyword">return</span> registryImpl&#123;repository&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SetRegistry</span><span class="params">(r IRegistry)</span></span> &#123;</span><br><span class="line">    registry = r</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实际项目中，我们使用 <code>wire</code> 等依赖注入工具，配合 <code>InitRegistry()</code> 方法在程序启动时创建一个新的注册表，接着使用 <code>SetRegistry()</code> 方法设置它，之后即可在代码中的任意位置引用这个注册表，并借助它找到我们想要的一切服务（如存储库）。</p>
+<p>由于注册表可能在任何地方使用到，因此我建议将它放在系统的最下层，即领域层。</p>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p>前段时间，我将平时开发常用的代码写成了模板，其中使用到了注册表模式，仓库地址在 <a target="_blank" rel="noopener" href="https://github.com/laipz8200/gin-template">gin-template</a> ，欢迎参考。</p>
 
     </div>
 
@@ -307,7 +294,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://blog.yeningxue.com/2023/01/14/diary-2023-01-14/" title="迟来的 2022 年终总结">https://blog.yeningxue.com/2023/01/14/diary-2023-01-14/</a>
+    <a href="https://blog.yeningxue.com/2023/02/28/registry-pattern-in-golang/" title="注册表模式的 Golang 实现">https://blog.yeningxue.com/2023/02/28/registry-pattern-in-golang/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -317,6 +304,12 @@
 
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%BC%81%E4%B8%9A%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F/" rel="tag"># 企业应用架构模式</a>
+              <a href="/tags/registry-pattern/" rel="tag"># registry pattern</a>
+              <a href="/tags/%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%A8%A1%E5%BC%8F/" rel="tag"># 注册表模式</a>
+              <a href="/tags/golang/" rel="tag"># golang</a>
+          </div>
 
         
 
@@ -324,13 +317,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/07/10/create-alfred-encode-workflow/" rel="prev" title="制作一个简单的 Alfred Workflow">
-      <i class="fa fa-chevron-left"></i> 制作一个简单的 Alfred Workflow
+    <a href="/2023/01/14/diary-2023-01-14/" rel="prev" title="迟来的 2022 年终总结">
+      <i class="fa fa-chevron-left"></i> 迟来的 2022 年终总结
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2023/02/28/registry-pattern-in-golang/" rel="next" title="注册表模式的 Golang 实现">
-      注册表模式的 Golang 实现 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -396,6 +386,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E4%B8%8E%E9%9C%80%E6%B1%82"><span class="nav-number">1.</span> <span class="nav-text">背景与需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E8%A1%A8"><span class="nav-number">2.</span> <span class="nav-text">注册表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">实现注册表模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-number">4.</span> <span class="nav-text">案例</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -537,9 +528,9 @@
 
 <script>
   var disqus_config = function() {
-    this.page.url = "https://blog.yeningxue.com/2023/01/14/diary-2023-01-14/";
-    this.page.identifier = "/2023/01/14/diary-2023-01-14/";
-    this.page.title = "迟来的 2022 年终总结";
+    this.page.url = "https://blog.yeningxue.com/2023/02/28/registry-pattern-in-golang/";
+    this.page.identifier = "/2023/02/28/registry-pattern-in-golang/";
+    this.page.title = "注册表模式的 Golang 实现";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
