@@ -38,7 +38,7 @@
 <meta property="og:description" content="继上次简单写了一些关于 Event Sourcing 的内容后，感觉进入了一段情绪低迷期，决定学一些和找工作无关的东西。 实际上，绝大多数项目并不需要使用领域驱动设计，也不需要支持高并发，在这种情况下，为了节省宝贵的时间，我们可以使用一种简单且有效的模式：活动记录 (Active Record)。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-19T15:43:04.000Z">
-<meta property="article:modified_time" content="2023-02-27T17:17:16.907Z">
+<meta property="article:modified_time" content="2023-02-28T15:58:19.733Z">
 <meta property="article:author" content="-LAN-">
 <meta property="article:tag" content="ruby">
 <meta property="article:tag" content="rails">
@@ -218,7 +218,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-28 01:17:16" itemprop="dateModified" datetime="2023-02-28T01:17:16+08:00">2023-02-28</time>
+                <time title="Modified: 2023-02-28 23:58:19" itemprop="dateModified" datetime="2023-02-28T23:58:19+08:00">2023-02-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -230,7 +230,21 @@
                 </span>
             </span>
 
-          <br>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2022/05/19/simple-api-with-rails/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/2022/05/19/simple-api-with-rails/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
             <span class="post-meta-item" title="Symbols count in article">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -396,6 +410,13 @@
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -581,6 +602,37 @@
   
 
   
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://blog-yeningxue.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.yeningxue.com/2022/05/19/simple-api-with-rails/";
+    this.page.identifier = "/2022/05/19/simple-api-with-rails/";
+    this.page.title = "珍惜时间，Ruby on Rails API 开发指北";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://blog-yeningxue.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
 
 </body>
 </html>

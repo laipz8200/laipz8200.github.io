@@ -38,7 +38,7 @@
 <meta property="og:description" content="2023 年元旦至今已经过了半个月，这个略显无聊的夜晚，我突然想起了自己已经许久没有更新的博客。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-01-14T17:12:07.000Z">
-<meta property="article:modified_time" content="2023-02-27T17:17:16.907Z">
+<meta property="article:modified_time" content="2023-02-28T15:58:19.733Z">
 <meta property="article:author" content="-LAN-">
 <meta property="article:tag" content="laipz8200">
 <meta property="article:tag" content="programming">
@@ -222,7 +222,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-28 01:17:16" itemprop="dateModified" datetime="2023-02-28T01:17:16+08:00">2023-02-28</time>
+                <time title="Modified: 2023-02-28 23:58:19" itemprop="dateModified" datetime="2023-02-28T23:58:19+08:00">2023-02-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -234,7 +234,21 @@
                 </span>
             </span>
 
-          <br>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2023/01/14/diary-2023-01-14/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/2023/01/14/diary-2023-01-14/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
             <span class="post-meta-item" title="Symbols count in article">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -340,6 +354,13 @@
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -524,6 +545,37 @@
   
 
   
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://blog-yeningxue.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.yeningxue.com/2023/01/14/diary-2023-01-14/";
+    this.page.identifier = "/2023/01/14/diary-2023-01-14/";
+    this.page.title = "迟来的 2022 年终总结";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://blog-yeningxue.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
 
 </body>
 </html>

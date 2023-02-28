@@ -38,7 +38,7 @@
 <meta property="og:description" content="使用 Python 进行 web 开发时，很多人都会首先接触到 Django 这样的框架，Django ORM 提供了一种极为简单明了的与关系型数据库交互的方式。但当业务逻辑变得复杂时，关系模型和对象模型的差异总会给项目带来一些麻烦， 在这种情况下，可以使用一种叫做数据映射器 (Data Mapper) 的模式将对象模型和数据源隔离，使他们能够各自演变，这样一来，软件便可以健康地发展下去。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-07-07T14:53:32.000Z">
-<meta property="article:modified_time" content="2023-02-27T17:17:16.907Z">
+<meta property="article:modified_time" content="2023-02-28T15:58:19.733Z">
 <meta property="article:author" content="-LAN-">
 <meta property="article:tag" content="data mapper">
 <meta property="article:tag" content="数据映射器">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-28 01:17:16" itemprop="dateModified" datetime="2023-02-28T01:17:16+08:00">2023-02-28</time>
+                <time title="Modified: 2023-02-28 23:58:19" itemprop="dateModified" datetime="2023-02-28T23:58:19+08:00">2023-02-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -231,7 +231,21 @@
                 </span>
             </span>
 
-          <br>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2022/07/07/data-mapper-pattern/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/2022/07/07/data-mapper-pattern/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
             <span class="post-meta-item" title="Symbols count in article">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -370,6 +384,13 @@
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -554,6 +575,37 @@
   
 
   
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://blog-yeningxue.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.yeningxue.com/2022/07/07/data-mapper-pattern/";
+    this.page.identifier = "/2022/07/07/data-mapper-pattern/";
+    this.page.title = "数据映射器和模型-数据源分离";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://blog-yeningxue.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
 
 </body>
 </html>
