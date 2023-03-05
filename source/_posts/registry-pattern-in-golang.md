@@ -5,7 +5,7 @@ tags:
   - 注册表模式
   - golang
   - 企业应用架构模式
-category: development
+category: Programming
 date: 2023-03-01 00:41:59
 ---
 

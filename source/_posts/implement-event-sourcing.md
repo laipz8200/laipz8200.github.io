@@ -1,6 +1,6 @@
 ---
 title: 使用关系型数据库实现事件源模式
-category: development
+category: Programming
 tags: event sourcing
 date: 2022-05-16 22:35:51
 ---

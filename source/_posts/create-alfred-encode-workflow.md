@@ -1,7 +1,7 @@
 ---
 title: 制作一个简单的 Alfred Workflow
 date: 2022-07-10 19:40:05
-category: macOS
+category: Programming
 tags:
   - alfred
   - workflow
