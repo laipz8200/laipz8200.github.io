@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.yeningxue.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KH8R6XKR3D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KH8R6XKR3D');
+</script>
+
+  <meta name="description" content="在业务开发过程中，诸如Django和FastAPI等框架，常常没有充分重视模型的开发。这些框架的教程和示例代码往往将对象关系映射（ORM）模型仅仅看作与数据库交互的工具，将其仅限于在关系型数据库中表示行数据的实例。然而，这种做法并不足够。 在这些教程中，大量的业务逻辑表达被放置在视图层或控制器中，导致本应由模型来表达的逻辑分散到各个地方。初学者往往会因参照这些教程编写代码而产生重复冗余的问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模型在业务开发中的关键作用">
+<meta property="og:url" content="https://blog.yeningxue.com/2023/05/21/the-importance-of-models-in-business-development/">
+<meta property="og:site_name" content="-LAN-&#39;s Blog">
+<meta property="og:description" content="在业务开发过程中，诸如Django和FastAPI等框架，常常没有充分重视模型的开发。这些框架的教程和示例代码往往将对象关系映射（ORM）模型仅仅看作与数据库交互的工具，将其仅限于在关系型数据库中表示行数据的实例。然而，这种做法并不足够。 在这些教程中，大量的业务逻辑表达被放置在视图层或控制器中，导致本应由模型来表达的逻辑分散到各个地方。初学者往往会因参照这些教程编写代码而产生重复冗余的问题。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-21T17:28:06.000Z">
+<meta property="article:modified_time" content="2023-05-21T17:42:02.733Z">
+<meta property="article:author" content="-LAN-">
+<meta property="article:tag" content="模型">
+<meta property="article:tag" content="业务开发">
+<meta property="article:tag" content="框架">
+<meta property="article:tag" content="Django">
+<meta property="article:tag" content="FastAPI">
+<meta property="article:tag" content="代码可维护性">
+<meta property="article:tag" content="业务逻辑">
+<meta property="article:tag" content="数据验证">
+<meta property="article:tag" content="面向对象">
+<meta property="article:tag" content="可扩展性">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.yeningxue.com/2023/05/21/the-importance-of-models-in-business-development/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-cn'
+  };
+</script>
+
+  <title>模型在业务开发中的关键作用 | -LAN-'s Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KH8R6XKR3D"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-KH8R6XKR3D');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">-LAN-'s Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">24</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">7</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://blog.yeningxue.com/2023/05/21/the-importance-of-models-in-business-development/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="-LAN-">
+      <meta itemprop="description" content="my life, my stories, my thoughts">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="-LAN-'s Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          模型在业务开发中的关键作用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-05-22 01:28:06 / Modified: 01:42:02" itemprop="dateCreated datePublished" datetime="2023-05-22T01:28:06+08:00">2023-05-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/" itemprop="url" rel="index"><span itemprop="name">Programming</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>在业务开发过程中，诸如Django和FastAPI等框架，常常没有充分重视模型的开发。这些框架的教程和示例代码往往将对象关系映射（ORM）模型仅仅看作与数据库交互的工具，将其仅限于在关系型数据库中表示行数据的实例。然而，这种做法并不足够。</p>
+<p>在这些教程中，大量的业务逻辑表达被放置在视图层或控制器中，导致本应由模型来表达的逻辑分散到各个地方。初学者往往会因参照这些教程编写代码而产生重复冗余的问题。</p>
+<span id="more"></span>
+
+<h2 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h2><p>这种情况可能是因为这些框架通常强调其快速开发能力，即完成基本的CRUD（创建、读取、更新、删除）任务。这些示例代码往往不包含复杂的业务逻辑，并且使用者无需从面向对象的角度思考模型的含义。</p>
+<h2 id="模型的重要性"><a href="#模型的重要性" class="headerlink" title="模型的重要性"></a>模型的重要性</h2><p>然而，模型在业务开发中扮演着至关重要的角色。一个精心设计的模型能够更好地表达业务逻辑，并将其集中在一个地方，提高代码的可读性和可维护性。以下是模型在业务开发中的重要性：</p>
+<h3 id="逻辑集中性"><a href="#逻辑集中性" class="headerlink" title="逻辑集中性"></a>逻辑集中性</h3><p>将业务逻辑集中在模型中能够确保代码的一致性和可靠性。通过将相关逻辑封装在模型方法或属性中，可以使代码更易于理解和维护。这种模块化的设计使得修改逻辑变得更加容易，同时也降低了引入错误的风险。</p>
+<p>假设我们有一个博客应用，其中有两个模型：Post（文章）和Comment（评论）。我们希望在创建评论时自动检查评论内容是否包含敏感词汇，如果包含则不允许保存。</p>
+<p>首先，让我们看一下将业务逻辑放在视图层的情况：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># views.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render, get_object_or_404</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Post, Comment</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_comment</span>(<span class="params">request, post_id</span>):</span><br><span class="line">    post = get_object_or_404(Post, <span class="built_in">id</span>=post_id)</span><br><span class="line">    comment_text = request.POST.get(<span class="string">&#x27;comment_text&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 检查敏感词汇</span></span><br><span class="line">    sensitive_words = [<span class="string">&#x27;敏感词1&#x27;</span>, <span class="string">&#x27;敏感词2&#x27;</span>, <span class="string">&#x27;敏感词3&#x27;</span>]</span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> sensitive_words:</span><br><span class="line">        <span class="keyword">if</span> word <span class="keyword">in</span> comment_text:</span><br><span class="line">            <span class="keyword">return</span> render(request, <span class="string">&#x27;error.html&#x27;</span>, &#123;<span class="string">&#x27;message&#x27;</span>: <span class="string">&#x27;评论包含敏感词汇，无法保存。&#x27;</span>&#125;)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 创建评论</span></span><br><span class="line">    comment = Comment(post=post, text=comment_text)</span><br><span class="line">    comment.save()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">&#x27;success.html&#x27;</span>, &#123;<span class="string">&#x27;message&#x27;</span>: <span class="string">&#x27;评论已成功创建。&#x27;</span>&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上述代码将敏感词汇检查的逻辑放在视图函数create_comment中。这种方式存在一些问题：</p>
+<ul>
+<li>逻辑分散：敏感词汇检查逻辑散布在视图函数中，增加了代码的复杂度和可读性。</li>
+<li>代码重复：如果有其他视图或函数需要进行敏感词汇检查，就需要在每个视图或函数中重复编写相同的敏感词汇检查代码。这样不仅增加了维护成本，也增加了出错的风险。</li>
+</ul>
+<p>现在，让我们看看将业务逻辑集中在模型中的做法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># models.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Post</span>(models.Model):</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Comment</span>(models.Model):</span><br><span class="line">    post = models.ForeignKey(Post, on_delete=models.CASCADE)</span><br><span class="line">    text = models.TextField()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">save</span>(<span class="params">self, *args, **kwargs</span>):</span><br><span class="line">        <span class="comment"># 检查敏感词汇</span></span><br><span class="line">        sensitive_words = [<span class="string">&#x27;敏感词1&#x27;</span>, <span class="string">&#x27;敏感词2&#x27;</span>, <span class="string">&#x27;敏感词3&#x27;</span>]</span><br><span class="line">        <span class="keyword">for</span> word <span class="keyword">in</span> sensitive_words:</span><br><span class="line">            <span class="keyword">if</span> word <span class="keyword">in</span> self.text:</span><br><span class="line">                <span class="keyword">raise</span> ValueError(<span class="string">&#x27;评论包含敏感词汇，无法保存。&#x27;</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">super</span>().save(*args, **kwargs)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在上述代码中，我们将敏感词汇检查逻辑放在了Comment模型的save方法中。这样做有以下优势：</p>
+<ul>
+<li>逻辑集中：敏感词汇检查逻辑被集中在模型中，使代码更加清晰和易于理解。无论在哪个视图中创建评论，都不需要再编写敏感词汇检查的代码，避免了代码重复和逻辑分散的问题。</li>
+<li>可重用性：由于逻辑集中在模型中，任何通过模型创建评论的操作都会自动进行敏感词汇检查。这提高了代码的可重用性，无论在哪里创建评论，都会应用相同的业务规则。</li>
+</ul>
+<p>通过将业务逻辑集中在模型中，我们避免了代码重复，增强了代码的可读性和可维护性。在其他视图或函数中创建评论时，不再需要担心敏感词汇检查的逻辑，这使得代码更加简洁、一致和可靠。</p>
+<h3 id="数据验证和处理"><a href="#数据验证和处理" class="headerlink" title="数据验证和处理"></a>数据验证和处理</h3><p>模型不仅仅是用于表示数据库中的数据结构，还可以用于验证和处理输入数据。通过在模型中定义字段的规则和约束，可以确保数据的完整性和一致性。此外，模型还可以提供数据转换、格式化和清理等功能，以保证数据的质量和可用性。</p>
+<h3 id="业务规则的表达"><a href="#业务规则的表达" class="headerlink" title="业务规则的表达"></a>业务规则的表达</h3><p>模型是表达业务规则和逻辑的理想场所。通过将业务规则直接嵌入模型中，可以更清晰地传达业务需求和逻辑流程。这种明确的表达方式有助于开发者更好地理解和维护代码，并减少错误的产生。</p>
+<h3 id="可扩展性和重用性"><a href="#可扩展性和重用性" class="headerlink" title="可扩展性和重用性"></a>可扩展性和重用性</h3><p>合理设计的模型具有良好的可扩展性和重用性。通过将通用的功能和行为封装在模型中，可以避免代码的重复编写，并使代码更易于扩展和维护。模型可以作为业务逻辑的基础构建块，为未来的功能扩展和变化提供灵活性和可持续性。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>在业务开发中，模型的重要性不容忽视。充分利用模型的设计和功能，可以提高代码的质量、可读性和可维护性。通过集中业务逻辑、数据验证和处理以及明确的业务规则表达，模型成为开发过程中不可或缺的组成部分。因此，开发者应该从面向对象的角度思考模型的设计，并合理运用模型在业务开发中的价值。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>-LAN-
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://blog.yeningxue.com/2023/05/21/the-importance-of-models-in-business-development/" title="模型在业务开发中的关键作用">https://blog.yeningxue.com/2023/05/21/the-importance-of-models-in-business-development/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%A8%A1%E5%9E%8B/" rel="tag"># 模型</a>
+              <a href="/tags/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91/" rel="tag"># 业务开发</a>
+              <a href="/tags/%E6%A1%86%E6%9E%B6/" rel="tag"># 框架</a>
+              <a href="/tags/Django/" rel="tag"># Django</a>
+              <a href="/tags/FastAPI/" rel="tag"># FastAPI</a>
+              <a href="/tags/%E4%BB%A3%E7%A0%81%E5%8F%AF%E7%BB%B4%E6%8A%A4%E6%80%A7/" rel="tag"># 代码可维护性</a>
+              <a href="/tags/%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91/" rel="tag"># 业务逻辑</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81/" rel="tag"># 数据验证</a>
+              <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag"># 面向对象</a>
+              <a href="/tags/%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7/" rel="tag"># 可扩展性</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/02/28/registry-pattern-in-golang/" rel="prev" title="注册表模式的 Golang 实现">
+      <i class="fa fa-chevron-left"></i> 注册表模式的 Golang 实现
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">问题背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">模型的重要性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E9%9B%86%E4%B8%AD%E6%80%A7"><span class="nav-number">2.1.</span> <span class="nav-text">逻辑集中性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81%E5%92%8C%E5%A4%84%E7%90%86"><span class="nav-number">2.2.</span> <span class="nav-text">数据验证和处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%9A%E5%8A%A1%E8%A7%84%E5%88%99%E7%9A%84%E8%A1%A8%E8%BE%BE"><span class="nav-number">2.3.</span> <span class="nav-text">业务规则的表达</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7%E5%92%8C%E9%87%8D%E7%94%A8%E6%80%A7"><span class="nav-number">2.4.</span> <span class="nav-text">可扩展性和重用性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">3.</span> <span class="nav-text">结论</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="-LAN-"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">-LAN-</p>
+  <div class="site-description" itemprop="description">my life, my stories, my thoughts</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/laipz8200" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;laipz8200" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:laipz8200@outlook.com" title="E-Mail → mailto:laipz8200@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/laipz8200" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;laipz8200" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">-LAN-</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">25k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">23 mins.</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.yeningxue.com/2023/05/21/the-importance-of-models-in-business-development/";
+    this.page.identifier = "/2023/05/21/the-importance-of-models-in-business-development/";
+    this.page.title = "模型在业务开发中的关键作用";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://blog-yeningxue.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
