@@ -60,7 +60,7 @@ require 'base64'
 b64 = Base64.encode64(query)
 
 results = {items: [
-	{ title: b64, subtitle: 'base64', arg: b64 }
+  { title: b64, subtitle: 'base64', arg: b64 }
 ]}
 print results.to_json
 ```

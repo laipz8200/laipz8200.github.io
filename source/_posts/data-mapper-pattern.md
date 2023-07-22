@@ -182,7 +182,7 @@ cursor.close()
 
 得到的结果是:
 
-```
+```sql
 --------------------
 CREATE TABLE IF NOT EXISTS users(
     id         TEXT PRIMARY KEY,
@@ -246,7 +246,7 @@ print(user)
 
 结果:
 
-```
+```sql
 --------------------
 CREATE TABLE IF NOT EXISTS users(
     id         TEXT PRIMARY KEY,

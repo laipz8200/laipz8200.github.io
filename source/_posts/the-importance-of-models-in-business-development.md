@@ -4,13 +4,9 @@ tags:
   - 模型
   - 业务开发
   - 框架
-  - Django
-  - FastAPI
-  - 代码可维护性
   - 业务逻辑
   - 数据验证
   - 面向对象
-  - 可扩展性
 category: Programming
 date: 2023-05-22 01:28:06
 ---

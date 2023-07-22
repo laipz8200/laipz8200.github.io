@@ -26,7 +26,7 @@ date: 2022-05-19 23:43:04
 
 它可能长这个样子：
 
-```
+```yaml
 - root node
     - child node 1
     - child node 2

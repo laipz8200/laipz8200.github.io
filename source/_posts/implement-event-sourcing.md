@@ -101,7 +101,6 @@ INSERT INTO events(stream_id, version, data)
 注意以上操作中的第 3 步，消息发送后，删除操作依然有可能失败，此时，同一事件可能被多次发送到消息队列中。
 不过问题不大，由于事件存在版本，消费者可以轻松找出不需要处理的事件并丢弃它们。
 
-
 ## 参考链接
 
 [Implementing event sourcing using a relational database](https://softwaremill.com/implementing-event-sourcing-using-a-relational-database/)
