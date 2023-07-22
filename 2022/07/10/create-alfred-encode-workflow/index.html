@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://blog.yeningxue.com/2022/07/10/create-alfred-encode-workflow/workflow.png">
 <meta property="og:image" content="https://blog.yeningxue.com/2022/07/10/create-alfred-encode-workflow/encode.png">
 <meta property="article:published_time" content="2022-07-10T11:40:05.000Z">
-<meta property="article:modified_time" content="2023-06-23T17:39:01.016Z">
+<meta property="article:modified_time" content="2023-07-22T05:12:54.235Z">
 <meta property="article:author" content="-LAN-">
 <meta property="article:tag" content="alfred">
 <meta property="article:tag" content="workflow">
@@ -150,7 +150,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">24</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">25</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -160,7 +160,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">7</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">8</span></a>
 
   </li>
   </ul>
@@ -222,7 +222,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-06-24 01:39:01" itemprop="dateModified" datetime="2023-06-24T01:39:01+08:00">2023-06-24</time>
+                <time title="Modified: 2023-07-22 13:12:54" itemprop="dateModified" datetime="2023-07-22T13:12:54+08:00">2023-07-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -281,7 +281,7 @@
 </ul>
 <p>将以上内容的列表作为 <code>items</code> 的值输出即可让它们显示在 Alfred 的结果中了。</p>
 <p>考虑到我暂时只需要 base64 编码和解码的功能，我选择最简单的 Ruby 实现:</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">query = <span class="variable constant_">ARGV</span>[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;json&#x27;</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;base64&#x27;</span></span><br><span class="line"></span><br><span class="line">b64 = <span class="title class_">Base64</span>.encode64(query)</span><br><span class="line"></span><br><span class="line">results = &#123;<span class="symbol">items:</span> [</span><br><span class="line">	&#123; <span class="symbol">title:</span> b64, <span class="symbol">subtitle:</span> <span class="string">&#x27;base64&#x27;</span>, <span class="symbol">arg:</span> b64 &#125;</span><br><span class="line">]&#125;</span><br><span class="line">print results.to_json</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">query = <span class="variable constant_">ARGV</span>[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;json&#x27;</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;base64&#x27;</span></span><br><span class="line"></span><br><span class="line">b64 = <span class="title class_">Base64</span>.encode64(query)</span><br><span class="line"></span><br><span class="line">results = &#123;<span class="symbol">items:</span> [</span><br><span class="line">  &#123; <span class="symbol">title:</span> b64, <span class="symbol">subtitle:</span> <span class="string">&#x27;base64&#x27;</span>, <span class="symbol">arg:</span> b64 &#125;</span><br><span class="line">]&#125;</span><br><span class="line">print results.to_json</span><br></pre></td></tr></table></figure>
 
 <p>解码同理，使用 <code>Base64.decode64</code> 即可。</p>
 <h2 id="Output-copy-to-clipboard"><a href="#Output-copy-to-clipboard" class="headerlink" title="Output: copy to clipboard"></a>Output: copy to clipboard</h2><p>实现功能后，我们需要考虑如何使用结果，最简单的方法当然是将结果复制下来。</p>
@@ -414,7 +414,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -427,7 +427,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -477,12 +477,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">25k</span>
+    <span title="Symbols count total">28k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">23 mins.</span>
+    <span title="Reading time total">26 mins.</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
   </div>

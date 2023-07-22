@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.yeningxue.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KH8R6XKR3D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KH8R6XKR3D');
+</script>
+
+  <meta name="description" content="这是一个稍微有些复杂的话题，我计划分多篇来记录。 第一篇的内容包括：领域事件的定义、重要性、如何识别、命名和维护。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="领域事件的实践（1&#x2F;n）">
+<meta property="og:url" content="https://blog.yeningxue.com/2023/07/22/domain-event-1/">
+<meta property="og:site_name" content="-LAN-&#39;s Blog">
+<meta property="og:description" content="这是一个稍微有些复杂的话题，我计划分多篇来记录。 第一篇的内容包括：领域事件的定义、重要性、如何识别、命名和维护。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-07-22T04:57:26.000Z">
+<meta property="article:modified_time" content="2023-07-22T05:12:54.239Z">
+<meta property="article:author" content="-LAN-">
+<meta property="article:tag" content="domain event">
+<meta property="article:tag" content="领域事件">
+<meta property="article:tag" content="领域驱动设计">
+<meta property="article:tag" content="微服务">
+<meta property="article:tag" content="protocol buffer">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.yeningxue.com/2023/07/22/domain-event-1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-cn'
+  };
+</script>
+
+  <title>领域事件的实践（1/n） | -LAN-'s Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KH8R6XKR3D"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-KH8R6XKR3D');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">-LAN-'s Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">25</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">8</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://blog.yeningxue.com/2023/07/22/domain-event-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="-LAN-">
+      <meta itemprop="description" content="my life, my stories, my thoughts">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="-LAN-'s Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          领域事件的实践（1/n）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-07-22 12:57:26 / Modified: 13:12:54" itemprop="dateCreated datePublished" datetime="2023-07-22T12:57:26+08:00">2023-07-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/" itemprop="url" rel="index"><span itemprop="name">Programming</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>3.4k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>3 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>这是一个稍微有些复杂的话题，我计划分多篇来记录。</p>
+<p>第一篇的内容包括：领域事件的定义、重要性、如何识别、命名和维护。</p>
+<span id="more"></span>
+
+<hr>
+<p>领域事件（Domain Event）是领域驱动设计（Domain-Driven Design，DDD）中的一个概念，用于表示系统领域中的重要变化。有时是一些状态的改变，有时是对象之间的交互，还可能是其他领域中的重要行为。比如，我们有新用户的加入，有用户的改名，还有商品的售出，这些都可以看作是事件。</p>
+<h2 id="领域事件的作用"><a href="#领域事件的作用" class="headerlink" title="领域事件的作用"></a>领域事件的作用</h2><p>领域事件有着许多能力：</p>
+<ol>
+<li>解耦业务逻辑：领域事件可以将领域模型中的各个对象解耦，避免产生过多的依赖关系。领域对象通过发布领域事件来通知其他领域对象发生了某个重要的业务行为，而不需要直接调用其他对象的方法。</li>
+<li>异步处理：领域事件有利于实施异步处理，优化系统的性能和响应速度。发布一个领域事件后，它可以被放入消息队列中，然后由其他进程或者线程来完成后续的处理，从而提高系统的并发处理能力。</li>
+<li>提升系统灵活性：领域事件能提升系统的灵活性。通过订阅和处理领域事件，我们可以在不改变已有系统结构的基础上，引入新的业务逻辑或者功能。出现新的需求或者业务场景时，只需增加新的领域事件的订阅和处理逻辑，而不需要修改已有的代码。</li>
+<li>保持一致性：领域事件的发布和处理可以保持系统中的数据一致性（通常是最终一致性）。当一个领域事件被发布时，相应的业务处理逻辑可以一起执行，从而保证了数据的一致性和完整性。</li>
+</ol>
+<p>领域事件在DDD中具有重要的意义，能够提供解耦、异步处理、灵活性和数据一致性等超强优势，帮助我们构建高内聚、低耦合的领域模型。</p>
+<h2 id="领域事件的识别和命名"><a href="#领域事件的识别和命名" class="headerlink" title="领域事件的识别和命名"></a>领域事件的识别和命名</h2><h3 id="事件的识别"><a href="#事件的识别" class="headerlink" title="事件的识别"></a>事件的识别</h3><p>在DDD的设计过程中，识别领域事件是一门神秘的学问，它可以帮助我们发现、捕捉和处理用户需求或系统行为中的重要事件。以下是几种识别领域事件的方法：</p>
+<ol>
+<li>观察用户行为：观察用户在业务场景中的实际操作、反馈和需求变化，识别可能的领域事件。例如，用户下订单、支付、取消订单等。</li>
+<li>收集业务规则：深入了解业务领域的相关规则，包括业务流程、约束条件、业务规定等，从中找出可能发生的事件。例如，交易超时、库存不足等。</li>
+<li>分析业务过程：分析业务场景中的主要流程，确定哪些环节会触发事件。例如，用户注册、审核通过等。</li>
+<li>制定领域模型：领域模型是描述业务领域概念和交互关系的地图，通过它我们可以识别事件。在地图上标识出领域对象之间的关系，我们就能发现可能与这些对象相关的事件。</li>
+</ol>
+<h3 id="事件的命名"><a href="#事件的命名" class="headerlink" title="事件的命名"></a>事件的命名</h3><p>为DDD中的领域事件命名时，请参考以下方法：</p>
+<ol>
+<li>采用名词+动词过去分词的命名规则：事件名称应该由一个名词和一个动词的过去分词组成，以突出事件所表示的对象和完成的动作。例如，“用户注册(UserRegistered)”、“订单取消(OrderCanceled)”等。</li>
+<li>使用一致的命名约定：在项目中应该有一套一致的命名约定，这样不同事件就有相似的名称结构，便于开发人员和团队成员之间的交流和协作。</li>
+<li>借鉴业务领域的术语：事件名称应该借鉴业务领域的相关术语，以便更好地反映业务逻辑和业务流程。这样可以提高团队沟通的准确性和效率。</li>
+</ol>
+<blockquote>
+<p>一个发布事件的案例：修改用户名</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入事件发布相关的库（这里使用简单的print语句来模拟事件发布）</span></span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, user_id, name</span>):</span><br><span class="line">        self.user_id = user_id</span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">change_name</span>(<span class="params">self, new_name</span>):</span><br><span class="line">        <span class="comment"># 在修改名字前先保存旧的名字</span></span><br><span class="line">        old_name = self.name</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 更新名字</span></span><br><span class="line">        self.name = new_name</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 发布用户改名事件</span></span><br><span class="line">        event_data = &#123;</span><br><span class="line">            <span class="string">&quot;user_id&quot;</span>: self.user_id,</span><br><span class="line">            <span class="string">&quot;old_name&quot;</span>: old_name,</span><br><span class="line">            <span class="string">&quot;new_name&quot;</span>: new_name,</span><br><span class="line">            <span class="string">&quot;timestamp&quot;</span>: datetime.now()</span><br><span class="line">        &#125;</span><br><span class="line">        self.publish_event(<span class="string">&quot;UserChangedName&quot;</span>, event_data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">publish_event</span>(<span class="params">self, event_name, event_data</span>):</span><br><span class="line">        <span class="comment"># 这里简单地打印出事件信息，实际应用中需要使用消息队列或事件总线来进行事件的发布</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;事件名称: <span class="subst">&#123;event_name&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;事件数据: <span class="subst">&#123;event_data&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;事件发布成功！&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个用户</span></span><br><span class="line">user = User(user_id=<span class="number">1</span>, name=<span class="string">&quot;Alice&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改用户的名字并发布事件</span></span><br><span class="line">user.change_name(<span class="string">&quot;Alicia&quot;</span>)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="将幂等的事件和非幂等的事件区分开"><a href="#将幂等的事件和非幂等的事件区分开" class="headerlink" title="将幂等的事件和非幂等的事件区分开"></a>将幂等的事件和非幂等的事件区分开</h3><p>将幂等的事件和非幂等的事件区分开是至关重要的。幂等的事件可以重复消费，不会对数据产生重大影响。这意味着即使出现故障或重复调用，系统也能保持一致性。而非幂等的事件可能会引起数据不一致或重复操作，这样可能导致应用程序在处理故障或重复请求时产生错误。</p>
+<p>举例来说，订单系统中取消订单的操作，无论被执行多少次，订单最终都会被成功取消，这就是一个幂等的领域事件（前提是不涉及退款）。在处理这种事件时，可以通过在订单表中添加一个取消状态字段，多次执行取消操作时，只需将该字段置为已取消即可。</p>
+<p>而库存系统中减少库存的操作，每次执行该操作库存都会减少相应的数量。这是一个非幂等的领域事件。在处理这种事件时，需要像防止黑魔法一样避免多次执行操作导致库存减少超出预期。可以通过在操作前进行判断来避免多次操作导致库存减少异常，具体来说，通常需要保存已消费的消息ID并在每次消费时判断该消息是否被消费过。</p>
+<h2 id="领域事件的模型和数据传递"><a href="#领域事件的模型和数据传递" class="headerlink" title="领域事件的模型和数据传递"></a>领域事件的模型和数据传递</h2><p>由于事件需要在多个系统间传递，保持事件定义的一致是非常重要的。理论上说，只要维护好文档就可以做到这一点，但有一些工具可以帮助我们更好地完成这个任务。</p>
+<p>过去一些项目中我尝试过使用Google的Protocol Buffer进行事件的定义和维护，它是一种语言无关、平台无关、可扩展的序列化机制。使用Protocol Buffer，我们可以定义事件的消息结构，在不同的系统之间进行传递和解析，而不用担心语言和平台的差异。</p>
+<p>在使用Protocol Buffer时，我们首先需要定义事件的消息格式，这可以通过编写一个.proto文件来完成。在.proto文件中，我们可以定义消息的字段以及其对应的类型。例如，一个事件消息可以包含事件的名称、时间戳、和一些附加的数据字段。定义好消息格式后，我们可以使用Protocol Buffers的编译器将.proto文件编译成对应的源代码文件，其中包含了消息定义的类或结构体。</p>
+<p>在应用程序中，我们可以使用生成的源代码文件来创建和操作事件消息。通过使用Protocol Buffers提供的API，我们可以方便地设置和获取消息的字段值，并将消息序列化成字节流进行传输。在接收端，我们可以将接收到的字节流反序列化成消息对象，以便于对事件进行处理。</p>
+<p>使用Protocol Buffer的好处之一是它对于消息的改变是向后兼容的。也就是说，如果我们需要在原有的消息中添加新的字段或者调整字段的顺序，旧版本的代码仍然可以正确地处理新的消息格式。这给我们带来了很大的灵活性，可以在不同的时间点和系统间进行事件结构的演进。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我们探索了领域事件在领域驱动设计中的重要作用。领域事件不仅可以解耦业务逻辑，优化系统性能，提升系统灵活性，还能保持数据一致性。通过观察用户行为、收集业务规则、分析业务过程以及制定领域模型，我们学会了如何识别和命名领域事件。而将幂等的事件和非幂等的事件区分开也是至关重要的。为了在多个系统间传递事件并保持一致，我们还学习了使用Google的Protocol Buffer等工具。</p>
+<p>随着更多内容的揭开，我们将继续探索领域事件的更多魅力和实践。在未来的篇章中，我们将进一步深入，探讨如何在现实项目中应用领域事件，以及如何发挥它们的真正潜力。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>-LAN-
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://blog.yeningxue.com/2023/07/22/domain-event-1/" title="领域事件的实践（1&#x2F;n）">https://blog.yeningxue.com/2023/07/22/domain-event-1/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/domain-event/" rel="tag"># domain event</a>
+              <a href="/tags/%E9%A2%86%E5%9F%9F%E4%BA%8B%E4%BB%B6/" rel="tag"># 领域事件</a>
+              <a href="/tags/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/" rel="tag"># 领域驱动设计</a>
+              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag"># 微服务</a>
+              <a href="/tags/protocol-buffer/" rel="tag"># protocol buffer</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/05/21/the-importance-of-models-in-business-development/" rel="prev" title="模型在业务开发中的关键作用">
+      <i class="fa fa-chevron-left"></i> 模型在业务开发中的关键作用
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%86%E5%9F%9F%E4%BA%8B%E4%BB%B6%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">领域事件的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%86%E5%9F%9F%E4%BA%8B%E4%BB%B6%E7%9A%84%E8%AF%86%E5%88%AB%E5%92%8C%E5%91%BD%E5%90%8D"><span class="nav-number">2.</span> <span class="nav-text">领域事件的识别和命名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E7%9A%84%E8%AF%86%E5%88%AB"><span class="nav-number">2.1.</span> <span class="nav-text">事件的识别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E7%9A%84%E5%91%BD%E5%90%8D"><span class="nav-number">2.2.</span> <span class="nav-text">事件的命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E5%B9%82%E7%AD%89%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%92%8C%E9%9D%9E%E5%B9%82%E7%AD%89%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%8C%BA%E5%88%86%E5%BC%80"><span class="nav-number">2.3.</span> <span class="nav-text">将幂等的事件和非幂等的事件区分开</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%86%E5%9F%9F%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%A8%A1%E5%9E%8B%E5%92%8C%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92"><span class="nav-number">3.</span> <span class="nav-text">领域事件的模型和数据传递</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="-LAN-"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">-LAN-</p>
+  <div class="site-description" itemprop="description">my life, my stories, my thoughts</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/laipz8200" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;laipz8200" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:laipz8200@outlook.com" title="E-Mail → mailto:laipz8200@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/laipz8200" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;laipz8200" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">-LAN-</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">28k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">26 mins.</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.yeningxue.com/2023/07/22/domain-event-1/";
+    this.page.identifier = "/2023/07/22/domain-event-1/";
+    this.page.title = "领域事件的实践（1/n）";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://blog-yeningxue.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
