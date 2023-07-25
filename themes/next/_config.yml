@@ -192,13 +192,14 @@ social_icons:
 # Blog rolls
 links_settings:
   icon: fa fa-link
-  title: Links
+  title: 友情链接
   # Available values: block | inline
   layout: block
 
 links:
   #Title: http://yoursite.com
   Pantheon: https://blog.pantheon.press
+  TED.DING: https://tedding.dev
 
 # Table of Contents in the Sidebar
 # Front-matter variable (unsupport wrap expand_all).
