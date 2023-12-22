@@ -30,20 +30,20 @@
   gtag('config', 'G-KH8R6XKR3D');
 </script>
 
-  <meta name="description" content="关系型数据库是日常开发中最常用的数据库类型，本文记载使用关系型数据库实现事件源模式的要点和一些问题。 要阅读本篇文章，你可能需要先自行了解关系型数据库、事件源模式和领域驱动设计相关知识。">
+  <meta name="description" content="一个多月前，为了规范我们组的开发流程，我为组员们安排了一套新的工作方式，借助 GitLab 的一些功能来帮助开发更可靠的软件。其中就包括 GitLab CI，然而随着测试用例的增多，运行一次 Pipeline 的时间从最初的不到 1 分钟增加到了需要 3 分钟以上，已经开始反过来影响开发的速度了。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用关系型数据库实现事件源模式">
-<meta property="og:url" content="https://blog.yeningxue.com/2022/05/16/implement-event-sourcing/">
+<meta property="og:title" content="在 GitLab CI 中配置 pip 缓存">
+<meta property="og:url" content="https://blog.yeningxue.com/2023/12/22/config-pip-cache-in-gitlab-ci/">
 <meta property="og:site_name" content="-LAN-&#39;s Blog">
-<meta property="og:description" content="关系型数据库是日常开发中最常用的数据库类型，本文记载使用关系型数据库实现事件源模式的要点和一些问题。 要阅读本篇文章，你可能需要先自行了解关系型数据库、事件源模式和领域驱动设计相关知识。">
+<meta property="og:description" content="一个多月前，为了规范我们组的开发流程，我为组员们安排了一套新的工作方式，借助 GitLab 的一些功能来帮助开发更可靠的软件。其中就包括 GitLab CI，然而随着测试用例的增多，运行一次 Pipeline 的时间从最初的不到 1 分钟增加到了需要 3 分钟以上，已经开始反过来影响开发的速度了。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-16T14:35:51.000Z">
-<meta property="article:modified_time" content="2023-12-22T13:00:07.861Z">
+<meta property="article:published_time" content="2023-12-22T13:00:07.857Z">
+<meta property="article:modified_time" content="2023-12-22T13:00:07.857Z">
 <meta property="article:author" content="-LAN-">
-<meta property="article:tag" content="event sourcing">
+<meta property="article:tag" content="ci">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://blog.yeningxue.com/2022/05/16/implement-event-sourcing/">
+<link rel="canonical" href="https://blog.yeningxue.com/2023/12/22/config-pip-cache-in-gitlab-ci/">
 
 
 <script id="page-configurations">
@@ -56,7 +56,7 @@
   };
 </script>
 
-  <title>使用关系型数据库实现事件源模式 | -LAN-'s Blog</title>
+  <title>在 GitLab CI 中配置 pip 缓存 | -LAN-'s Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KH8R6XKR3D"></script>
     <script>
@@ -186,7 +186,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="https://blog.yeningxue.com/2022/05/16/implement-event-sourcing/">
+    <link itemprop="mainEntityOfPage" href="https://blog.yeningxue.com/2023/12/22/config-pip-cache-in-gitlab-ci/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -199,7 +199,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          使用关系型数据库实现事件源模式
+          在 GitLab CI 中配置 pip 缓存
         </h1>
 
         <div class="post-meta">
@@ -209,22 +209,15 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2022-05-16 22:35:51" itemprop="dateCreated datePublished" datetime="2022-05-16T22:35:51+08:00">2022-05-16</time>
+              <time title="Created: 2023-12-22 21:00:07" itemprop="dateCreated datePublished" datetime="2023-12-22T21:00:07+08:00">2023-12-22</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-22 21:00:07" itemprop="dateModified" datetime="2023-12-22T21:00:07+08:00">2023-12-22</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Programming/" itemprop="url" rel="index"><span itemprop="name">Programming</span></a>
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">programming</span></a>
                 </span>
             </span>
 
@@ -234,14 +227,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>2k</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>2 mins.</span>
+              <span>1 mins.</span>
             </span>
 
         </div>
@@ -254,58 +247,25 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
-<p>关系型数据库是日常开发中最常用的数据库类型，本文记载使用关系型数据库实现事件源模式的要点和一些问题。</p>
-<p>要阅读本篇文章，你可能需要先自行了解关系型数据库、事件源模式和领域驱动设计相关知识。</p>
+<p>一个多月前，为了规范我们组的开发流程，我为组员们安排了一套新的工作方式，借助 GitLab 的一些功能来帮助开发更可靠的软件。其中就包括 GitLab CI，然而随着测试用例的增多，运行一次 Pipeline 的时间从最初的不到 1 分钟增加到了需要 3 分钟以上，已经开始反过来影响开发的速度了。</p>
 </blockquote>
 <span id="more"></span>
 
-<h2 id="事件存储"><a href="#事件存储" class="headerlink" title="事件存储"></a>事件存储</h2><p>首先考虑事件的存储，实际上只需要四个字段， DDL 如下（以 PostgreSQL 为例）：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> events</span><br><span class="line">(</span><br><span class="line">    id        SERIAL      <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">    stream_id <span class="type">VARCHAR</span>(<span class="number">50</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    version   <span class="type">BIGINT</span>      <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    data      TEXT        <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    <span class="keyword">UNIQUE</span> (stream_id, version)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>究其原因，我在最初配置 GitLab CI 的时候并没有使用缓存，而我们的项目依赖不断增加，再加上偶尔的网络波动，使得依赖的安装时间成为一个不可忽视的问题。</p>
+<p>为了拯救组员们的开发体验，我花了大概半天时间阅读手册，并解决了之前没有处理的一些问题。</p>
+<h2 id="为-Python-依赖项设置缓存"><a href="#为-Python-依赖项设置缓存" class="headerlink" title="为 Python 依赖项设置缓存"></a>为 Python 依赖项设置缓存</h2><p>我们的 GitLab runner 运行在 Docker 环境下，在没有专门配置的情况下，它默认使用 Docker volume 处理缓存，默认的缓存目录为 <code>/cache</code>。</p>
+<p>Volume 的名称很复杂，但是可以看到其中包含了 Project ID，根据手册中的说法，不同的项目之间是不可以共享缓存的。</p>
+<p>（我想这里应该有截图，可我忘记了，感兴趣的读者可以在自己运行 Runner 的机器上执行 <code>docker volume ls</code> 看看）</p>
+<p>对于 Python 的依赖，手册中专门提到了推荐的做法——共享 pip 的缓存目录。配置如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">default:</span></span><br><span class="line">  <span class="attr">image:</span> <span class="string">python:3.11</span></span><br><span class="line">  <span class="attr">cache:</span></span><br><span class="line">    <span class="attr">paths:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">.cache/pip</span></span><br><span class="line">  <span class="attr">before_script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">python</span> <span class="string">-m</span> <span class="string">venv</span> <span class="string">.venv</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">source</span> <span class="string">.venv/bin/activate</span></span><br><span class="line"></span><br><span class="line"><span class="attr">variables:</span></span><br><span class="line">  <span class="attr">PIP_CACHE_DIR:</span> <span class="string">&quot;$CI_PROJECT_DIR/.cache/pip&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># your stage and job configurations...</span></span><br></pre></td></tr></table></figure>
 
-<p>其中， <code>stream_id</code> 是实体或聚合的唯一标识，也可以把这个字段叫做 <code>name</code> 或者其他你喜欢的名字， <code>version</code> 是事件的版本，由于事件是只追加的，版本会不断增加，并且对于同一个实体或聚合来说，版本号不会有重复。</p>
-<p><code>id</code> 是事件的标识符，由数据库生成即可。</p>
-<p>使用这种简单的结构，我们已经可以实现两种事件源模式需要的功能了。首先是获取事件流：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> id, stream_id, version, data <span class="keyword">FROM</span> events</span><br><span class="line">    <span class="keyword">WHERE</span> stream_id <span class="operator">=</span> :stream_id <span class="keyword">ORDER</span> <span class="keyword">BY</span> version <span class="keyword">ASC</span>;</span><br></pre></td></tr></table></figure>
+<p>我们并没有将下载好的依赖直接保存，而是利用了 pip 本身的缓存，当安装相同的依赖时，pip 缓存会被命中，避免重复进行下载。当项目的依赖发生变化时，我们也不需要自己去处理缓存。</p>
+<h2 id="减少无用的任务"><a href="#减少无用的任务" class="headerlink" title="减少无用的任务"></a>减少无用的任务</h2><p>引入 CI 过去了一个多月，我发现了一些明显的资源浪费：有一些组员习惯于多次将代码提交到自己的分支上，最后再进行合并，在这种情况下，我们并不需要再每一次提交之后都运行 Pipeline。</p>
+<p>根据手册，可以通过以下设置将 Pipeline 的执行条件限定到每一个 Merge Request：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">my_job:</span></span><br><span class="line">  <span class="attr">stage:</span> <span class="string">test</span></span><br><span class="line">  <span class="attr">script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">pytest</span> <span class="string">--cov=datashop</span> <span class="string">--cov-report</span> <span class="string">term-missing</span> <span class="string">tests/</span></span><br><span class="line">  <span class="attr">only:</span> [<span class="string">merge_requests</span>]</span><br></pre></td></tr></table></figure>
 
-<p>根据有序的事件流，我们可以重建出一个实体或聚合的最新状态，这是事件源模式的关键功能。</p>
-<p>第二项功能是记录事件，使用：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> events(stream_id, version, data)</span><br><span class="line">    <span class="keyword">VALUES</span>(:stream_id, :<span class="keyword">current</span><span class="operator">+</span><span class="number">1</span>, :data);</span><br></pre></td></tr></table></figure>
+<p>这样，只有当有 Merge Request 创建或更新时，Pipeline 才会被执行。</p>
 
-<p>需要注意的是，这里的 <code>current+1</code> 仅仅表示插入数据时应该让版本增加 1，而不是可以直接在 SQL 语句中这样写。<br>考虑到主流关系型数据库的默认隔离级别，这种写法会产生一些并发问题。（对于 PostgreSQL ，可以指定隔离级别为 <em>Repeatable Read</em> ）</p>
-<h2 id="投影-PROJECTION"><a href="#投影-PROJECTION" class="headerlink" title="投影 (PROJECTION)"></a>投影 (PROJECTION)</h2><p>事件源模式的另一个问题是无法像传统表结构那样进行过滤，我们使用投影来解决这个问题。</p>
-<p>投影是通过提前聚合事件形成的一种视图，我们既可以同步更新投影，也可以异步更新投影。在异步更新时，系统将获得更高的性能，但会存在一定延迟，这时的系统实现的是 <em>最终一致性</em> 。</p>
-<p>实现最终一致性并不是一件容易的事，在关系型数据库中，为了简单，我们可以先同步更新投影，这种情况下应该利用关系库的一致性保证，即使用 <strong>事务</strong>。</p>
-<p>每个事务中我们做两件事：</p>
-<ul>
-<li>插入新的事件</li>
-<li>更新投影</li>
-</ul>
-<p>因为事件存储是整个系统的唯一数据源，所以投影可以被轻易放弃、调整结构，只需要重放所有事件即可生成新的投影用来适配客户端的查询需求。</p>
-<h2 id="快照-SNAPSHOT"><a href="#快照-SNAPSHOT" class="headerlink" title="快照 (SNAPSHOT)"></a>快照 (SNAPSHOT)</h2><p>快照解决事件源模式中的另一个问题：当事件数量不断增加时，重建一个实体或聚合的成本也会不断增加。</p>
-<p>可以将快照视为一种特殊的投影，与投影相比，快照最大的不同点是它需要保存版本信息，这样我们就可以在重建时先查询快照，然后仅将快照对应版本之后发生的事件应用在实体或聚合上。</p>
-<p>和投影一样，使用关系库时，我们可以在同一个事务中更新快照，不过快照并不需要频繁更新，通常每 50-100 个版本更新一次即可<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[实现领域驱动设计](https://book.douban.com/subject/25844633/)
-">[1]</span></a></sup>。</p>
-<h2 id="滚动升级"><a href="#滚动升级" class="headerlink" title="滚动升级"></a>滚动升级</h2><p>引入快照和投影之后，我们失去了一些灵活性，其中很重要的一点就是要如何修改投影和快照的结构。</p>
-<p>当条件允许时，最简单的方式是停止服务，删除旧的投影和快照表，然后重放事件并生成一份新的表。然而生产服务并不会允许我们这样做，因此当需要升级时，我们应该考虑以下步骤：</p>
-<ol>
-<li>创建新的投影和快照表。</li>
-<li>修改程序，当新的事件写入时，旧表和新表都应该被更新，当然，只有当实体已经存在于新表中时，它才会被更新。</li>
-<li>如果有新的实体或聚合被创建，它会同时被保存到两个表中。</li>
-<li>最后，我们重放所有已有的事件，并将它们聚合后的结果写入新表中。</li>
-<li>当以上步骤完成，新旧两个版本的数据会同步更新，此时我们可以删除旧表和相关逻辑。</li>
-</ol>
-<h2 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h2><p>最后，让我们考虑一下性能问题。当系统成长到一定规模时，我们会很自然地想到采用异步更新投影的方式来改善性能，事件源模式最终通常会引入消息队列（甚至是 Kafka ）。</p>
-<p>然而在关系库和消息队列之间并没有一种方式可以维持一致性，无论在数据库事务的哪个阶段发送消息，都可能产生一些副作用。</p>
-<p>由于使用不同组件，我们没有方法可以彻底消除副作用，但可以通过一些手段来实现最终一致性：</p>
-<ol>
-<li>创建一张队列 (queue) 表 ，用来存放新生成的事件。</li>
-<li>当有新的事件生成时，同时写入事件存储和队列。</li>
-<li>使用一个 <strong>单线程的</strong> 程序轮询队列，分批取出其中的事件并发送到消息队列，然后从队列中删除这些事件。</li>
-<li>创建事件监听器，从消息队列中获取事件并更新投影和快照。</li>
-</ol>
-<p>注意以上操作中的第 3 步，消息发送后，删除操作依然有可能失败，此时，同一事件可能被多次发送到消息队列中。<br>不过问题不大，由于事件存在版本，消费者可以轻松找出不需要处理的事件并丢弃它们。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://softwaremill.com/implementing-event-sourcing-using-a-relational-database/">Implementing event sourcing using a relational database</a></p>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://book.douban.com/subject/25844633/">实现领域驱动设计</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>
     </div>
 
     
@@ -320,7 +280,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://blog.yeningxue.com/2022/05/16/implement-event-sourcing/" title="使用关系型数据库实现事件源模式">https://blog.yeningxue.com/2022/05/16/implement-event-sourcing/</a>
+    <a href="https://blog.yeningxue.com/2023/12/22/config-pip-cache-in-gitlab-ci/" title="在 GitLab CI 中配置 pip 缓存">https://blog.yeningxue.com/2023/12/22/config-pip-cache-in-gitlab-ci/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -331,7 +291,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/event-sourcing/" rel="tag"># event sourcing</a>
+              <a href="/tags/ci/" rel="tag"># ci</a>
           </div>
 
         
@@ -339,11 +299,11 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2022/05/19/simple-api-with-rails/" rel="next" title="珍惜时间，Ruby on Rails API 开发指北">
-      珍惜时间，Ruby on Rails API 开发指北 <i class="fa fa-chevron-right"></i>
+    <a href="/2023/12/12/pythons-mutable-exception/" rel="prev" title="Python 的可变 Exception">
+      <i class="fa fa-chevron-left"></i> Python 的可变 Exception
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -409,7 +369,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%AD%98%E5%82%A8"><span class="nav-number">1.</span> <span class="nav-text">事件存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%95%E5%BD%B1-PROJECTION"><span class="nav-number">2.</span> <span class="nav-text">投影 (PROJECTION)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E7%85%A7-SNAPSHOT"><span class="nav-number">3.</span> <span class="nav-text">快照 (SNAPSHOT)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BB%9A%E5%8A%A8%E5%8D%87%E7%BA%A7"><span class="nav-number">4.</span> <span class="nav-text">滚动升级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5"><span class="nav-number">5.</span> <span class="nav-text">异步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">6.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA-Python-%E4%BE%9D%E8%B5%96%E9%A1%B9%E8%AE%BE%E7%BD%AE%E7%BC%93%E5%AD%98"><span class="nav-number">1.</span> <span class="nav-text">为 Python 依赖项设置缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E6%97%A0%E7%94%A8%E7%9A%84%E4%BB%BB%E5%8A%A1"><span class="nav-number">2.</span> <span class="nav-text">减少无用的任务</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -561,9 +521,9 @@
 
 <script>
   var disqus_config = function() {
-    this.page.url = "https://blog.yeningxue.com/2022/05/16/implement-event-sourcing/";
-    this.page.identifier = "/2022/05/16/implement-event-sourcing/";
-    this.page.title = "使用关系型数据库实现事件源模式";
+    this.page.url = "https://blog.yeningxue.com/2023/12/22/config-pip-cache-in-gitlab-ci/";
+    this.page.identifier = "/2023/12/22/config-pip-cache-in-gitlab-ci/";
+    this.page.title = "在 GitLab CI 中配置 pip 缓存";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
