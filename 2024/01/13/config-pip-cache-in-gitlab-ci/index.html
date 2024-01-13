@@ -30,26 +30,20 @@
   gtag('config', 'G-KH8R6XKR3D');
 </script>
 
-  <meta name="description" content="在论坛或群聊中给人发送一些内容时，有时需要简单隐藏一下内容，通常我会使用 base64 对内容进行编码。 之前一直使用 Chrome 插件提供的功能来完成，最近突然想起了 Alfred Workflow 更适合做这件事。">
+  <meta name="description" content="一个多月前，为了规范我们组的开发流程，我为组员们安排了一套新的工作方式，借助 GitLab 的一些功能来帮助开发更可靠的软件。其中就包括 GitLab CI，然而随着测试用例的增多，运行一次 Pipeline 的时间从最初的不到 1 分钟增加到了需要 3 分钟以上，已经开始反过来影响开发的速度了。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="制作一个简单的 Alfred Workflow">
-<meta property="og:url" content="https://blog.yeningxue.com/2022/07/10/create-alfred-encode-workflow/">
+<meta property="og:title" content="在 GitLab CI 中配置 pip 缓存">
+<meta property="og:url" content="https://blog.yeningxue.com/2024/01/13/config-pip-cache-in-gitlab-ci/">
 <meta property="og:site_name" content="-LAN-&#39;s Blog">
-<meta property="og:description" content="在论坛或群聊中给人发送一些内容时，有时需要简单隐藏一下内容，通常我会使用 base64 对内容进行编码。 之前一直使用 Chrome 插件提供的功能来完成，最近突然想起了 Alfred Workflow 更适合做这件事。">
+<meta property="og:description" content="一个多月前，为了规范我们组的开发流程，我为组员们安排了一套新的工作方式，借助 GitLab 的一些功能来帮助开发更可靠的软件。其中就包括 GitLab CI，然而随着测试用例的增多，运行一次 Pipeline 的时间从最初的不到 1 分钟增加到了需要 3 分钟以上，已经开始反过来影响开发的速度了。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blog.yeningxue.com/2022/07/10/create-alfred-encode-workflow/workflow.png">
-<meta property="og:image" content="https://blog.yeningxue.com/2022/07/10/create-alfred-encode-workflow/encode.png">
-<meta property="article:published_time" content="2022-07-10T11:40:05.000Z">
+<meta property="article:published_time" content="2024-01-13T09:39:39.291Z">
 <meta property="article:modified_time" content="2024-01-13T09:39:39.291Z">
 <meta property="article:author" content="-LAN-">
-<meta property="article:tag" content="alfred">
-<meta property="article:tag" content="workflow">
-<meta property="article:tag" content="macos">
-<meta property="article:tag" content="ruby">
+<meta property="article:tag" content="ci">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.yeningxue.com/2022/07/10/create-alfred-encode-workflow/workflow.png">
 
-<link rel="canonical" href="https://blog.yeningxue.com/2022/07/10/create-alfred-encode-workflow/">
+<link rel="canonical" href="https://blog.yeningxue.com/2024/01/13/config-pip-cache-in-gitlab-ci/">
 
 
 <script id="page-configurations">
@@ -62,7 +56,7 @@
   };
 </script>
 
-  <title>制作一个简单的 Alfred Workflow | -LAN-'s Blog</title>
+  <title>在 GitLab CI 中配置 pip 缓存 | -LAN-'s Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KH8R6XKR3D"></script>
     <script>
@@ -192,7 +186,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="https://blog.yeningxue.com/2022/07/10/create-alfred-encode-workflow/">
+    <link itemprop="mainEntityOfPage" href="https://blog.yeningxue.com/2024/01/13/config-pip-cache-in-gitlab-ci/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -205,7 +199,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          制作一个简单的 Alfred Workflow
+          在 GitLab CI 中配置 pip 缓存
         </h1>
 
         <div class="post-meta">
@@ -215,22 +209,15 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2022-07-10 19:40:05" itemprop="dateCreated datePublished" datetime="2022-07-10T19:40:05+08:00">2022-07-10</time>
+              <time title="Created: 2024-01-13 17:39:39" itemprop="dateCreated datePublished" datetime="2024-01-13T17:39:39+08:00">2024-01-13</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-13 17:39:39" itemprop="dateModified" datetime="2024-01-13T17:39:39+08:00">2024-01-13</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Programming/" itemprop="url" rel="index"><span itemprop="name">Programming</span></a>
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">programming</span></a>
                 </span>
             </span>
 
@@ -240,7 +227,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1k</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -260,34 +247,24 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
-<p>在论坛或群聊中给人发送一些内容时，有时需要简单隐藏一下内容，通常我会使用 base64 对内容进行编码。</p>
-<p>之前一直使用 Chrome 插件提供的功能来完成，最近突然想起了 Alfred Workflow 更适合做这件事。</p>
+<p>一个多月前，为了规范我们组的开发流程，我为组员们安排了一套新的工作方式，借助 GitLab 的一些功能来帮助开发更可靠的软件。其中就包括 GitLab CI，然而随着测试用例的增多，运行一次 Pipeline 的时间从最初的不到 1 分钟增加到了需要 3 分钟以上，已经开始反过来影响开发的速度了。</p>
 </blockquote>
 <span id="more"></span>
 
-<h2 id="Alfred-and-workflow"><a href="#Alfred-and-workflow" class="headerlink" title="Alfred and workflow"></a>Alfred and workflow</h2><p>Alfred 是 macOS 平台上的一个工具类 App ，提供全局搜索和启动器等功能。</p>
-<p>此外，它拥有一个叫做 「Workflow」 的功能，可以通过自定义的方式实现自己的工作流。</p>
-<p>之前我一直使用一个叫做 encode 的 workflow 来快速进行编解码操作，然而它的作者似乎已经没有在维护了，随着 macOS 的更新，系统也不再默认提供它所依赖的 php runtime 了。</p>
-<p>在到处都找不到好用的工具后，我决定自己来实现这个功能。</p>
-<h2 id="Create-a-simple"><a href="#Create-a-simple" class="headerlink" title="Create a simple"></a>Create a simple</h2><p>虽然听起来很复杂，但自己创建一个 workflow 其实并不困难， Alfred 为了让普通人也能够创建 workflow ，提供了相当多方便的操作和直观的界面。</p>
-<p>不过对于我们这种简单的应用来说，只需要使用其中两项功能就足够了。</p>
-<h2 id="Input-script-filter"><a href="#Input-script-filter" class="headerlink" title="Input: script filter"></a>Input: script filter</h2><p>首先在空白的 workflow 上右键选择 <code>Inputs &gt; ScriptFilter</code> 。</p>
-<p>我们可以在上方设置触发功能使用的关键词，提示用语等内容，并在下面的 <code>Script</code> 区域对输入进行处理。</p>
-<p>Alfred 使用 JSON 格式来控制输出，我们只会用到以下最简单的几项:</p>
-<ul>
-<li>title: 显示内容的标题</li>
-<li>subtitle: 副标题</li>
-<li>arg: 传递给下一步的参数</li>
-</ul>
-<p>将以上内容的列表作为 <code>items</code> 的值输出即可让它们显示在 Alfred 的结果中了。</p>
-<p>考虑到我暂时只需要 base64 编码和解码的功能，我选择最简单的 Ruby 实现:</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">query = <span class="variable constant_">ARGV</span>[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;json&#x27;</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">&#x27;base64&#x27;</span></span><br><span class="line"></span><br><span class="line">b64 = <span class="title class_">Base64</span>.encode64(query)</span><br><span class="line"></span><br><span class="line">results = &#123;<span class="symbol">items:</span> [</span><br><span class="line">  &#123; <span class="symbol">title:</span> b64, <span class="symbol">subtitle:</span> <span class="string">&#x27;base64&#x27;</span>, <span class="symbol">arg:</span> b64 &#125;</span><br><span class="line">]&#125;</span><br><span class="line">print results.to_json</span><br></pre></td></tr></table></figure>
+<p>究其原因，我在最初配置 GitLab CI 的时候并没有使用缓存，而我们的项目依赖不断增加，再加上偶尔的网络波动，使得依赖的安装时间成为一个不可忽视的问题。</p>
+<p>为了拯救组员们的开发体验，我花了大概半天时间阅读手册，并解决了之前没有处理的一些问题。</p>
+<h2 id="为-Python-依赖项设置缓存"><a href="#为-Python-依赖项设置缓存" class="headerlink" title="为 Python 依赖项设置缓存"></a>为 Python 依赖项设置缓存</h2><p>我们的 GitLab runner 运行在 Docker 环境下，在没有专门配置的情况下，它默认使用 Docker volume 处理缓存，默认的缓存目录为 <code>/cache</code>。</p>
+<p>Volume 的名称很复杂，但是可以看到其中包含了 Project ID，根据手册中的说法，不同的项目之间是不可以共享缓存的。</p>
+<p>（我想这里应该有截图，可我忘记了，感兴趣的读者可以在自己运行 Runner 的机器上执行 <code>docker volume ls</code> 看看）</p>
+<p>对于 Python 的依赖，手册中专门提到了推荐的做法——共享 pip 的缓存目录。配置如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">default:</span></span><br><span class="line">  <span class="attr">image:</span> <span class="string">python:3.11</span></span><br><span class="line">  <span class="attr">cache:</span></span><br><span class="line">    <span class="attr">paths:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">.cache/pip</span></span><br><span class="line">  <span class="attr">before_script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">python</span> <span class="string">-m</span> <span class="string">venv</span> <span class="string">.venv</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">source</span> <span class="string">.venv/bin/activate</span></span><br><span class="line"></span><br><span class="line"><span class="attr">variables:</span></span><br><span class="line">  <span class="attr">PIP_CACHE_DIR:</span> <span class="string">&quot;$CI_PROJECT_DIR/.cache/pip&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># your stage and job configurations...</span></span><br></pre></td></tr></table></figure>
 
-<p>解码同理，使用 <code>Base64.decode64</code> 即可。</p>
-<h2 id="Output-copy-to-clipboard"><a href="#Output-copy-to-clipboard" class="headerlink" title="Output: copy to clipboard"></a>Output: copy to clipboard</h2><p>实现功能后，我们需要考虑如何使用结果，最简单的方法当然是将结果复制下来。</p>
-<p>右键选择 <code>Outputs &gt; Copy to Clipboard</code> ，然后将之前创建的 ScriptFilter 连过去就可以。</p>
-<p><img src="/2022/07/10/create-alfred-encode-workflow/workflow.png" alt="workflow"></p>
-<p><img src="/2022/07/10/create-alfred-encode-workflow/encode.png" alt="encode"></p>
+<p>我们并没有将下载好的依赖直接保存，而是利用了 pip 本身的缓存，当安装相同的依赖时，pip 缓存会被命中，避免重复进行下载。当项目的依赖发生变化时，我们也不需要自己去处理缓存。</p>
+<h2 id="减少无用的任务"><a href="#减少无用的任务" class="headerlink" title="减少无用的任务"></a>减少无用的任务</h2><p>引入 CI 过去了一个多月，我发现了一些明显的资源浪费：有一些组员习惯于多次将代码提交到自己的分支上，最后再进行合并，在这种情况下，我们并不需要再每一次提交之后都运行 Pipeline。</p>
+<p>根据手册，可以通过以下设置将 Pipeline 的执行条件限定到每一个 Merge Request：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">my_job:</span></span><br><span class="line">  <span class="attr">stage:</span> <span class="string">test</span></span><br><span class="line">  <span class="attr">script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">pytest</span> <span class="string">--cov=datashop</span> <span class="string">--cov-report</span> <span class="string">term-missing</span> <span class="string">tests/</span></span><br><span class="line">  <span class="attr">only:</span> [<span class="string">merge_requests</span>]</span><br></pre></td></tr></table></figure>
+
+<p>这样，只有当有 Merge Request 创建或更新时，Pipeline 才会被执行。</p>
 
     </div>
 
@@ -303,7 +280,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://blog.yeningxue.com/2022/07/10/create-alfred-encode-workflow/" title="制作一个简单的 Alfred Workflow">https://blog.yeningxue.com/2022/07/10/create-alfred-encode-workflow/</a>
+    <a href="https://blog.yeningxue.com/2024/01/13/config-pip-cache-in-gitlab-ci/" title="在 GitLab CI 中配置 pip 缓存">https://blog.yeningxue.com/2024/01/13/config-pip-cache-in-gitlab-ci/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -314,10 +291,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/alfred/" rel="tag"># alfred</a>
-              <a href="/tags/workflow/" rel="tag"># workflow</a>
-              <a href="/tags/macos/" rel="tag"># macos</a>
-              <a href="/tags/ruby/" rel="tag"># ruby</a>
+              <a href="/tags/ci/" rel="tag"># ci</a>
           </div>
 
         
@@ -326,13 +300,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/07/07/data-mapper-pattern/" rel="prev" title="数据映射器和模型-数据源分离">
-      <i class="fa fa-chevron-left"></i> 数据映射器和模型-数据源分离
+    <a href="/2024/01/13/2023-annual-summary/" rel="prev" title="2023 年终总结">
+      <i class="fa fa-chevron-left"></i> 2023 年终总结
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2023/01/14/diary-2023-01-14/" rel="next" title="迟来的 2022 年终总结">
-      迟来的 2022 年终总结 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -398,7 +369,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Alfred-and-workflow"><span class="nav-number">1.</span> <span class="nav-text">Alfred and workflow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Create-a-simple"><span class="nav-number">2.</span> <span class="nav-text">Create a simple</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-script-filter"><span class="nav-number">3.</span> <span class="nav-text">Input: script filter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output-copy-to-clipboard"><span class="nav-number">4.</span> <span class="nav-text">Output: copy to clipboard</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA-Python-%E4%BE%9D%E8%B5%96%E9%A1%B9%E8%AE%BE%E7%BD%AE%E7%BC%93%E5%AD%98"><span class="nav-number">1.</span> <span class="nav-text">为 Python 依赖项设置缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E6%97%A0%E7%94%A8%E7%9A%84%E4%BB%BB%E5%8A%A1"><span class="nav-number">2.</span> <span class="nav-text">减少无用的任务</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -550,9 +521,9 @@
 
 <script>
   var disqus_config = function() {
-    this.page.url = "https://blog.yeningxue.com/2022/07/10/create-alfred-encode-workflow/";
-    this.page.identifier = "/2022/07/10/create-alfred-encode-workflow/";
-    this.page.title = "制作一个简单的 Alfred Workflow";
+    this.page.url = "https://blog.yeningxue.com/2024/01/13/config-pip-cache-in-gitlab-ci/";
+    this.page.identifier = "/2024/01/13/config-pip-cache-in-gitlab-ci/";
+    this.page.title = "在 GitLab CI 中配置 pip 缓存";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

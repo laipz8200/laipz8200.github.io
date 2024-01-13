@@ -30,20 +30,20 @@
   gtag('config', 'G-KH8R6XKR3D');
 </script>
 
-  <meta name="description" content="一个多月前，为了规范我们组的开发流程，我为组员们安排了一套新的工作方式，借助 GitLab 的一些功能来帮助开发更可靠的软件。其中就包括 GitLab CI，然而随着测试用例的增多，运行一次 Pipeline 的时间从最初的不到 1 分钟增加到了需要 3 分钟以上，已经开始反过来影响开发的速度了。">
+  <meta name="description" content="首先是报告：我弄错了很多事情，比如把在2023年写的2022年终总结错误地叫做“2023年终总结”，这件事直到我真的开始写2023年的总结时才发现（悲）。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在 GitLab CI 中配置 pip 缓存">
-<meta property="og:url" content="https://blog.yeningxue.com/2023/12/22/config-pip-cache-in-gitlab-ci/">
+<meta property="og:title" content="2023 年终总结">
+<meta property="og:url" content="https://blog.yeningxue.com/2024/01/13/2023-annual-summary/">
 <meta property="og:site_name" content="-LAN-&#39;s Blog">
-<meta property="og:description" content="一个多月前，为了规范我们组的开发流程，我为组员们安排了一套新的工作方式，借助 GitLab 的一些功能来帮助开发更可靠的软件。其中就包括 GitLab CI，然而随着测试用例的增多，运行一次 Pipeline 的时间从最初的不到 1 分钟增加到了需要 3 分钟以上，已经开始反过来影响开发的速度了。">
+<meta property="og:description" content="首先是报告：我弄错了很多事情，比如把在2023年写的2022年终总结错误地叫做“2023年终总结”，这件事直到我真的开始写2023年的总结时才发现（悲）。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-12-22T13:00:07.857Z">
-<meta property="article:modified_time" content="2023-12-22T13:00:07.857Z">
+<meta property="article:published_time" content="2024-01-13T09:34:13.000Z">
+<meta property="article:modified_time" content="2024-01-13T09:39:39.291Z">
 <meta property="article:author" content="-LAN-">
-<meta property="article:tag" content="ci">
+<meta property="article:tag" content="summary">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://blog.yeningxue.com/2023/12/22/config-pip-cache-in-gitlab-ci/">
+<link rel="canonical" href="https://blog.yeningxue.com/2024/01/13/2023-annual-summary/">
 
 
 <script id="page-configurations">
@@ -56,7 +56,7 @@
   };
 </script>
 
-  <title>在 GitLab CI 中配置 pip 缓存 | -LAN-'s Blog</title>
+  <title>2023 年终总结 | -LAN-'s Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KH8R6XKR3D"></script>
     <script>
@@ -144,7 +144,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">34</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">35</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -154,7 +154,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">13</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">14</span></a>
 
   </li>
   </ul>
@@ -186,7 +186,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="https://blog.yeningxue.com/2023/12/22/config-pip-cache-in-gitlab-ci/">
+    <link itemprop="mainEntityOfPage" href="https://blog.yeningxue.com/2024/01/13/2023-annual-summary/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -199,7 +199,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          在 GitLab CI 中配置 pip 缓存
+          2023 年终总结
         </h1>
 
         <div class="post-meta">
@@ -208,8 +208,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2023-12-22 21:00:07" itemprop="dateCreated datePublished" datetime="2023-12-22T21:00:07+08:00">2023-12-22</time>
+              <time title="Created: 2024-01-13 17:34:13 / Modified: 17:39:39" itemprop="dateCreated datePublished" datetime="2024-01-13T17:34:13+08:00">2024-01-13</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -217,7 +218,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">programming</span></a>
+                  <a href="/categories/life/" itemprop="url" rel="index"><span itemprop="name">life</span></a>
                 </span>
             </span>
 
@@ -227,14 +228,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.1k</span>
+              <span>2.3k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
+              <span>2 mins.</span>
             </span>
 
         </div>
@@ -247,24 +248,41 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
-<p>一个多月前，为了规范我们组的开发流程，我为组员们安排了一套新的工作方式，借助 GitLab 的一些功能来帮助开发更可靠的软件。其中就包括 GitLab CI，然而随着测试用例的增多，运行一次 Pipeline 的时间从最初的不到 1 分钟增加到了需要 3 分钟以上，已经开始反过来影响开发的速度了。</p>
+<p>首先是报告：我弄错了很多事情，比如把在2023年写的2022年终总结错误地叫做“2023年终总结”，这件事直到我真的开始写2023年的总结时才发现（悲）。</p>
 </blockquote>
-<span id="more"></span>
+<span id="more"></span> 
 
-<p>究其原因，我在最初配置 GitLab CI 的时候并没有使用缓存，而我们的项目依赖不断增加，再加上偶尔的网络波动，使得依赖的安装时间成为一个不可忽视的问题。</p>
-<p>为了拯救组员们的开发体验，我花了大概半天时间阅读手册，并解决了之前没有处理的一些问题。</p>
-<h2 id="为-Python-依赖项设置缓存"><a href="#为-Python-依赖项设置缓存" class="headerlink" title="为 Python 依赖项设置缓存"></a>为 Python 依赖项设置缓存</h2><p>我们的 GitLab runner 运行在 Docker 环境下，在没有专门配置的情况下，它默认使用 Docker volume 处理缓存，默认的缓存目录为 <code>/cache</code>。</p>
-<p>Volume 的名称很复杂，但是可以看到其中包含了 Project ID，根据手册中的说法，不同的项目之间是不可以共享缓存的。</p>
-<p>（我想这里应该有截图，可我忘记了，感兴趣的读者可以在自己运行 Runner 的机器上执行 <code>docker volume ls</code> 看看）</p>
-<p>对于 Python 的依赖，手册中专门提到了推荐的做法——共享 pip 的缓存目录。配置如下：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">default:</span></span><br><span class="line">  <span class="attr">image:</span> <span class="string">python:3.11</span></span><br><span class="line">  <span class="attr">cache:</span></span><br><span class="line">    <span class="attr">paths:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">.cache/pip</span></span><br><span class="line">  <span class="attr">before_script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">python</span> <span class="string">-m</span> <span class="string">venv</span> <span class="string">.venv</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">source</span> <span class="string">.venv/bin/activate</span></span><br><span class="line"></span><br><span class="line"><span class="attr">variables:</span></span><br><span class="line">  <span class="attr">PIP_CACHE_DIR:</span> <span class="string">&quot;$CI_PROJECT_DIR/.cache/pip&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># your stage and job configurations...</span></span><br></pre></td></tr></table></figure>
-
-<p>我们并没有将下载好的依赖直接保存，而是利用了 pip 本身的缓存，当安装相同的依赖时，pip 缓存会被命中，避免重复进行下载。当项目的依赖发生变化时，我们也不需要自己去处理缓存。</p>
-<h2 id="减少无用的任务"><a href="#减少无用的任务" class="headerlink" title="减少无用的任务"></a>减少无用的任务</h2><p>引入 CI 过去了一个多月，我发现了一些明显的资源浪费：有一些组员习惯于多次将代码提交到自己的分支上，最后再进行合并，在这种情况下，我们并不需要再每一次提交之后都运行 Pipeline。</p>
-<p>根据手册，可以通过以下设置将 Pipeline 的执行条件限定到每一个 Merge Request：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">my_job:</span></span><br><span class="line">  <span class="attr">stage:</span> <span class="string">test</span></span><br><span class="line">  <span class="attr">script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">pytest</span> <span class="string">--cov=datashop</span> <span class="string">--cov-report</span> <span class="string">term-missing</span> <span class="string">tests/</span></span><br><span class="line">  <span class="attr">only:</span> [<span class="string">merge_requests</span>]</span><br></pre></td></tr></table></figure>
-
-<p>这样，只有当有 Merge Request 创建或更新时，Pipeline 才会被执行。</p>
+<h2 id="AI-助手"><a href="#AI-助手" class="headerlink" title="AI 助手"></a>AI 助手</h2><p>如果说 2022 年是 LLM 刚开始崭露头角的一年，那 2023 年毫无疑问是它开始正式走入我生活的一年。除了 OpenAI 和 Google 之类的大公司的产品，也有很多规模稍小但可以本地运行的 LLM 走入了我的视野。</p>
+<p>我在公司和自己的个人电脑上都设置了使用 llava 7B 模型的小工具，方便自己随时利用 LLM 的各项能力，以后 LLM 能提供的能力应该会出现在更多的应用中。</p>
+<h2 id="游戏"><a href="#游戏" class="headerlink" title="游戏"></a>游戏</h2><p>去年的总结中提到的手游碧蓝档案，我今年依然在玩哦，在这个遍地都是快餐娱乐的时代坚持一个游戏一年时间，感觉自己挺厉害的（笑）。不出意外的话，今后我也会继续玩下去。</p>
+<p>年末时各个游戏平台都出了年终总结，我大概看了一眼，这一年间我只有在开头和朋友一起坚持玩「Splatoon3」打工，后来因为一位伙伴去准备考试了，就再也没有打开过 NS 。</p>
+<p>Steam 平台这边则是在生日时收到了一份「博得之门3」的礼物，之后断断续续和送我游戏的朋友一起玩 —— 游戏本身很有趣，但我的时间实在有限，几个月过去也没有离开第一章，总觉得有些抱歉。</p>
+<p>Xbox 平台 —— 我在双十一时购入了一台 XSX，也加入了 XGPU ，首先购入了想玩很久的「赛博朋克2077」，这游戏真的很棒，我很喜欢，然而我也还是没有通关，说到这里我已经开始怀疑自己究竟是忙还是懒了（苦笑）。另外我也购买了「鬼泣5」，我打得不好，但它很酷，看着就想玩。</p>
+<p>Gal 方面，玩了 「金恋」，「富婆妹FD」和 「牵绊闪耀的恋之伊吕波」，都是很治愈的作品，特别是椿姐……嘛，懂的都懂～</p>
+<p>总体来说，去年在游戏上消耗的时间比预想中少很多，这应该就是那啥吧……电子阳痿，之类的 🤷。</p>
+<h2 id="离别"><a href="#离别" class="headerlink" title="离别"></a>离别</h2><p>年末时，有位要好的朋友经历了和家人的离别，在和他的几次通话中，我深刻地意识到自己不会安慰人。一想到总有一天我也要经历这样的离别，总觉得很难过。</p>
+<h2 id="读书"><a href="#读书" class="headerlink" title="读书"></a>读书</h2><h3 id="银河铁道之夜"><a href="#银河铁道之夜" class="headerlink" title="银河铁道之夜"></a>银河铁道之夜</h3><p>这是一篇出自宫泽贤治的童话故事，是个隐隐又些伤感的故事，因为接触的很多日本的作品都多少受到了它的影响，出于好奇想要了解一下。</p>
+<p>我买了一本宫泽贤治的童话集，初读的时候完全不懂它在讲什么，但最近开始似乎慢慢能理解那种有些伤感又释怀的感情了。</p>
+<h3 id="影响力"><a href="#影响力" class="headerlink" title="影响力"></a>影响力</h3><p>这是一本通俗到外行也能轻松读懂的心理学入门读物，它很有名，查理·芒格也曾提到过它。</p>
+<p>作者向人们展示了各行各业中存在的让人“服从”的魔法背后的秘密，并引用各种论文和实验来证明它的有效性。</p>
+<p>这本书让我知道了几件事：</p>
+<ol>
+<li>很多心理学技巧并不起眼，我们总能从各种途径听到关于它们的不同的表述，但我们很可能错误地估计了它可能带来的影响。</li>
+<li>许多原则，比如互惠，是人类社会长期发展所必需的能力，人类需要依靠它来生活，因此当遇到有心利用这一点的人时总是免不了上当。</li>
+<li>随着生活节奏的不断加快，人们需要处理的信息越来越多，也就越来越需要依赖这些下意识的反应 —— 这意味着熟悉这些原理的人能够更轻易地影响人们。</li>
+</ol>
+<h3 id="芒格之道"><a href="#芒格之道" class="headerlink" title="芒格之道"></a>芒格之道</h3><p>这是一本查理·芒格的股东会讲话合集，我还没有读完它。我的计划是每天读一篇，相信要不了多久就可以看完这些内容。</p>
+<p>查理·芒格于 2023 年 11 月底去世，从「芒格之道」中能够快速了解到当年投资圈发生的各种大事和芒格对它们的评价，这是一种非常有趣的体验，尤其是发现那些曾在美国、日本等国家发生过的事情正在自己身边重演时。</p>
+<h3 id="计算机程序的构造与解释-SICP"><a href="#计算机程序的构造与解释-SICP" class="headerlink" title="计算机程序的构造与解释 (SICP)"></a>计算机程序的构造与解释 (SICP)</h3><p>这也是一本我还没有读完的书，作为 MIT 曾经的 CS 教材，这本书通过一种 Lisp 方言来讲解计算机语言提供的种种抽象能力。这是一本修炼内功的书，它厚重，深奥，晦涩，试图向读者揭示抽象的秘密 —— 前两章我已经反复阅读多次了，每次都能有全新的收获，真正“读完”它应该还需要很久吧。</p>
+<h2 id="音乐"><a href="#音乐" class="headerlink" title="音乐"></a>音乐</h2><p>最近几年，我听歌的口味都集中在日语歌中，主要受自己是个日本动画爱好者的影响吧。</p>
+<p>日本是个很神奇的地方，它们现在依然会销售光盘制品，2023 年我买了两张 CD ：「孤独摇滚」中结束乐队的首张专辑，还有 MyGO!!!!! 的首张专辑。前者附赠了腕带和钥匙串之类的小周边，后者附赠了一张演唱会 BD 盘 —— 为了播放这张 BD 成了我在双十一购买 XSX 的理由之一。</p>
+<p>说起音乐，在网易和腾讯版权大战开始没多久之后，我就选择从网易云音乐转向了 Apple Music，之后在 Apple 的不同区域之间反复，最终还是回到了日本区 —— 毕竟我主要听日语歌嘛。</p>
+<p>鉴于日本人的奇怪习惯，经常会有一些作品的音乐很难在其他地区入手，他们会将一些音乐 CD 作为动画 BD 的特典打包出售，或是因为各种各样的原因只销售实体盘。过去的一年中，除了订阅 Apple Music 就能听的歌以外，我还尝试过从 iTunes Store 中购买音乐，参与专辑合购，找代购……等等，好在 Apple Music 的曲库允许我自己上传，对于后面几种情况，有时不得不亲自动手将 CD 数字化，自己维护好歌曲的元数据后上传到 Apple Music 中方便平时欣赏。</p>
+<h2 id="工作"><a href="#工作" class="headerlink" title="工作"></a>工作</h2><p>最后讲讲工作吧，在这家公司就快 3 年了，我在这里验证了不少自己的想法，规范了团队的开发流程，和运维加强合作利用 K8S 简化了不少流程，我负责的项目生命力总体来说还算长，大部分直到现在依然在正常迭代中，这让我感到欣慰。</p>
+<p>另一方面，这家公司本身大小问题不断，让我感到有些烦躁，然而周围也找不到什么特别有吸引力的选择，当下果然还是只能一边学习一边等待机会吗？</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>今年的总结有点想到哪儿写到哪儿的感觉，内容很琐碎，说到底是因为我还没有养成记录的习惯。</p>
+<p>最近 iOS 更新了「手记」App，或许可以在这方面帮助到我。我也计划在之后多读书，多写博客，避免到了总结的时候不知道该写什么。</p>
+<p>希望新的一年里大家都能做成自己想做的事，都能从自己的爱好中收获快乐🎉。</p>
 
     </div>
 
@@ -280,7 +298,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://blog.yeningxue.com/2023/12/22/config-pip-cache-in-gitlab-ci/" title="在 GitLab CI 中配置 pip 缓存">https://blog.yeningxue.com/2023/12/22/config-pip-cache-in-gitlab-ci/</a>
+    <a href="https://blog.yeningxue.com/2024/01/13/2023-annual-summary/" title="2023 年终总结">https://blog.yeningxue.com/2024/01/13/2023-annual-summary/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -291,7 +309,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/ci/" rel="tag"># ci</a>
+              <a href="/tags/summary/" rel="tag"># summary</a>
           </div>
 
         
@@ -303,7 +321,10 @@
     <a href="/2023/12/12/pythons-mutable-exception/" rel="prev" title="Python 的可变 Exception">
       <i class="fa fa-chevron-left"></i> Python 的可变 Exception
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2024/01/13/config-pip-cache-in-gitlab-ci/" rel="next" title="在 GitLab CI 中配置 pip 缓存">
+      在 GitLab CI 中配置 pip 缓存 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -369,7 +390,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA-Python-%E4%BE%9D%E8%B5%96%E9%A1%B9%E8%AE%BE%E7%BD%AE%E7%BC%93%E5%AD%98"><span class="nav-number">1.</span> <span class="nav-text">为 Python 依赖项设置缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E6%97%A0%E7%94%A8%E7%9A%84%E4%BB%BB%E5%8A%A1"><span class="nav-number">2.</span> <span class="nav-text">减少无用的任务</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AI-%E5%8A%A9%E6%89%8B"><span class="nav-number">1.</span> <span class="nav-text">AI 助手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%B8%E6%88%8F"><span class="nav-number">2.</span> <span class="nav-text">游戏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A6%BB%E5%88%AB"><span class="nav-number">3.</span> <span class="nav-text">离别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E4%B9%A6"><span class="nav-number">4.</span> <span class="nav-text">读书</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%B6%E6%B2%B3%E9%93%81%E9%81%93%E4%B9%8B%E5%A4%9C"><span class="nav-number">4.1.</span> <span class="nav-text">银河铁道之夜</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%B1%E5%93%8D%E5%8A%9B"><span class="nav-number">4.2.</span> <span class="nav-text">影响力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8A%92%E6%A0%BC%E4%B9%8B%E9%81%93"><span class="nav-number">4.3.</span> <span class="nav-text">芒格之道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9E%84%E9%80%A0%E4%B8%8E%E8%A7%A3%E9%87%8A-SICP"><span class="nav-number">4.4.</span> <span class="nav-text">计算机程序的构造与解释 (SICP)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9F%B3%E4%B9%90"><span class="nav-number">5.</span> <span class="nav-text">音乐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C"><span class="nav-number">6.</span> <span class="nav-text">工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">7.</span> <span class="nav-text">最后</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -385,7 +406,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -398,7 +419,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -449,7 +470,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -458,12 +479,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">34k</span>
+    <span title="Symbols count total">37k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">31 mins.</span>
+    <span title="Reading time total">33 mins.</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
   </div>
@@ -521,9 +542,9 @@
 
 <script>
   var disqus_config = function() {
-    this.page.url = "https://blog.yeningxue.com/2023/12/22/config-pip-cache-in-gitlab-ci/";
-    this.page.identifier = "/2023/12/22/config-pip-cache-in-gitlab-ci/";
-    this.page.title = "在 GitLab CI 中配置 pip 缓存";
+    this.page.url = "https://blog.yeningxue.com/2024/01/13/2023-annual-summary/";
+    this.page.identifier = "/2024/01/13/2023-annual-summary/";
+    this.page.title = "2023 年终总结";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
