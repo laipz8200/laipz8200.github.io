@@ -30,24 +30,22 @@
   gtag('config', 'G-KH8R6XKR3D');
 </script>
 
-  <meta name="description" content="my life, my stories, my thoughts">
-<meta property="og:type" content="website">
-<meta property="og:title" content="-LAN-&#39;s Blog">
-<meta property="og:url" content="https://blog.yeningxue.com/archives/2023/12/">
+  <meta name="description" content="当我们使用代理时，可能会遇到无法通过 ssh 方式访问 GitHub 的情况。本文旨在分享一个简易的解决方法。️">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过 HTTPS 的端口用 SSH 访问 GitHub">
+<meta property="og:url" content="https://blog.yeningxue.com/2024/04/14/using-ssh-over-the-https-port-on-github/">
 <meta property="og:site_name" content="-LAN-&#39;s Blog">
-<meta property="og:description" content="my life, my stories, my thoughts">
+<meta property="og:description" content="当我们使用代理时，可能会遇到无法通过 ssh 方式访问 GitHub 的情况。本文旨在分享一个简易的解决方法。️">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-14T14:53:38.000Z">
+<meta property="article:modified_time" content="2024-04-14T14:56:31.102Z">
 <meta property="article:author" content="-LAN-">
-<meta property="article:tag" content="laipz8200">
-<meta property="article:tag" content="programming">
-<meta property="article:tag" content="python">
-<meta property="article:tag" content="linux">
-<meta property="article:tag" content="golang">
-<meta property="article:tag" content="domain driven design">
-<meta property="article:tag" content="rust">
+<meta property="article:tag" content="ssh">
+<meta property="article:tag" content="github">
+<meta property="article:tag" content="ssl">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://blog.yeningxue.com/archives/2023/12/">
+<link rel="canonical" href="https://blog.yeningxue.com/2024/04/14/using-ssh-over-the-https-port-on-github/">
 
 
 <script id="page-configurations">
@@ -55,12 +53,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-cn'
   };
 </script>
 
-  <title>Archive | -LAN-'s Blog</title>
+  <title>通过 HTTPS 的端口用 SSH 访问 GitHub | -LAN-'s Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KH8R6XKR3D"></script>
     <script>
@@ -183,96 +181,162 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">Um..! 15 posts in total. Keep on posting.</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://blog.yeningxue.com/2024/04/14/using-ssh-over-the-https-port-on-github/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="-LAN-">
+      <meta itemprop="description" content="my life, my stories, my thoughts">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="-LAN-'s Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          通过 HTTPS 的端口用 SSH 访问 GitHub
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-04-14 22:53:38 / Modified: 22:56:31" itemprop="dateCreated datePublished" datetime="2024-04-14T22:53:38+08:00">2024-04-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">programming</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>678</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2023</span>
-    </div>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
+<p>当我们使用代理时，可能会遇到无法通过 <code>ssh</code> 方式访问 GitHub 的情况。本文旨在分享一个简易的解决方法。️</p>
+</blockquote>
+<span id="more"></span>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<hr>
+<h2 id="通过SSL连接的测试"><a href="#通过SSL连接的测试" class="headerlink" title="通过SSL连接的测试"></a>通过SSL连接的测试</h2><p>我们了解 <code>ssh</code> 默认使用端口22进行连接，但GitHub允许我们通过443端口访问。首先，我们需要验证这个方法是否可行。</p>
+<p>在终端中输入以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T -p 443 git@ssh.github.com</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-12-22T20:59:13+08:00"
-              content="2023-12-22">
-          12-22
-        </time>
-      </div>
+<p>如果成功，你将看到如下输出：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi USERNAME! You<span class="symbol">&#x27;ve</span> successfully authenticated, but GitHub does <span class="keyword">not</span> provide shell <span class="keyword">access</span>.</span><br></pre></td></tr></table></figure>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/12/22/config-pip-cache-in-gitlab-ci/" itemprop="url">
-            <span itemprop="name">在 GitLab CI 中配置 pip 缓存</span>
-          </a>
-      </div>
+<p>这表明你可以使用此方法。现在，你可以通过以下命令克隆仓库：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone ssh://git@ssh.github.com:443/YOUR-USERNAME/YOUR-REPOSITORY.git</span><br></pre></td></tr></table></figure>
 
-    </header>
-  </article>
+<h2 id="SSH配置的修改"><a href="#SSH配置的修改" class="headerlink" title="SSH配置的修改"></a>SSH配置的修改</h2><p>频繁手动更改地址显然不便，也会影响第三方工具的兼容性。好在我们可以通过调整<code>ssh</code>配置来解决。</p>
+<p>只需在 <code>~/.ssh/config</code> 文件中添加以下内容：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">    Hostname ssh.github.com</span><br><span class="line">    Port 443</span><br><span class="line">    User git</span><br></pre></td></tr></table></figure>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<h2 id="再次进行测试"><a href="#再次进行测试" class="headerlink" title="再次进行测试"></a>再次进行测试</h2><p>现在，无需指定端口即可进行测试：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">ssh -T git@github.com</span></span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-12-12T23:51:16+08:00"
-              content="2023-12-12">
-          12-12
-        </time>
-      </div>
+<p>输出应为：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi USERNAME! You<span class="symbol">&#x27;ve</span> successfully authenticated, but GitHub does <span class="keyword">not</span> provide shell <span class="keyword">access</span>.</span><br></pre></td></tr></table></figure>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/12/12/pythons-mutable-exception/" itemprop="url">
-            <span itemprop="name">Python 的可变 Exception</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-12-05T21:41:19+08:00"
-              content="2023-12-05">
-          12-05
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/12/05/podcast-share-1/" itemprop="url">
-            <span itemprop="name">收听「与张云帆聊《芒格之道》」有感</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+<p>祝你使用愉快！️</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p><a target="_blank" rel="noopener" href="https://docs.github.com/en/authentication/troubleshooting-ssh/using-ssh-over-the-https-port">Using SSH over the HTTPS port - GitHub Docs</a></p>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>-LAN-
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://blog.yeningxue.com/2024/04/14/using-ssh-over-the-https-port-on-github/" title="通过 HTTPS 的端口用 SSH 访问 GitHub">https://blog.yeningxue.com/2024/04/14/using-ssh-over-the-https-port-on-github/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ssh/" rel="tag"># ssh</a>
+              <a href="/tags/github/" rel="tag"># github</a>
+              <a href="/tags/ssl/" rel="tag"># ssl</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/01/13/2023-annual-summary/" rel="prev" title="2023 年终总结">
+      <i class="fa fa-chevron-left"></i> 2023 年终总结
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -319,6 +383,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87SSL%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%B5%8B%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text">通过SSL连接的测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH%E9%85%8D%E7%BD%AE%E7%9A%84%E4%BF%AE%E6%94%B9"><span class="nav-number">2.</span> <span class="nav-text">SSH配置的修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%8D%E6%AC%A1%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95"><span class="nav-number">3.</span> <span class="nav-text">再次进行测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">4.</span> <span class="nav-text">References</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -468,6 +533,26 @@
 
   
 
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.yeningxue.com/2024/04/14/using-ssh-over-the-https-port-on-github/";
+    this.page.identifier = "/2024/04/14/using-ssh-over-the-https-port-on-github/";
+    this.page.title = "通过 HTTPS 的端口用 SSH 访问 GitHub";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://blog-yeningxue.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
 
 </body>
 </html>
