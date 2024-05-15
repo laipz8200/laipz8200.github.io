@@ -30,21 +30,23 @@
   gtag('config', 'G-KH8R6XKR3D');
 </script>
 
-  <meta name="description" content="今天经同事提醒，发现踩了个和 Exception 相关的坑，特此记录">
+  <meta name="description" content="一种简陋但比较有效的图像去重方案。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python 的可变 Exception">
-<meta property="og:url" content="https://blog.yeningxue.com/2023/12/12/pythons-mutable-exception/">
+<meta property="og:title" content="在 macOS 上使用 MD5 重命名图像文件">
+<meta property="og:url" content="https://blog.yeningxue.com/2024/05/15/rename-image-files-with-md5-sum-on-macos/">
 <meta property="og:site_name" content="-LAN-&#39;s Blog">
-<meta property="og:description" content="今天经同事提醒，发现踩了个和 Exception 相关的坑，特此记录">
+<meta property="og:description" content="一种简陋但比较有效的图像去重方案。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-12-12T15:51:16.000Z">
+<meta property="article:published_time" content="2024-05-15T03:27:32.000Z">
 <meta property="article:modified_time" content="2024-05-15T03:59:57.964Z">
 <meta property="article:author" content="-LAN-">
-<meta property="article:tag" content="python">
-<meta property="article:tag" content="exception">
+<meta property="article:tag" content="macos">
+<meta property="article:tag" content="tips">
+<meta property="article:tag" content="md5">
+<meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://blog.yeningxue.com/2023/12/12/pythons-mutable-exception/">
+<link rel="canonical" href="https://blog.yeningxue.com/2024/05/15/rename-image-files-with-md5-sum-on-macos/">
 
 
 <script id="page-configurations">
@@ -57,7 +59,7 @@
   };
 </script>
 
-  <title>Python 的可变 Exception | -LAN-'s Blog</title>
+  <title>在 macOS 上使用 MD5 重命名图像文件 | -LAN-'s Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KH8R6XKR3D"></script>
     <script>
@@ -187,7 +189,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="https://blog.yeningxue.com/2023/12/12/pythons-mutable-exception/">
+    <link itemprop="mainEntityOfPage" href="https://blog.yeningxue.com/2024/05/15/rename-image-files-with-md5-sum-on-macos/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -200,7 +202,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Python 的可变 Exception
+          在 macOS 上使用 MD5 重命名图像文件
         </h1>
 
         <div class="post-meta">
@@ -209,16 +211,19 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2023-12-12 23:51:16" itemprop="dateCreated datePublished" datetime="2023-12-12T23:51:16+08:00">2023-12-12</time>
+              <time title="Created: 2024-05-15 11:27:32 / Modified: 11:59:57" itemprop="dateCreated datePublished" datetime="2024-05-15T11:27:32+08:00">2024-05-15</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-05-15 11:59:57" itemprop="dateModified" datetime="2024-05-15T11:59:57+08:00">2024-05-15</time>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
               </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">programming</span></a>
+                </span>
+            </span>
 
           <br>
             <span class="post-meta-item" title="Symbols count in article">
@@ -226,7 +231,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.3k</span>
+              <span>1.2k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -246,35 +251,43 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
-<p>今天经同事提醒，发现踩了个和 Exception 相关的坑，特此记录</p>
+<p>一种简陋但比较有效的图像去重方案。</p>
 </blockquote>
 <span id="more"></span>
 
-<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>最近使用 FastAPI 做了各种各样的业务系统，每个系统中都会有一些异常处理相关的代码，我采用的方式大致是这样：</p>
+<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>对于我这样经常从网络上保存各种图片的人来说，在归档时对图片进行去重是一个很常见的需求。</p>
+<p>而图像去重，最简单的做法就是判断两个文件是否 <strong>完全一样</strong>。可以使用简单的摘要算法实现。</p>
+<h2 id="演化"><a href="#演化" class="headerlink" title="演化"></a>演化</h2><p>最初开始做图片去重时，我用的是 Python 脚本的方式，实现起来非常简单，大概有以下几个步骤：</p>
 <ol>
-<li>在 exceptions module 中定义各种自定义的异常，比如 <code>PermissionDeniedError</code> 。</li>
-<li>在代码中将对应的异常抛出。</li>
-<li>使用 FastAPI 的 error_handler 处理对应类型的异常。</li>
+<li>遍历指定目录下的文件，通过后缀名找到所有图片。</li>
+<li>读取文件内容，计算 MD5 并生成新的文件名。</li>
+<li>重命名文件。</li>
 </ol>
-<p>在这个过程中，为了避免总是写相同的错误提示，我在 exceptions 中增加了一些比较常用的错误，比如 <code>UserNotFoundError = RecordNotFoundError(&quot;user not found&quot;)</code> 。</p>
-<p>就在这里出现了问题。</p>
-<h2 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h2><p>在这里，一个被我忽略的事实是 「Python 中的 Exception 是 <strong>可变的</strong>」，而我将它当成了不可变的常量来使用。</p>
-<p>根据 <a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/reference/simple_stmts.html#the-raise-statement">raise 表达式的文档</a> ，每当异常被抛出，Python 都会创建一个 Traceback 对象并关联到异常的 <code>__traceback__</code> 属性，试想一下当我们每次抛出的都是同一个异常对象时会发生什么？——这个对象中记录的信息越来越多，并且永远无法被回收！</p>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>尝试编写一小段代码来验证这个问题：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    CustomError = Exception(<span class="string">&quot;this is a custom error&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>):</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">raise</span> CustomError</span><br><span class="line">        <span class="keyword">except</span> Exception:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">    cnt = <span class="number">0</span></span><br><span class="line">    p = CustomError.__traceback__</span><br><span class="line">    <span class="keyword">while</span> p <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        cnt += <span class="number">1</span></span><br><span class="line">        p = p.tb_next</span><br><span class="line">    <span class="keyword">return</span> cnt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    pts = main()</span><br><span class="line">    <span class="built_in">print</span>(pts)</span><br></pre></td></tr></table></figure>
+<p>这种方法实现起来非常容易，缺点是速度有些慢，但是对于日常使用来说是足够的。</p>
+<p>后来我又在学习时写了一个 Rust 版本，借助第三方库实现了对文件的并行处理，速度快了很多。</p>
+<p>但是今天我想要记录的重点并不是以上两种方案——我不得不承认，在我写下那个 Python 脚本的时候，我其实犯下了一个错误，我就像一个手里只有一把锤子的人，看什么问题都像钉子。</p>
+<p>大概在这个方案使用了一年多以后，一次偶然的机会让我接触到了 Linux 系统中的 <code>md5sum</code> 工具，我才突然意识到自己之前的想法是多么狭隘——为什么我没有意识到这样常见的需求会有现存的工具可用呢？</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>经过一番波折后，下面是我目前的最优解：</p>
+<p>由于 macOS 并没有使用 <code>md5sum</code>，而是用了另一个名为 <code>md5</code> 的工具——二者的输出格式有些不同，因此下面的脚本无法在 Linux 系统上运行，不过只需要对照 <code>md5sum</code> 的格式进行一点点更改就可以了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -type f -name &quot;*.png&quot; -exec md5 -r &#123;&#125; \; | awk &#x27;&#123;print &quot;mv \&quot;&quot; $2 &quot;\&quot; &quot; $1&quot;.png&quot;&#125;&#x27; | sh</span><br></pre></td></tr></table></figure>
 
-<p>每次 <code>CustomError</code> 被抛出，都会有一个新的 <code>trackback</code> 对象被创建出来，前一个 <code>traceback</code> 对象会被设置为新对象的 <code>tb_next</code> —— 一个链表。</p>
-<p>最后我们遍历这个链表并统计其中包含了多少 <code>traceback</code> 对象：在这个例子中， <code>CustomError</code> 被抛出了 1000 次，所以结果也是 1000 个。</p>
-<p>可想而知，因为这 1000 个对象都被关联到 <code>CustomError</code> ，而 <code>CustomError</code> 的生命周期与程序本身相同，因此这些对象永远不会被回收掉。实际情况中，随着 <code>CustomError</code> 不断被抛出，链表中的对象也会越来越多。</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>推荐使用传统的方式处理异常 —— 每当需要抛出时重新创建一个异常实例。</p>
-<p>如果需要复用，比如我们有很多异常中的提示信息都是一样的，这里可以选择以下两种方案：</p>
+<p>简单解释一下这一行命令：</p>
 <ol>
-<li><p>创建一个用于生成异常实例的函数，需要抛出异常时调用它。</p>
+<li><strong><code>find . -type f -name &quot;*.png&quot;</code></strong><ul>
+<li>这部分是在当前文件夹（<code>.</code>表示当前文件夹）及其子文件夹中寻找所有以“.png”结尾的文件（<code>-type f</code>表示文件）。</li>
+</ul>
 </li>
-<li><p>在自定义异常时重写构造函数，然后直接抛出异常类。</p>
-<blockquote>
-<p><code>raise</code> 会将第一个表达式求值为异常对象。 它必须为 <code>BaseException</code> 的子类或实例。 如果它是一个类，当需要时会通过不带参数地实例化该类来获得异常的实例。</p>
-</blockquote>
+<li><strong><code>-exec md5 -r &#123;&#125; \;</code></strong><ul>
+<li>对找到的每一个文件，执行<code>md5 -r</code>命令来计算其MD5值。<code>&#123;&#125;</code>表示每一个找到的文件，<code>\;</code>表示命令的结束。</li>
+</ul>
+</li>
+<li><strong><code>| awk &#39;&#123;print &quot;mv \&quot;&quot; $2 &quot;\&quot; &quot; $1&quot;.png&quot;&#125;&#39;</code></strong><ul>
+<li>计算出的MD5值和文件路径被传递给<code>awk</code>命令。<code>awk</code>会生成一个新的命令：<code>mv &quot;原文件路径&quot; &quot;MD5值.png&quot;</code>。意思是把原文件重命名为“MD5值.png”。</li>
+</ul>
+</li>
+<li><strong><code>| sh</code></strong><ul>
+<li>最后，这些生成的重命名命令通过管道传递给<code>shell</code>（<code>sh</code>），并实际执行这些重命名操作。</li>
+</ul>
 </li>
 </ol>
 
@@ -292,7 +305,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://blog.yeningxue.com/2023/12/12/pythons-mutable-exception/" title="Python 的可变 Exception">https://blog.yeningxue.com/2023/12/12/pythons-mutable-exception/</a>
+    <a href="https://blog.yeningxue.com/2024/05/15/rename-image-files-with-md5-sum-on-macos/" title="在 macOS 上使用 MD5 重命名图像文件">https://blog.yeningxue.com/2024/05/15/rename-image-files-with-md5-sum-on-macos/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -303,8 +316,10 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/python/" rel="tag"># python</a>
-              <a href="/tags/exception/" rel="tag"># exception</a>
+              <a href="/tags/macos/" rel="tag"># macos</a>
+              <a href="/tags/tips/" rel="tag"># tips</a>
+              <a href="/tags/md5/" rel="tag"># md5</a>
+              <a href="/tags/shell/" rel="tag"># shell</a>
           </div>
 
         
@@ -313,13 +328,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/12/05/podcast-share-1/" rel="prev" title="收听「与张云帆聊《芒格之道》」有感">
-      <i class="fa fa-chevron-left"></i> 收听「与张云帆聊《芒格之道》」有感
+    <a href="/2024/04/14/using-ssh-over-the-https-port-on-github/" rel="prev" title="通过 HTTPS 的端口用 SSH 访问 GitHub">
+      <i class="fa fa-chevron-left"></i> 通过 HTTPS 的端口用 SSH 访问 GitHub
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2023/12/22/config-pip-cache-in-gitlab-ci/" rel="next" title="在 GitLab CI 中配置 pip 缓存">
-      在 GitLab CI 中配置 pip 缓存 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -385,7 +397,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B7%E5%9B%A0"><span class="nav-number">1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF"><span class="nav-number">2.</span> <span class="nav-text">错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">3.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">4.</span> <span class="nav-text">解决方案</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%9C%BA"><span class="nav-number">1.</span> <span class="nav-text">动机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BC%94%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">演化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3"><span class="nav-number">3.</span> <span class="nav-text">解决</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -537,9 +549,9 @@
 
 <script>
   var disqus_config = function() {
-    this.page.url = "https://blog.yeningxue.com/2023/12/12/pythons-mutable-exception/";
-    this.page.identifier = "/2023/12/12/pythons-mutable-exception/";
-    this.page.title = "Python 的可变 Exception";
+    this.page.url = "https://blog.yeningxue.com/2024/05/15/rename-image-files-with-md5-sum-on-macos/";
+    this.page.identifier = "/2024/05/15/rename-image-files-with-md5-sum-on-macos/";
+    this.page.title = "在 macOS 上使用 MD5 重命名图像文件";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
