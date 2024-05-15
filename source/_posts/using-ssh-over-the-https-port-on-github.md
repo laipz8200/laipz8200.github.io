@@ -5,6 +5,7 @@ tags:
   - ssh
   - github
   - ssl
+  - tips
 date: 2024-04-14 22:53:38
 ---
 
