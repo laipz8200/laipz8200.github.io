@@ -1,6 +1,8 @@
 ---
 title: 迟来的 2022 年终总结
-category: Diary
+category: life
+tags:
+  - summary
 date: 2023-01-15 01:12:07
 tags:
 ---
