@@ -30,21 +30,20 @@
   gtag('config', 'G-KH8R6XKR3D');
 </script>
 
-  <meta name="description" content="今天经同事提醒，发现踩了个和 Exception 相关的坑，特此记录">
+  <meta name="description" content="2023 年元旦至今已经过了半个月，这个略显无聊的夜晚，我突然想起了自己已经许久没有更新的博客。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python 的可变 Exception">
-<meta property="og:url" content="https://blog.yeningxue.com/2023/12/12/pythons-mutable-exception/">
+<meta property="og:title" content="迟来的 2022 年终总结">
+<meta property="og:url" content="https://blog.yeningxue.com/2023/01/14/2022-annual-summary/">
 <meta property="og:site_name" content="-LAN-&#39;s Blog">
-<meta property="og:description" content="今天经同事提醒，发现踩了个和 Exception 相关的坑，特此记录">
+<meta property="og:description" content="2023 年元旦至今已经过了半个月，这个略显无聊的夜晚，我突然想起了自己已经许久没有更新的博客。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-12-12T15:51:16.000Z">
+<meta property="article:published_time" content="2023-01-14T17:12:07.000Z">
 <meta property="article:modified_time" content="2024-08-18T13:00:30.761Z">
 <meta property="article:author" content="-LAN-">
-<meta property="article:tag" content="python">
-<meta property="article:tag" content="exception">
+<meta property="article:tag" content="summary">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://blog.yeningxue.com/2023/12/12/pythons-mutable-exception/">
+<link rel="canonical" href="https://blog.yeningxue.com/2023/01/14/2022-annual-summary/">
 
 
 <script id="page-configurations">
@@ -57,7 +56,7 @@
   };
 </script>
 
-  <title>Python 的可变 Exception | -LAN-'s Blog</title>
+  <title>迟来的 2022 年终总结 | -LAN-'s Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KH8R6XKR3D"></script>
     <script>
@@ -187,7 +186,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="https://blog.yeningxue.com/2023/12/12/pythons-mutable-exception/">
+    <link itemprop="mainEntityOfPage" href="https://blog.yeningxue.com/2023/01/14/2022-annual-summary/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -200,7 +199,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Python 的可变 Exception
+          迟来的 2022 年终总结
         </h1>
 
         <div class="post-meta">
@@ -210,7 +209,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2023-12-12 23:51:16" itemprop="dateCreated datePublished" datetime="2023-12-12T23:51:16+08:00">2023-12-12</time>
+              <time title="Created: 2023-01-15 01:12:07" itemprop="dateCreated datePublished" datetime="2023-01-15T01:12:07+08:00">2023-01-15</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -219,6 +218,15 @@
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2024-08-18 21:00:30" itemprop="dateModified" datetime="2024-08-18T21:00:30+08:00">2024-08-18</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/life/" itemprop="url" rel="index"><span itemprop="name">life</span></a>
+                </span>
+            </span>
 
           <br>
             <span class="post-meta-item" title="Symbols count in article">
@@ -226,14 +234,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.3k</span>
+              <span>3k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
+              <span>3 mins.</span>
             </span>
 
         </div>
@@ -246,37 +254,38 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
-<p>今天经同事提醒，发现踩了个和 Exception 相关的坑，特此记录</p>
+<p>2023 年元旦至今已经过了半个月，这个略显无聊的夜晚，我突然想起了自己已经许久没有更新的博客。</p>
 </blockquote>
 <span id="more"></span>
 
-<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>最近使用 FastAPI 做了各种各样的业务系统，每个系统中都会有一些异常处理相关的代码，我采用的方式大致是这样：</p>
-<ol>
-<li>在 exceptions module 中定义各种自定义的异常，比如 <code>PermissionDeniedError</code> 。</li>
-<li>在代码中将对应的异常抛出。</li>
-<li>使用 FastAPI 的 error_handler 处理对应类型的异常。</li>
-</ol>
-<p>在这个过程中，为了避免总是写相同的错误提示，我在 exceptions 中增加了一些比较常用的错误，比如 <code>UserNotFoundError = RecordNotFoundError(&quot;user not found&quot;)</code> 。</p>
-<p>就在这里出现了问题。</p>
-<h2 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h2><p>在这里，一个被我忽略的事实是 「Python 中的 Exception 是 <strong>可变的</strong>」，而我将它当成了不可变的常量来使用。</p>
-<p>根据 <a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/reference/simple_stmts.html#the-raise-statement">raise 表达式的文档</a> ，每当异常被抛出，Python 都会创建一个 Traceback 对象并关联到异常的 <code>__traceback__</code> 属性，试想一下当我们每次抛出的都是同一个异常对象时会发生什么？——这个对象中记录的信息越来越多，并且永远无法被回收！</p>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>尝试编写一小段代码来验证这个问题：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    CustomError = Exception(<span class="string">&quot;this is a custom error&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>):</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">raise</span> CustomError</span><br><span class="line">        <span class="keyword">except</span> Exception:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">    cnt = <span class="number">0</span></span><br><span class="line">    p = CustomError.__traceback__</span><br><span class="line">    <span class="keyword">while</span> p <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        cnt += <span class="number">1</span></span><br><span class="line">        p = p.tb_next</span><br><span class="line">    <span class="keyword">return</span> cnt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    pts = main()</span><br><span class="line">    <span class="built_in">print</span>(pts)</span><br></pre></td></tr></table></figure>
-
-<p>每次 <code>CustomError</code> 被抛出，都会有一个新的 <code>trackback</code> 对象被创建出来，前一个 <code>traceback</code> 对象会被设置为新对象的 <code>tb_next</code> —— 一个链表。</p>
-<p>最后我们遍历这个链表并统计其中包含了多少 <code>traceback</code> 对象：在这个例子中， <code>CustomError</code> 被抛出了 1000 次，所以结果也是 1000 个。</p>
-<p>可想而知，因为这 1000 个对象都被关联到 <code>CustomError</code> ，而 <code>CustomError</code> 的生命周期与程序本身相同，因此这些对象永远不会被回收掉。实际情况中，随着 <code>CustomError</code> 不断被抛出，链表中的对象也会越来越多。</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>推荐使用传统的方式处理异常 —— 每当需要抛出时重新创建一个异常实例。</p>
-<p>如果需要复用，比如我们有很多异常中的提示信息都是一样的，这里可以选择以下两种方案：</p>
-<ol>
-<li><p>创建一个用于生成异常实例的函数，需要抛出异常时调用它。</p>
-</li>
-<li><p>在自定义异常时重写构造函数，然后直接抛出异常类。</p>
-<blockquote>
-<p><code>raise</code> 会将第一个表达式求值为异常对象。 它必须为 <code>BaseException</code> 的子类或实例。 如果它是一个类，当需要时会通过不带参数地实例化该类来获得异常的实例。</p>
-</blockquote>
-</li>
-</ol>
+<p>先说一些与工作无关的事情吧。</p>
+<p>上一次发布文章还是 7 月，之后的几个月里，追番成为了我的日常。<br>每天回到家中，打开电脑的第一件事就是去蜜柑看一看有没有订阅的番剧更新，追完了夏季和秋季两个季度的动画，有《孤独摇滚》这样给了我许多欢笑和感动的作品，也有《恋爱FLOPS》这样故事发展毫不意外又充满惊喜的作品，2023 年冬季，我也会继续追番的。</p>
+<p>除了动画外，我的另一项主要娱乐方式 —— 视觉小说，进展则不是很顺利。<br>之前就在游玩的《樱花萌放》由于作者的“啰嗦”，至今仍然没有开启最后一条线路，也尝试开坑了很多新作或者 FD 作品，比如《苍之彼方的四重奏 EXTRA 1》，然而几乎都没有玩多久便不再打开了。<br>哪怕是短篇的《星之终途》也被我一拖再拖。<br>唯一一部从头读到尾的作品是 12 月在 NS 上发售的《魔法使之夜》重制版，有珠的主题曲成为了我那个月循环最多的音乐，它总能将我的意识带到山上的洋馆中，使我的精神得到放松。</p>
+<p>游戏方面，除了《魔法使之夜》外，我通关了迟了 3 个月才拿到的《异度神剑 3》，花了 170 多小时探索那个对我来说广阔又陌生的世界，另外每过几天就会和朋友相约在《Splatoon 3》里一起给熊老板打工。</p>
+<p>还有手游的部分，我自己也总是吐槽“给手游氪金实在是没什么收益，感觉掉入了陷阱”，然而消费带来的快乐确实让人难以拒绝，只好一边骂自己一边给游戏公司送钱了。<br>与以往不同的地方是我还在玩的手机游戏中已经没有在大陆运营的了，大概是一次次的和谐让我失望了吧，另一方面，afk 类型的游戏取代了其他类型成为了我的新选择，这类游戏通常每天只需要花费不到 10 分钟的时间，偶尔也会让我思考“玩它们的意义到底是什么？”。<br>我还知道了“韩游剧情通常比较黑暗，喜欢发刀”的说法，然而《蔚蓝档案》似乎并不是这样，新的一年，也要做个好老师！</p>
+<p>年底的时候，到处都在传各种各样的“年度总结”，有 Bilibili 的，网易云音乐的，然而我已经基本不在 Bilibili 观看动画，也不再在网易云听歌了。</p>
+<p>说到 2022 不得不提的一件事，应该是中国大陆终于决定放开对新冠疫情的管制吧。<br>我见到许多疫情期间从不戴口罩的人在“二十条”公布后即使在室外通风处依然戴着口罩，见到他们严防死守最终还是发了高烧，见到他们在 SNS 上说自己“疼得想死”，“说不出话”，见到他们把止痛药、退烧药、检测盒一扫而空……</p>
+<p>从头到尾，我觉得自己好像一个局外人，在天空中 —— 或是更遥远的什么地方，只是看着，就好像这些事情与我无关。<br>我也想过如果自己被感染了会怎么样，却始终想不出个结果。<br>再次回想起来，只觉得空洞，好像全身的力气被抽走一样。</p>
+<p>写下这些字的前几天，我对自己的精神状态有了更进一步的理解，确认了自己依然是一个乐观、积极的人，我想这对我来说是一件好事。</p>
+<p>再说说和开发的工作有关的事情吧。</p>
+<p>应该是几个月前，碰到了一家很有趣的公司，他们的面试没有八股文和算法题，只是对着简历中写的项目经历和我聊天。<br>连续几场面试，我们聊了一些不容易注意到的语法细节，聊了系统设计，聊了抽象和过度抽象如何界定……<br>对方甚至点开了我写在简历上的博客地址，和我讨论了我写的文章，这是我把博客地址写在简历上后第一次明确有“被人看见”的经历。</p>
+<p>我那时并没有刻意去准备面试，如果对方像字节那样考我一些八股或算法题，我其实没有信心能答上来，但关于软件设计的话题恰恰是我过去一年都在努力钻研的内容，所以聊得很开心。</p>
+<p>虽然他们最终没有再给我回复，但我认为这是一件值得记下来的事。</p>
+<p>前不久，因为需要在 vscode 中使用 markdown 编辑一个包含中文的表格，我把编辑器的字体换成了中文等宽，并首次得知 Noto Sans 是 Google 发表的字体。<br>中文的等宽字体其实算不上好看，但对于需要使用 markdown 编辑表格的人来说却非常有用，毕竟只有这种字体可以让表格对齐。</p>
+<p>最近在公司开发的项目都使用 Go 语言，我好像也逐渐习惯了静态类型系统。<br>如果之前和人说我有一年以上的 Go 语言开发经验是有吹的成分，那么现在这句话已经变成事实了吧。</p>
+<p>探索 DDD 的过程中，我试着用存储库分离了领域模型和 ORM 模型，然而在写《数据映射器》那篇文章的时候，我对于这种抽象的意义认知其实还不清晰，让我的理解更进一步的是《架构整洁之道》，里面提到“系统各部分之间的依赖关系不能构成环”，而打破循环依赖的手段就是 DIP ，依赖反转，这句话成为了一块很大的拼图，填补了我对 DDD 中分层架构的理解。</p>
+<p>将存储库留在领域层，而将具体实现放置在基础设施中，持久化方式的变更并不会影响到系统中的业务逻辑，实际编写代码时，可以使用依赖注入的技巧来处理复杂的依赖关系。</p>
+<p>在一次和做 Java 开发的朋友的聊天中，我们谈到 Spring 依赖注入的注解，我突然意识到 DI 其实是一件能够自动化的事情，几经波折后找到了 Google 开发的 wire ，极大提升了我的开发体验。</p>
+<p>Repository 和 DI 工具使我能够轻松应对许多项目，但仍有一些场景让我感觉束手束脚，具体来说是需要在模型方法中和存储库交互的情况，毕竟我不能把存储库“注入”到模型中去。</p>
+<p>大概在 12 月的某一天，我开始尝试挑战 Registry 模式，将原本被分散注入到各个 Repository 和 Service 中的模块统统放进一个叫做 Registry 的对象中，让它作为一个单例存在。<br>我发现不但之前的功能都可以实现，我还能够在领域模型这样无法注入实例的地方调用我想要的存储库和服务。这一进展让我可以把更多和模型相关的操作放在模型的方法而不是一个单独的服务中实现，同时让我可以灵活的使用懒加载来避免不需要的远程调用，我也开始在存储库的实现中适当加入缓存来提升性能，当然这一切对于存储库的使用者来说都是不可见也不需要关心的，我想这是一个很能体现出“抽象”的魅力的地方。</p>
+<p>关于 Registry 和 DI 这些话题，其实都可以单独拿出来写一下相关的文章，不过这些东西就放在之后吧（拖延症）。</p>
+<p>虽然被人吐槽说我的 Go 代码“写得像 Java”，但我想这并不是什么坏事，因为我已经在几次迭代中切实感受到了这样做的好处，而 Java 体系本身就是一个非常成熟的企业级应用开发体系，值得我学习。</p>
+<p>我确实也做了一些反思：相较于 Java 来说，Go 语言开发有什么自己的特点吗？</p>
+<p>我的答案是函数，新出现的语言都很重视函数，Go 语言没有静态方法和构造方法，因为函数完全可以胜任这部分工作。<br>设计模式中的工厂方法在这些新语言中也没有存在的必要，因为一个用于创建对象的函数可以做到相同的事。</p>
+<p>另一个不同于 Java 的地方是函数式编程，严格来说是允许将函数作为参数传递，这使得语言的灵活性被极大增强了，但我在使用这些特性时比较克制，因为我发现乱用新特性很容易导致代码无法测试，而我在评价代码好坏时的原则之一是“无法测试的代码一定不是好代码”。</p>
+<p>说到测试，公司内并没有要求开发人员编写测试，测试部门的同事也不会使用自动化测试，这实在是一件遗憾的事，践行 TDD 一年多的时间了，如今我可以说测试用例就是我对自己代码信心的来源，如果不是这些用例支撑着我，恐怕我早就和其他人一样陷入无尽的 bug 修复工作中不能自拔了，更别提花时间去提升自己了。</p>
+<p>希望 2023 年的自己可以过得更加自由，更让自己满意吧。</p>
+<p>顺便一提写这篇文章的时候我使用的背景音乐是 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1BW4y1L7oL/">A 叔的 200 万粉丝特别企划</a> ，希望读到这里的你不要错过。</p>
 
     </div>
 
@@ -292,7 +301,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://blog.yeningxue.com/2023/12/12/pythons-mutable-exception/" title="Python 的可变 Exception">https://blog.yeningxue.com/2023/12/12/pythons-mutable-exception/</a>
+    <a href="https://blog.yeningxue.com/2023/01/14/2022-annual-summary/" title="迟来的 2022 年终总结">https://blog.yeningxue.com/2023/01/14/2022-annual-summary/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -303,8 +312,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/python/" rel="tag"># python</a>
-              <a href="/tags/exception/" rel="tag"># exception</a>
+              <a href="/tags/summary/" rel="tag"># summary</a>
           </div>
 
         
@@ -313,12 +321,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/12/05/my-thoughts-on-zhang-yunfan-talks-about-mungers-way/" rel="prev" title="收听「与张云帆聊《芒格之道》」有感">
-      <i class="fa fa-chevron-left"></i> 收听「与张云帆聊《芒格之道》」有感
+    <a href="/2022/07/10/create-alfred-encode-workflow/" rel="prev" title="制作一个简单的 Alfred Workflow">
+      <i class="fa fa-chevron-left"></i> 制作一个简单的 Alfred Workflow
     </a></div>
       <div class="post-nav-item">
-    <a href="/2023/12/22/config-pip-cache-in-gitlab-ci/" rel="next" title="在 GitLab CI 中配置 pip 缓存">
-      在 GitLab CI 中配置 pip 缓存 <i class="fa fa-chevron-right"></i>
+    <a href="/2023/02/28/registry-pattern-in-golang/" rel="next" title="注册表模式的 Golang 实现">
+      注册表模式的 Golang 实现 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -385,7 +393,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B7%E5%9B%A0"><span class="nav-number">1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF"><span class="nav-number">2.</span> <span class="nav-text">错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">3.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">4.</span> <span class="nav-text">解决方案</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -537,9 +544,9 @@
 
 <script>
   var disqus_config = function() {
-    this.page.url = "https://blog.yeningxue.com/2023/12/12/pythons-mutable-exception/";
-    this.page.identifier = "/2023/12/12/pythons-mutable-exception/";
-    this.page.title = "Python 的可变 Exception";
+    this.page.url = "https://blog.yeningxue.com/2023/01/14/2022-annual-summary/";
+    this.page.identifier = "/2023/01/14/2022-annual-summary/";
+    this.page.title = "迟来的 2022 年终总结";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

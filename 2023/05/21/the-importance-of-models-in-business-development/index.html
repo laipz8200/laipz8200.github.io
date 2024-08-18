@@ -38,7 +38,7 @@
 <meta property="og:description" content="在业务开发过程中，诸如Django和FastAPI等框架，常常没有充分重视模型的开发。这些框架的教程和示例代码往往将对象关系映射（ORM）模型仅仅看作与数据库交互的工具，将其仅限于在关系型数据库中表示行数据的实例。然而，这种做法并不足够。 在这些教程中，大量的业务逻辑表达被放置在视图层或控制器中，导致本应由模型来表达的逻辑分散到各个地方。初学者往往会因参照这些教程编写代码而产生重复冗余的问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-21T17:28:06.000Z">
-<meta property="article:modified_time" content="2024-07-10T12:53:45.389Z">
+<meta property="article:modified_time" content="2024-08-18T13:00:30.761Z">
 <meta property="article:author" content="-LAN-">
 <meta property="article:tag" content="模型">
 <meta property="article:tag" content="业务开发">
@@ -159,7 +159,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">16</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">17</span></a>
 
   </li>
   </ul>
@@ -221,7 +221,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-07-10 20:53:45" itemprop="dateModified" datetime="2024-07-10T20:53:45+08:00">2024-07-10</time>
+                <time title="Modified: 2024-08-18 21:00:30" itemprop="dateModified" datetime="2024-08-18T21:00:30+08:00">2024-08-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -275,7 +275,7 @@
 <li>代码重复：如果有其他视图或函数需要进行敏感词汇检查，就需要在每个视图或函数中重复编写相同的敏感词汇检查代码。这样不仅增加了维护成本，也增加了出错的风险。</li>
 </ul>
 <p>现在，让我们看看将业务逻辑集中在模型中的做法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># models.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Post</span>(models.Model):</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Comment</span>(models.Model):</span><br><span class="line">    post = models.ForeignKey(Post, on_delete=models.CASCADE)</span><br><span class="line">    text = models.TextField()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">save</span>(<span class="params">self, *args, **kwargs</span>):</span><br><span class="line">        <span class="comment"># 检查敏感词汇</span></span><br><span class="line">        sensitive_words = [<span class="string">&#x27;敏感词1&#x27;</span>, <span class="string">&#x27;敏感词2&#x27;</span>, <span class="string">&#x27;敏感词3&#x27;</span>]</span><br><span class="line">        <span class="keyword">for</span> word <span class="keyword">in</span> sensitive_words:</span><br><span class="line">            <span class="keyword">if</span> word <span class="keyword">in</span> self.text:</span><br><span class="line">                <span class="keyword">raise</span> ValueError(<span class="string">&#x27;评论包含敏感词汇，无法保存。&#x27;</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">super</span>().save(*args, **kwargs)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># models.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Post</span>(models.Model):</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Comment</span>(models.Model):</span><br><span class="line">    post = models.ForeignKey(Post, on_delete=models.CASCADE)</span><br><span class="line">    text = models.TextField()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">save</span>(<span class="params">self, *args, **kwargs</span>):</span><br><span class="line">        <span class="comment"># 检查敏感词汇</span></span><br><span class="line">        sensitive_words = [<span class="string">&#x27;敏感词1&#x27;</span>, <span class="string">&#x27;敏感词2&#x27;</span>, <span class="string">&#x27;敏感词3&#x27;</span>]</span><br><span class="line">        <span class="keyword">for</span> word <span class="keyword">in</span> sensitive_words:</span><br><span class="line">            <span class="keyword">if</span> word <span class="keyword">in</span> <span class="variable language_">self</span>.text:</span><br><span class="line">                <span class="keyword">raise</span> ValueError(<span class="string">&#x27;评论包含敏感词汇，无法保存。&#x27;</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">super</span>().save(*args, **kwargs)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>在上述代码中，我们将敏感词汇检查逻辑放在了Comment模型的save方法中。这样做有以下优势：</p>
 <ul>
@@ -415,7 +415,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -488,12 +488,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">43k</span>
+    <span title="Symbols count total">46k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">39 mins.</span>
+    <span title="Reading time total">42 mins.</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
   </div>
