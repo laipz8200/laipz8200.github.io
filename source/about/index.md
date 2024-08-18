@@ -41,13 +41,12 @@ date: 2024-05-15 11:58:00
 * 重构 - 改善既有代码的设计
 * 架构整洁之道
 * 分析模式 - 可复用的对象模型
-* [凤凰架构](http://icyfenix.cn/)
 * 数据密集型应用系统设计(DDIA)
 * 微服务架构设计模式
 * 日本世相系列 - 饱食穷民
 * 芒格之道
 * 影响力
 * [技术陷阱](https://neodb.social/book/0GpiWYwR0CIL3tR3bC525q)
-* [高并发的哲学原理](https://pphc.lvwenhan.com/)
-* 穷查理宝典
+* [穷查理宝典](https://neodb.social/book/08vh6ckM0Ob4V8Ml6sfwZI)
+* [大教堂与集市](https://neodb.social/book/5kfSd75z4VHvMiIVNgfhe5)
 * ......
