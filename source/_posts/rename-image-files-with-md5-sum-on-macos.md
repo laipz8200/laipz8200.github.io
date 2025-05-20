@@ -1,12 +1,12 @@
 ---
 title: 在 macOS 上使用 MD5 重命名图像文件
 category: programming
-date: 2024-05-15 11:27:32
 tags:
   - macos
   - tips
   - md5
   - shell
+date: 2024-05-15 11:27:32
 ---
 
 > 一种简陋但比较有效的图像去重方案。

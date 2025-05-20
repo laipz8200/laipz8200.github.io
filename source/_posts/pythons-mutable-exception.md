@@ -1,5 +1,6 @@
 ---
 title: Python 的可变 Exception
+category: programming
 tags:
   - python
   - exception

@@ -4,7 +4,6 @@ tags:
   - apple note
   - blog
   - montaigne
-category: Blog
 date: 2023-08-30 01:16:29
 ---
 

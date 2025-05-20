@@ -2,11 +2,8 @@
 title: 领域事件的实践（1/n）
 tags:
   - domain event
-  - 领域事件
-  - 领域驱动设计
-  - 微服务
   - protocol buffer
-category: Programming
+category: programming
 date: 2023-07-22 12:57:26
 ---
 

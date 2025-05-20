@@ -1,6 +1,6 @@
 ---
-category: thoughts
 title: 读书随想：《人类误判心理学》
+category: thoughts
 tags:
   - psychology
   - charlie-munger

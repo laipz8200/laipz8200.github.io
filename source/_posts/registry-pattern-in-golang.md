@@ -1,11 +1,9 @@
 ---
 title: 注册表模式的 Golang 实现
+category: programming
 tags:
   - registry pattern
-  - 注册表模式
   - golang
-  - 企业应用架构模式
-category: Programming
 date: 2023-03-01 00:41:59
 ---
 

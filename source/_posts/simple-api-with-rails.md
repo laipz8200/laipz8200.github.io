@@ -1,6 +1,6 @@
 ---
 title: 珍惜时间，Ruby on Rails API 开发指北
-category: Programming
+category: programming
 tags:
   - ruby
   - rails

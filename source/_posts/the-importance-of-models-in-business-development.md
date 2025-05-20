@@ -1,13 +1,6 @@
 ---
 title: 模型在业务开发中的关键作用
-tags:
-  - 模型
-  - 业务开发
-  - 框架
-  - 业务逻辑
-  - 数据验证
-  - 面向对象
-category: Programming
+category: programming
 date: 2023-05-22 01:28:06
 ---
 
