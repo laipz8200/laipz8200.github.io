@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 7.3.0">
+<meta name="generator" content="Hexo 8.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -38,12 +38,12 @@
 <meta property="og:description" content="一种简陋但比较有效的图像去重方案。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-15T03:27:32.000Z">
-<meta property="article:modified_time" content="2025-05-20T18:51:28.945Z">
+<meta property="article:modified_time" content="2025-09-19T15:37:06.655Z">
 <meta property="article:author" content="-LAN-">
 <meta property="article:tag" content="macos">
-<meta property="article:tag" content="tips">
 <meta property="article:tag" content="md5">
 <meta property="article:tag" content="shell">
+<meta property="article:tag" content="tips">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://blog.yeningxue.com/2024/05/15/rename-image-files-with-md5-sum-on-macos/">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-05-21 02:51:28" itemprop="dateModified" datetime="2025-05-21T02:51:28+08:00">2025-05-21</time>
+                <time title="Modified: 2025-09-19 23:37:06" itemprop="dateModified" datetime="2025-09-19T23:37:06+08:00">2025-09-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -237,7 +237,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.2k</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -283,11 +283,11 @@
 <li>这部分是在当前文件夹（<code>.</code>表示当前文件夹）及其子文件夹中寻找所有以“.png”结尾的文件（<code>-type f</code>表示文件）。</li>
 </ul>
 </li>
-<li><strong><code>-exec md5 -r &#123;&#125; \;</code></strong><ul>
-<li>对找到的每一个文件，执行<code>md5 -r</code>命令来计算其MD5值。<code>&#123;&#125;</code>表示每一个找到的文件，<code>\;</code>表示命令的结束。</li>
+<li><strong><code>-exec md5 -r {} \;</code></strong><ul>
+<li>对找到的每一个文件，执行<code>md5 -r</code>命令来计算其MD5值。<code>{}</code>表示每一个找到的文件，<code>\;</code>表示命令的结束。</li>
 </ul>
 </li>
-<li><strong><code>| awk &#39;&#123;print &quot;mv \&quot;&quot; $2 &quot;\&quot; &quot; $1&quot;.png&quot;&#125;&#39;</code></strong><ul>
+<li><strong><code>| awk &#39;{print &quot;mv \&quot;&quot; $2 &quot;\&quot; &quot; $1&quot;.png&quot;}&#39;</code></strong><ul>
 <li>计算出的MD5值和文件路径被传递给<code>awk</code>命令。<code>awk</code>会生成一个新的命令：<code>mv &quot;原文件路径&quot; &quot;MD5值.png&quot;</code>。意思是把原文件重命名为“MD5值.png”。</li>
 </ul>
 </li>
